@@ -1,25 +1,29 @@
-const  mysql = require('mysql');
-
-const dotenv = require('dotenv').config()
+const mysql = require("mysql");
+const passwordHash = require("password-hash");
+const dotenv = require("dotenv").config();
 
 const con = mysql.createConnection({
-    host: process.env.db_host,
-    user: process.env.db_user,
-    password: "",
-
-  });
-
+  host: process.env.db_host,
+  user: process.env.db_user,
+  password: "",
+  database: process.env.db_name,
+});
 
 module.exports = {
+  login: function log(username, password, res) {
+    login(username, password, res);
+  },
+};
+con.connect()
+function login(username, password, res) {
+    con.query("SELECT * FROM users", function (err, result, fields) {
+      // sellectne vsechny jmeno z db
 
-}
+      if (err) throw err; //pokud je error pri pripojovani k db tak hodi error
 
-function login(username, pass){
-    con.connect(function(err) {
-        if (err) throw err;
-        console.log("Connected!");
-      });
-
-
-
+      for (let i = 0; i < result.length; i++) {
+        if (username == result[i].username && passwordHash.verify(password, result[i].password)) return res.send({login: true}); // kontrolujje pokud je spravne heslo i jmeno
+      }
+      res.send({login: false})
+    });
 }
