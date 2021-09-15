@@ -26,13 +26,3 @@ app.post('/log', (req, res) => {
     const { username, password } = req.body
     login.login(username,password, res)
 })
-
-app.get('/app:uid', (req, res) => {
-    const uid = req.params
-
-})
-
-
-
-
-

@@ -19,7 +19,7 @@
     </style>
 </head>
 <body>
-    <div>
+    <div id="loginPage">
         <div id="log">
         <h1>Login</h1>
         <form id="login" action="#">
@@ -48,10 +48,18 @@
         </div>
     </div>
 
+
+    <div id="main">
+        <h1 id="username"></h1>
+        <h1 id="uid"></h1>
+    </div>
+
     <script>
     
     //login
         $('#reg').hide()
+        $('#main').hide()
+        
         $('#login').submit(function () {
             let username = $('#usernamelog').val()
             let password = $('#passwordlog').val()
@@ -71,6 +79,8 @@
                 console.log(response);
                 if(response.login){
                     console.log(response.login)
+                    $('#username').text()
+                    $('#loginPage').remove()
                 }if(!response.login){
                     console.log(response.login)
                     $('#err').text('Wrong username/password')
@@ -98,6 +108,7 @@
 
                 $.ajax(settings).done(function (response) {
                     console.log(response);
+
                 });
                 $('#reg').hide()
                 $('#log').show()
