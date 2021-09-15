@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: 127.0.0.1
--- Vytvořeno: Stř 15. zář 2021, 11:40
--- Verze serveru: 10.4.13-MariaDB
--- Verze PHP: 7.4.7
+-- Vytvořeno: Stř 15. zář 2021, 21:12
+-- Verze serveru: 10.4.20-MariaDB
+-- Verze PHP: 7.3.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,6 +32,14 @@ CREATE TABLE `opravneni` (
   `name` varchar(64) COLLATE utf8mb4_czech_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
 
+--
+-- Vypisuji data pro tabulku `opravneni`
+--
+
+INSERT INTO `opravneni` (`id_opr`, `name`) VALUES
+(1, 'admin'),
+(2, 'normal user');
+
 -- --------------------------------------------------------
 
 --
@@ -42,6 +50,23 @@ CREATE TABLE `polozky` (
   `id_pol` int(11) NOT NULL,
   `nazev` varchar(64) COLLATE utf8mb4_czech_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
+
+--
+-- Vypisuji data pro tabulku `polozky`
+--
+
+INSERT INTO `polozky` (`id_pol`, `nazev`) VALUES
+(1, 'negr'),
+(2, 'negr'),
+(3, 'mrkda'),
+(4, 'mrkda'),
+(5, 'mrkda'),
+(6, 'mrkda'),
+(7, 'mrkda'),
+(8, 'mrkda'),
+(9, 'kokot'),
+(10, 'kokot'),
+(11, 'kokot');
 
 -- --------------------------------------------------------
 
@@ -56,6 +81,19 @@ CREATE TABLE `pol_sez` (
   `id_sta` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
 
+--
+-- Vypisuji data pro tabulku `pol_sez`
+--
+
+INSERT INTO `pol_sez` (`id_sez`, `id_pol`, `kusy`, `id_sta`) VALUES
+(6, 1, 45, 1),
+(6, 3, 45, 1),
+(6, 3, 45, 1),
+(6, 3, 45, 1),
+(6, 8, 45, 1),
+(6, 8, 45, 1),
+(6, 11, 45, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -64,9 +102,16 @@ CREATE TABLE `pol_sez` (
 
 CREATE TABLE `seznamy` (
   `id_sez` int(11) NOT NULL,
-  `datum` datetime NOT NULL,
+  `datum` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `id_uzi` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
+
+--
+-- Vypisuji data pro tabulku `seznamy`
+--
+
+INSERT INTO `seznamy` (`id_sez`, `datum`, `id_uzi`) VALUES
+(6, '2021-09-15 17:27:02', 1);
 
 -- --------------------------------------------------------
 
@@ -78,6 +123,14 @@ CREATE TABLE `stavy` (
   `id_sta` int(11) NOT NULL,
   `nazev` varchar(64) COLLATE utf8mb4_czech_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
+
+--
+-- Vypisuji data pro tabulku `stavy`
+--
+
+INSERT INTO `stavy` (`id_sta`, `nazev`) VALUES
+(1, 'koupeno'),
+(2, 'nekoupeno');
 
 -- --------------------------------------------------------
 
@@ -93,23 +146,30 @@ CREATE TABLE `uzivatele` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
 
 --
--- Klíče pro exportované tabulky
+-- Vypisuji data pro tabulku `uzivatele`
+--
+
+INSERT INTO `uzivatele` (`id_uzi`, `id_opr`, `jmeno`, `heslo`) VALUES
+(1, 1, 'admin', 'sha1$1210f2f7$1$31f14f2bb8ef4623b54350a639d10876adf5e263');
+
+--
+-- Indexy pro exportované tabulky
 --
 
 --
--- Klíče pro tabulku `opravneni`
+-- Indexy pro tabulku `opravneni`
 --
 ALTER TABLE `opravneni`
   ADD PRIMARY KEY (`id_opr`);
 
 --
--- Klíče pro tabulku `polozky`
+-- Indexy pro tabulku `polozky`
 --
 ALTER TABLE `polozky`
   ADD PRIMARY KEY (`id_pol`);
 
 --
--- Klíče pro tabulku `pol_sez`
+-- Indexy pro tabulku `pol_sez`
 --
 ALTER TABLE `pol_sez`
   ADD KEY `id_sez` (`id_sez`),
@@ -117,20 +177,20 @@ ALTER TABLE `pol_sez`
   ADD KEY `id_sta` (`id_sta`);
 
 --
--- Klíče pro tabulku `seznamy`
+-- Indexy pro tabulku `seznamy`
 --
 ALTER TABLE `seznamy`
   ADD PRIMARY KEY (`id_sez`),
   ADD KEY `id_uzi` (`id_uzi`);
 
 --
--- Klíče pro tabulku `stavy`
+-- Indexy pro tabulku `stavy`
 --
 ALTER TABLE `stavy`
   ADD PRIMARY KEY (`id_sta`);
 
 --
--- Klíče pro tabulku `uzivatele`
+-- Indexy pro tabulku `uzivatele`
 --
 ALTER TABLE `uzivatele`
   ADD PRIMARY KEY (`id_uzi`),
@@ -144,31 +204,31 @@ ALTER TABLE `uzivatele`
 -- AUTO_INCREMENT pro tabulku `opravneni`
 --
 ALTER TABLE `opravneni`
-  MODIFY `id_opr` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_opr` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pro tabulku `polozky`
 --
 ALTER TABLE `polozky`
-  MODIFY `id_pol` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT pro tabulku `seznamy`
 --
 ALTER TABLE `seznamy`
-  MODIFY `id_sez` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_sez` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT pro tabulku `stavy`
 --
 ALTER TABLE `stavy`
-  MODIFY `id_sta` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_sta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pro tabulku `uzivatele`
 --
 ALTER TABLE `uzivatele`
-  MODIFY `id_uzi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_uzi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Omezení pro exportované tabulky

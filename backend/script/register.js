@@ -20,28 +20,21 @@ module.exports = {
 
 //register('kokot', 'negr')
 con.connect();// pripoji se k db
-function register(username, password) {
-    var hashedPassword;
-    
-    con.query("SELECT jmeno FROM uzivatele", function (err, result, fields) {
-      // sellectne vsechny jmeno z db
-
+function register(username, password, res) {
+  var hashedPassword;
+  
+  con.query("SELECT jmeno FROM uzivatele", function (err, result, fields) {
+    // sellectne vsechny jmeno z db
+    if (err) throw err; //pokud je error pri pripojovani k db tak hodi error
+    for (let i = 0; i < result.length; i++) {
+      if (username == result[i].username)
+        return res.send({"message": "username not awalible choose another one"}); //kontroluje pokud jmeno neni v db
+    }
+    hashedPassword = passwordHash.generate(password); //zahashuje heslo
+    var sql = `INSERT INTO uzivatele (jmeno, heslo, id_opr) VALUES ("${username}","${hashedPassword}", 2)`; //vlozi jmeno a heslo
+    con.query(sql, function (err, result) {
       if (err) throw err; //pokud je error pri pripojovani k db tak hodi error
-
-      for (let i = 0; i < result.length; i++) {
-        if (username == result[i].username)
-          return res.send({"message": "username not awalible choose another one"}); //kontroluje pokud jmeno neni v db
-      }
-
-      hashedPassword = passwordHash.generate(password); //zahashuje heslo
-
-      var sql = `INSERT INTO uzivatele (jmeno, heslo, id_opr) VALUES ("${username}","${hashedPassword}", 1)`; //vlozi jmeno a heslo
-
-      con.query(sql, function (err, result) {
-        if (err) throw err; //pokud je error pri pripojovani k db tak hodi error
-        res.send({"message": "Created an account"})
-       
-      });
-
-      });
+      res.send({"message": "Created an account"})
+    });
+  });
 }
