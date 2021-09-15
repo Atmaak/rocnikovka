@@ -22,7 +22,7 @@
     <div id="loginPage">
         <div id="log">
         <h1>Login</h1>
-        <form id="login" action="#">
+        <form id="login" action="javascript:void(0)">
             <h1>Username</h1>
             <input type="username" id="usernamelog">
             <br>
@@ -50,8 +50,10 @@
 
 
     <div id="main">
-        <h1 id="username"></h1>
-        <h1 id="uid"></h1>
+        <div> 
+            <h1 id="username"></h1>
+            <h1 id="uid"></h1>
+        </div>
     </div>
 
     <script>
@@ -79,7 +81,9 @@
                 console.log(response);
                 if(response.login){
                     console.log(response.login)
-                    $('#username').text()
+                    $('#username').text(response.username)
+                    $('#uid').text(response.uid)
+                    $('#main').show()
                     $('#loginPage').remove()
                 }if(!response.login){
                     console.log(response.login)

@@ -21,7 +21,7 @@ function login(username, password, res) {
 
       if (err) throw err; //pokud je error pri pripojovani k db tak hodi error
       for (let i = 0; i < result.length; i++) {
-        if (username == result[i].username && passwordHash.verify(password, result[i].password)) return res.send({login: true, uid: `${result[i].uid}`}); // kontrolujje pokud je spravne heslo i jmeno
+        if (username == result[i].username && passwordHash.verify(password, result[i].password)) return res.send({login: true, uid: `${result[i].uid}`, username: `${username}`}); // kontrolujje pokud je spravne heslo i jmeno
       }
       res.send({login: false})
     });
