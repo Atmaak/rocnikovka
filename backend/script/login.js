@@ -16,13 +16,13 @@ module.exports = {
 };
 con.connect()
 function login(username, password, res) {
-    con.query("SELECT * FROM users", function (err, result, fields) {
+    con.query("SELECT * FROM uzivatele", function (err, result, fields) {
       // sellectne vsechny jmeno z db
 
       if (err) throw err; //pokud je error pri pripojovani k db tak hodi error
       for (let i = 0; i < result.length; i++) {
-        if (username == result[i].username && passwordHash.verify(password, result[i].password)) {
-           return res.send({login: true, uid: `${result[i].uid}`, username: `${username}`}); // kontrolujje pokud je spravne heslo i jmeno
+        if (username == result[i].jmeno && passwordHash.verify(password, result[i].heslo)) {
+           return res.send({login: true,  username: `${username}`}); // kontrolujje pokud je spravne heslo i jmeno
            
         }
       }

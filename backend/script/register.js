@@ -18,14 +18,12 @@ module.exports = {
 };
 
 
-
-
 //register('kokot', 'negr')
 con.connect();// pripoji se k db
 function register(username, password) {
     var hashedPassword;
     
-    con.query("SELECT username FROM users", function (err, result, fields) {
+    con.query("SELECT jmeno FROM uzivatele", function (err, result, fields) {
       // sellectne vsechny jmeno z db
 
       if (err) throw err; //pokud je error pri pripojovani k db tak hodi error
@@ -37,7 +35,7 @@ function register(username, password) {
 
       hashedPassword = passwordHash.generate(password); //zahashuje heslo
 
-      var sql = `INSERT INTO users (uid, username, password) VALUES ("${uid}", "${username}","${hashedPassword}")`; //vlozi jmeno a heslo
+      var sql = `INSERT INTO uzivatele (jmeno, heslo, id_opr) VALUES ("${username}","${hashedPassword}", 1)`; //vlozi jmeno a heslo
 
       con.query(sql, function (err, result) {
         if (err) throw err; //pokud je error pri pripojovani k db tak hodi error
