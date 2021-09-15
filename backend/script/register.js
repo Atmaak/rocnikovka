@@ -1,7 +1,6 @@
 const mysql = require("mysql");
 const passwordHash = require("password-hash");
 const dotenv = require("dotenv").config();
-const randomstring = require('randomstring')
 
 const con = mysql.createConnection({
   host: process.env.db_host,
@@ -25,9 +24,7 @@ module.exports = {
 con.connect();// pripoji se k db
 function register(username, password) {
     var hashedPassword;
-    var uid = randomstring.generate({
-      length: 32
-    })
+    
     con.query("SELECT username FROM users", function (err, result, fields) {
       // sellectne vsechny jmeno z db
 
