@@ -10,15 +10,20 @@ const con = mysql.createConnection({
   database: process.env.db_name,
 });
 
+//register('kokot', 'kokot')
+
 module.exports = {
   register: function reg(username, password, res) {
     register(username, password, res);
   },
 };
 
+
+
+
 //register('kokot', 'negr')
 con.connect();// pripoji se k db
-function register(username, password, res) {
+function register(username, password) {
     var hashedPassword;
     var uid = randomstring.generate({
       length: 32
@@ -43,8 +48,5 @@ function register(username, password, res) {
        
       });
 
-
-      var table = `CREATE TABLE ${uid}`
-      //con.end(); //odpoji se od db
-    });
+      });
 }
