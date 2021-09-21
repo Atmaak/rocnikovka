@@ -62,7 +62,7 @@ function displayNewestList(id_uzi) {
   con.query(sql, function (err, result) {
     //console.log(result)
     sortByDate(result)
-    console.log(result[result.length-1].id_sez)
+    //console.log(result[result.length-1].id_sez)
    
   })
 }
