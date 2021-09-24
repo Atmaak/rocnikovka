@@ -1,20 +1,15 @@
 import React, { useRef } from "react";
 import axios from "axios";
 
-var data
-module.exports = {
-    data: data
-}
 
 export default function Login() {
   const usernameRef = useRef();
   const passwordRef = useRef();
-
+  var logedin = false
 
   function login() {
    // console.log(usernameRef.current.value);
    // console.log(passwordRef.current.value);
-
 
     const options = {// nastaveni pro request na login 
     method: 'POST',
@@ -24,20 +19,23 @@ export default function Login() {
 
     axios.request(options).then(function (response) {
     console.log(response.data);
-    data = response.data
+    logedin = response.data.login
     }).catch(function (error) {
     console.error(error);
     });
-
+    
   }
-
-  return (data, 
-    <>
-      <h1>Username</h1>
-      <input ref={usernameRef} type="text"></input>
-      <h1>Password</h1>
-      <input ref={passwordRef} type="password"></input>
-      <button onClick={login}>Click</button>
-    </>
+  
+  console.log(logedin)
+  
+  return ( 
+      <>
+        <h1>Username</h1>
+        <input ref={usernameRef} type="text"></input>
+        <h1>Password</h1>
+        <input ref={passwordRef} type="password"></input>
+        <button onClick={login}>Click</button>
+      </>
   );
+  
 }
