@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import axios from "axios";
 
-
 export default function Login() {
   const usernameRef = useRef();
   const passwordRef = useRef();
@@ -19,14 +18,11 @@ export default function Login() {
 
     axios.request(options).then(function (response) {
     console.log(response.data);
-    logedin = response.data.login
     }).catch(function (error) {
     console.error(error);
     });
     
   }
-  
-  console.log(logedin)
   
   return ( 
       <>
