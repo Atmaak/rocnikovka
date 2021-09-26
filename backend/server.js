@@ -30,3 +30,7 @@ app.post('/log', (req, res) => {
     //console.log(username, password)
 })
 
+app.get('/list', (req, res) => {
+    const user = req.body
+    list.displayNewestList(user.user, res)
+})
