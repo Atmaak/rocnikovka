@@ -37,7 +37,7 @@ function App() {
       );
      }
      if(user){
-       return 'negr'
+       return 'XD'
      }
    }*/
 

@@ -9,7 +9,6 @@ const con = mysql.createConnection({
   database: process.env.db_name,
 });
 
-//register('kokot', 'kokot')
 
 module.exports = {
   register: function reg(username, password, res) {
@@ -17,8 +16,6 @@ module.exports = {
   },
 };
 
-
-//register('kokot', 'negr')
 con.connect();// pripoji se k db
 function register(username, password, res) {
   var hashedPassword;
