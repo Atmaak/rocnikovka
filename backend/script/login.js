@@ -23,7 +23,6 @@ function login(username, password, res) {
       for (let i = 0; i < result.length; i++) {
         if (username == result[i].jmeno && passwordHash.verify(password, result[i].heslo)) {
            return res.send({login: true,  username: `${username}`}); // kontrolujje pokud je spravne heslo i jmeno
-           
         }
       }
       res.send({login: false})
