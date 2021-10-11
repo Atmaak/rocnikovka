@@ -1,7 +1,7 @@
 import Header from './components/Header'
 import Login from './components/Login'
 import MainPage from './components/MainPage'
-
+import './index.css'
 
 import {useState} from 'react'
 //import passwordHash from 'password-hash'

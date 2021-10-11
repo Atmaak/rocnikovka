@@ -6,12 +6,12 @@ const List = ({ lists }) => {
 
     const getTime = (string) => {
         let time = string.substring(11, 16)
-        console.log(time)
+        //console.log(time)
         return time
     }
     const getDate = (string) => {
         let date = string.substring(0, 10)
-        console.log(date)
+        //console.log(date)
         return date
     }
     return (

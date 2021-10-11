@@ -37,6 +37,8 @@ function createList(id_uzi, res) {
 
 //vlozi do databaze item
 
+//addItem('xdPEPEGA', 2, 13, 69)
+
 function addItem(item, id_sta, id_sez, kusy) {
   
   sql = `INSERT INTO polozky (nazev) VALUES ("${item}")`
