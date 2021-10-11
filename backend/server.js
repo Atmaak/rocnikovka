@@ -30,7 +30,12 @@ app.post('/log', (req, res) => {
     //console.log(username, password)
 })
 
-app.get('/list', (req, res) => {
-    const user = req.body
-    list.displayNewestList(user.user, res)
+app.post('/displayNewestList', (req, res) => {
+    const id = req.body
+    list.displayNewestList(id.id, res)
+})
+
+app.post('/list', (req, res) => {
+    const { id_sez } = req.body
+    list.getList(id_sez, res)
 })

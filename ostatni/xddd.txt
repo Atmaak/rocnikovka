@@ -1,0 +1,7 @@
+SELECT polozky.nazev AS 'nazev',
+pol_sez.kusy AS 'kusy',
+pol_sez.id_sez AS 'id_sez',
+stavy.nazev as 'stav'
+FROM pol_sez
+INNER JOIN polozky ON pol_sez.id_pol = polozky.id_pol
+INNER JOIN stavy ON pol_sez.id_sta = stavy.id_sta;

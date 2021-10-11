@@ -14,7 +14,7 @@ const Login = ({ onSubmit }) => {
         <input type="password" placeholder="password" ref={refPassword} />
       </div>
       <div>
-        <input type='submit' onClick={() => onSubmit(refUsername.current.value, refPassword.current.value)} />
+        <input type='submit' onClick={async () => await onSubmit(refUsername.current.value, refPassword.current.value)} />
       </div>
     </form>
   );

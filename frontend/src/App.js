@@ -1,56 +1,47 @@
 import Header from './components/Header'
 import Login from './components/Login'
+import MainPage from './components/MainPage'
+
+
 import {useState} from 'react'
-import axios from 'axios'
 //import passwordHash from 'password-hash'
 
-const mysql = require('mysql')
-const dotenv = require('dotenv').config()
+//const mysql = require('mysql')
+//const dotenv = require('dotenv').config()
 
 function App() {
 const [showLogin, setShowLogin] = useState(true)
+const [showMainPage, setShowMainPage] = useState(false)
+const [id, setId] = useState(0)
 
-const klik = (e) => {
-  console.log(e)
-}
 const onSubmit = async (refUsername, refPassword) => {
-  console.log(refUsername)
-  console.log(refPassword)
+  //console.log(refUsername)
+  //console.log(refPassword)
 
-  const res = await fetch('http://localhost:3001/log', {
+  var res = await fetch('http://localhost:3001/log', {
     method:"POST",
     headers: {
       "Content-Type": "application/json"
     },
     body: `{"username": "${refUsername}", "password": "${refPassword}"}`
   })
-
-  console.log(res)
+  res = await res.json()
   
-  //if(res) setShowLogin(false)
-
-  
+  //console.log(res)
+  if(res.id){
+    setId(res.id)
+    setShowMainPage(true)
+    setShowLogin(false)
+   // console.log(id)
+  }
 }
-
-fetch("http://localhost:3001/log", {
-  "method": "POST",
-  "headers": {
-    "Content-Type": "application/json"
-  },
-  "body": "{\"username\":\"admin\",\"password\":\"admin\"}"
-})
-.then(response => {
-  console.log(response);
-})
-.catch(err => {
-  console.error(err);
-});
 
 
   return (
     <>
-      <Header title='Shoping List' btnName='Klik' onClick={klik}/>
+      <Header title='Shoping List' />
       {showLogin && <Login onSubmit={onSubmit}/>}
+      {showMainPage && <MainPage id={id}/>}
     </>
   )
 }

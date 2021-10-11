@@ -1,3 +1,4 @@
+const { response } = require("express");
 const mysql = require("mysql");
 const dotenv = require("dotenv").config();
 
@@ -9,26 +10,21 @@ const con = mysql.createConnection({
 });
 
 
-
 module.exports = {
     register: function reg(username, password, res) {
       register(username, password, res);
     },
     displayNewestList: function dis(user, res) {
       displayNewestList(user, res)
+    },
+    getList: function geTList (id_sez, response) {
+      getList(id_sez, response)
     }
   };
 
-
-//con.connect();// pripoji se k db
-
 var sql
 
-//addItem('fasga', 1, 6, 45)
-
-//console.log(displayNewestList('admin'))
-
-//createList(1)
+//vytvori list
 
 function createList(id_uzi, res) {
   sql = `INSERT INTO seznamy(id_uzi) VALUES ("${id_uzi}")`
@@ -38,6 +34,8 @@ function createList(id_uzi, res) {
       console.log({"message": "List has been created."})
   })
 }
+
+//vlozi do databaze item
 
 function addItem(item, id_sta, id_sez, kusy) {
   
@@ -59,12 +57,11 @@ function addItem(item, id_sta, id_sez, kusy) {
   })
 }
 
-async function displayNewestList(user, res) {
-  //console.log(user)
-  const id_uzi = await getUserId(user)
-  
+//selectne vsechny seznamy od 1 uzivatele podle id_uzi
+
+async function displayNewestList(id_uzi, res) {
   //console.log(id_uzi)
-  sql = `SELECT * FROM seznamy WHERE id_uzi = ${id_uzi[0].id_uzi}`
+  sql = `SELECT * FROM seznamy WHERE id_uzi = ${id_uzi}`
 
   res.send(await new Promise((resolve, reject) => {
     con.query(
@@ -74,35 +71,14 @@ async function displayNewestList(user, res) {
       }
     );
   }))
-  /*con.query(sql, function (err, result) {
-    console.log(result)
-  })*/
 }
 
-function getUserId(user) {
-  sql = `SELECT id_uzi FROM uzivatele WHERE jmeno = "${user}"`
-  return new Promise((resolve, reject) => {
-    con.query(
-     sql,
-      (err, result) => {
-        return err ? reject(err) : resolve(result);
-      }
-    );
-  });
-  
-}
-const sortByDate = arr => {
-   const sorter = (a, b) => {
-      return new Date(a.date).getTime() - new Date(b.date).getTime();
-   }
-   arr.sort(sorter);
-};
 
-/*
-(async () => {
-  con.connect();
-  const result = await getColour("username", 2);
-  console.log(result);
-  con.end();
-})();
-*/
+//selectne vsechno z view items
+const getList = async (id_sez, res) => {
+  sql = `SELECT * FROM items WHERE id_sez = ${id_sez}`
+  const response = con.query(sql, (err, result) => {
+    if(err) throw err
+    res.send(result)
+  })
+}
