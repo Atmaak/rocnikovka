@@ -9,8 +9,7 @@ const Item = ({ items }) => {
         <div key={keyCount++} id={item.stav}>
           <h2>{item.nazev}</h2>
           <p>Počet: {item.kusy}</p>
-          <span className='stav'>{(item.stav == 'nekoupeno') ? <FcCheckmark />: <ImCross /> }</span>
-          {console.log(item.stav)}
+          <span className='stav'>{((item.stav === 'koupeno') ? <FcCheckmark />: <ImCross /> )}</span>
         </div>
       ))}
     </>

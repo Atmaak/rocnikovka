@@ -1,6 +1,6 @@
 import React from 'react'
 
-const List = ({ lists }) => {
+const List = ({ lists, funkce }) => {
     //let ldsa = lists[0].datum
     //console.log(ldsa.substring(0,10))
 
@@ -17,9 +17,10 @@ const List = ({ lists }) => {
     return (
         <>
           {lists.map((list) => (
-          <div key={list.id_sez} className="List">
+          <div key={list.id_sez} className="List" >
               <h2>{list.id_sez}</h2>
               <h4><sup>{getTime(list.datum)} <br /> {getDate(list.datum)}</sup></h4>
+              <button onClick={() => {funkce(list.id_sez)}}>Show</button>
               </div>))}  
         </>
     )

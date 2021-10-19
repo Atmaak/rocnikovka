@@ -6,7 +6,7 @@ import ShowList from "./ShowList";
 
 const MainPage = ({ id }) => {
   const [lists, setLists] = useState([]);
-  const [showedList, setShowedList] = useState([false])
+  const [showed, setShowed] = useState(false)
   const [id_sez, setId_Sez] = useState([0])
   useEffect(() => {
     const getLists = async () => {
@@ -34,19 +34,20 @@ const MainPage = ({ id }) => {
     });
 
     const data = await res.json();
-
+    
     return data;
   };
 
   const showList = (id_sez) => {
-    setShowedList(true)
+    //console.log(id_sez)
+    setId_Sez(id_sez)
+    setShowed(true)
   }
-
-  return (
-  <>
-    <div className="row"><List lists={lists}/></div>
-    {showedList && <ShowList id_sez={13}/>}
-  </>);
+    return (
+      <>
+        <div className="row"><List lists={lists} funkce={showList}/></div>
+        {showed && <ShowList id_sez={id_sez}/>}
+      </>);
 };
 
 export default MainPage;
