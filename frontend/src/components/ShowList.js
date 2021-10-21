@@ -5,14 +5,6 @@ import Item from "./Item";
 const ShowList = ({ id_sez }) => {
 const [List, setList] = useState([])
 
-useEffect(() => {
-    const getList = async (id_sez) => {
-      //console.log(id_sez)
-        const dataFromServer = await displayList(id_sez)
-        await setList(dataFromServer)
-    }
-    getList(id_sez)
-  }, []);
   useEffect(() => {
     const getList = async (id_sez) => {
       //console.log(id_sez)

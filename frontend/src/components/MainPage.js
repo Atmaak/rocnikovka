@@ -3,10 +3,8 @@ import React, { useState, useEffect } from "react";
 import List from "./List";
 import ShowList from "./ShowList";
 
-
 const MainPage = ({ id }) => {
   const [lists, setLists] = useState([]);
-  const [showed, setShowed] = useState(false)
   const [id_sez, setId_Sez] = useState([0])
   useEffect(() => {
     const getLists = async () => {
@@ -41,12 +39,11 @@ const MainPage = ({ id }) => {
   const showList = (id_sez) => {
     //console.log(id_sez)
     setId_Sez(id_sez)
-    setShowed(true)
   }
     return (
       <>
         <div className="row"><List lists={lists} funkce={showList}/></div>
-        {showed && <ShowList id_sez={id_sez}/>}
+        <ShowList id_sez={id_sez}/>
       </>);
 };
 
