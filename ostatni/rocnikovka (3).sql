@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: 127.0.0.1
--- Vytvořeno: Stř 15. zář 2021, 21:12
+-- Vytvořeno: Ned 24. říj 2021, 19:09
 -- Verze serveru: 10.4.20-MariaDB
 -- Verze PHP: 7.3.29
 
@@ -20,6 +20,20 @@ SET time_zone = "+00:00";
 --
 -- Databáze: `rocnikovka`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Zástupná struktura pro pohled `items`
+-- (Vlastní pohled viz níže)
+--
+CREATE TABLE `items` (
+`nazev` varchar(64)
+,`kusy` int(11)
+,`id_sez` int(11)
+,`id_pol` int(11)
+,`stav` varchar(64)
+);
 
 -- --------------------------------------------------------
 
@@ -56,17 +70,42 @@ CREATE TABLE `polozky` (
 --
 
 INSERT INTO `polozky` (`id_pol`, `nazev`) VALUES
-(1, 'negr'),
-(2, 'negr'),
-(3, 'mrkda'),
-(4, 'mrkda'),
-(5, 'mrkda'),
-(6, 'mrkda'),
-(7, 'mrkda'),
-(8, 'mrkda'),
-(9, 'kokot'),
-(10, 'kokot'),
-(11, 'kokot');
+(2, 'dddd'),
+(4, 'gasgasgasgasgasgas'),
+(5, 'gasgas'),
+(6, 'gfdsgdsfgf'),
+(7, 'hsdfhjdfsjj'),
+(9, 'dasdasdasd'),
+(10, 'dawdwaefs'),
+(13, 'xdPEPEGA, 2, 13, 69'),
+(43, '[object Object]'),
+(50, 'xd'),
+(58, 'dasdassdasdasd'),
+(59, 'dasdassdasdasd'),
+(60, 'dasdassdasdasd'),
+(61, 'dasdassdasdasd'),
+(62, 'dasdassdasdasd'),
+(63, 'dasdassdasdasd'),
+(64, 'dasdassdasdasd'),
+(65, 'dasdassdasdasd'),
+(66, 'dasdassdasdasd'),
+(67, 'dasdassdasdasd'),
+(68, 'dasdassdasdasd'),
+(69, 'dasdassdasdasd'),
+(70, 'dasdassdasdasd'),
+(71, 'dasdassdasdasd'),
+(72, 'dasdassdasdasd'),
+(73, 'dasdassdasdasd'),
+(74, 'dasdassdasdasd'),
+(75, 'dasdassdasdasd'),
+(76, 'dasdassdasdasd'),
+(77, 'das'),
+(78, 'asd'),
+(79, 'asd'),
+(83, 'asddasd'),
+(84, 'asddasd'),
+(85, 'asddasd'),
+(87, 'asddasd');
 
 -- --------------------------------------------------------
 
@@ -86,13 +125,32 @@ CREATE TABLE `pol_sez` (
 --
 
 INSERT INTO `pol_sez` (`id_sez`, `id_pol`, `kusy`, `id_sta`) VALUES
-(6, 1, 45, 1),
-(6, 3, 45, 1),
-(6, 3, 45, 1),
-(6, 3, 45, 1),
-(6, 8, 45, 1),
-(6, 8, 45, 1),
-(6, 11, 45, 1);
+(6, 58, 456, 2),
+(6, 59, 456, 2),
+(6, 60, 456, 2),
+(6, 61, 456, 2),
+(6, 62, 456, 2),
+(6, 63, 456, 2),
+(6, 64, 456, 2),
+(6, 65, 456, 2),
+(6, 66, 456, 2),
+(6, 67, 456, 2),
+(6, 68, 456, 2),
+(6, 69, 456, 2),
+(6, 70, 456, 2),
+(6, 71, 456, 2),
+(6, 72, 456, 2),
+(6, 73, 456, 2),
+(6, 74, 456, 2),
+(6, 75, 456, 2),
+(6, 76, 456, 2),
+(13, 77, 4, 2),
+(12, 78, 45, 2),
+(12, 79, 45, 2),
+(6, 83, 45, 2),
+(6, 84, 45, 2),
+(6, 85, 45, 2),
+(6, 87, 45, 2);
 
 -- --------------------------------------------------------
 
@@ -111,7 +169,15 @@ CREATE TABLE `seznamy` (
 --
 
 INSERT INTO `seznamy` (`id_sez`, `datum`, `id_uzi`) VALUES
-(6, '2021-09-15 17:27:02', 1);
+(6, '2021-09-15 17:27:02', 1),
+(10, '2021-09-16 17:06:10', 1),
+(11, '2021-09-16 17:06:13', 1),
+(12, '2021-09-16 17:06:14', 1),
+(13, '2021-09-16 17:06:16', 1),
+(14, '2021-10-24 16:47:02', 1),
+(18, '2021-10-24 17:02:47', 1),
+(19, '2021-10-24 17:02:48', 1),
+(20, '2021-10-24 17:02:48', 1);
 
 -- --------------------------------------------------------
 
@@ -151,6 +217,15 @@ CREATE TABLE `uzivatele` (
 
 INSERT INTO `uzivatele` (`id_uzi`, `id_opr`, `jmeno`, `heslo`) VALUES
 (1, 1, 'admin', 'sha1$1210f2f7$1$31f14f2bb8ef4623b54350a639d10876adf5e263');
+
+-- --------------------------------------------------------
+
+--
+-- Struktura pro pohled `items`
+--
+DROP TABLE IF EXISTS `items`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `items`  AS SELECT `polozky`.`nazev` AS `nazev`, `pol_sez`.`kusy` AS `kusy`, `pol_sez`.`id_sez` AS `id_sez`, `pol_sez`.`id_pol` AS `id_pol`, `stavy`.`nazev` AS `stav` FROM ((`pol_sez` join `polozky` on(`pol_sez`.`id_pol` = `polozky`.`id_pol`)) join `stavy` on(`pol_sez`.`id_sta` = `stavy`.`id_sta`)) ;
 
 --
 -- Indexy pro exportované tabulky
@@ -210,13 +285,13 @@ ALTER TABLE `opravneni`
 -- AUTO_INCREMENT pro tabulku `polozky`
 --
 ALTER TABLE `polozky`
-  MODIFY `id_pol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_pol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT pro tabulku `seznamy`
 --
 ALTER TABLE `seznamy`
-  MODIFY `id_sez` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_sez` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT pro tabulku `stavy`
@@ -238,7 +313,7 @@ ALTER TABLE `uzivatele`
 -- Omezení pro tabulku `pol_sez`
 --
 ALTER TABLE `pol_sez`
-  ADD CONSTRAINT `id_pol` FOREIGN KEY (`id_pol`) REFERENCES `polozky` (`id_pol`),
+  ADD CONSTRAINT `id_pol` FOREIGN KEY (`id_pol`) REFERENCES `polozky` (`id_pol`) ON DELETE CASCADE,
   ADD CONSTRAINT `id_sez` FOREIGN KEY (`id_sez`) REFERENCES `seznamy` (`id_sez`),
   ADD CONSTRAINT `id_sta` FOREIGN KEY (`id_sta`) REFERENCES `stavy` (`id_sta`);
 
