@@ -2,22 +2,34 @@ body {
     background-color: grey;
 }
 
-
 .List {
     border: 2px solid black;
     margin: 2px;
     text-align: center;
     width: 150px;
 }
+
 .row{
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
 }
 
-
 .stav{
-    border: 2px solid black;
-    padding: 3px;
-    background-color: white;
+    padding: 2px;
+}
+
+.addIt {
+    display: flex;
+    justify-content: center;
+    margin: 5px;
+}
+
+.infoItem{
+    display: flex;
+    flex-direction: row;
+}
+
+p{
+    font-size: 25px;
 }

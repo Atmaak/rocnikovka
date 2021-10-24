@@ -42,6 +42,7 @@ const onSubmit = async (refUsername, refPassword) => {
       <Header title='Shoping List' />
       {showLogin && <Login onSubmit={onSubmit}/>}
       {showMainPage && <MainPage id={id}/>}
+      {showLogin && <button onClick={() => {onSubmit('admin', 'admin')}}>Log it</button> /* pouze pro testovani*/}
     </>
   )
 }

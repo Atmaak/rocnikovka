@@ -1,29 +1,53 @@
-import React from 'react'
-
+import React from "react";
+import { BsFillTrashFill } from "react-icons/bs";
 const List = ({ lists, funkce }) => {
-    //let ldsa = lists[0].datum
-    //console.log(ldsa.substring(0,10))
+  const getTime = (string) => {
+    let time = string.substring(11, 16);
+    return time;
+  };
+  const getDate = (string) => {
+    let date = string.substring(0, 10);
+    return date;
+  };
 
-    const getTime = (string) => {
-        let time = string.substring(11, 16)
-        //console.log(time)
-        return time
-    }
-    const getDate = (string) => {
-        let date = string.substring(0, 10)
-        //console.log(date)
-        return date
-    }
-    return (
-        <>
-          {lists.map((list) => (
-          <div key={list.id_sez} className="List" >
-              <h2>{list.id_sez}</h2>
-              <h4><sup>{getTime(list.datum)} <br /> {getDate(list.datum)}</sup></h4>
-              <button onClick={() => {funkce(list.id_sez)}}>Show</button>
-              </div>))}  
-        </>
-    )
-}
+  const deleteList = async (id_sez) => {
+    await fetch("http://localhost:3001/list/deleteList", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: `{"id_sez": ${id_sez}}`,
+    });
+  };
+  return (
+    <>
+      {lists.map((list) => (
+        <div key={list.id_sez} className="List">
+          {/*<h2>{list.id_sez}</h2>*/}
+          <h4>
+            <sup>
+              {getTime(list.datum)} <br /> {getDate(list.datum)}
+            </sup>
+          </h4>
+          <button
+            onClick={() => {
+              funkce(list.id_sez);
+            }}
+          >
+            Show
+          </button>
+          <br />
+          <button
+            onClick={async () => {
+              await deleteList(list.id_sez);
+            }}
+          >
+            <BsFillTrashFill />
+          </button>
+        </div>
+      ))}
+    </>
+  );
+};
 
-export default List
+export default List;

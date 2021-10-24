@@ -2,16 +2,18 @@ import React, { useState, useEffect } from "react";
 
 import Item from "./Item";
 
+import AddItem from "./AddItem";
+
 const ShowList = ({ id_sez }) => {
-const [List, setList] = useState([])
+  const [List, setList] = useState([]);
 
   useEffect(() => {
     const getList = async (id_sez) => {
       //console.log(id_sez)
-        const dataFromServer = await displayList(id_sez)
-        await setList(dataFromServer)
-    }
-    getList(id_sez)
+      const dataFromServer = await displayList(id_sez);
+      await setList(dataFromServer);
+    };
+    getList(id_sez);
   }, [List]);
 
   const displayList = async (id_sez) => {
@@ -24,10 +26,15 @@ const [List, setList] = useState([])
       body: `{"id_sez":${id_sez}}`,
     });
     const data = await fetchList.json();
-    return data
+    return data;
   };
 
-  return <Item items={List}/>;
+  return (
+    <>
+      <AddItem id_sez={id_sez} />
+      <Item items={List} />
+    </>
+  );
 };
 //
 export default ShowList;
