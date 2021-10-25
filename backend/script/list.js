@@ -39,8 +39,6 @@ function createList(id_uzi) {
   sql = `INSERT INTO seznamy(id_uzi) VALUES ("${id_uzi}")`
   con.query(sql, function (err, result) {
       if(err) throw err;
-      //res.send({"message": "List has been created."})
-      console.log({"message": "List has been created."})
   })
 }
 
