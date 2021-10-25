@@ -93,8 +93,15 @@ const getList = async (id_sez, res) => {
 }
 
 const deleteList = (id_sez) =>{
+  sql = `DELETE FROM pol_sez WHERE pol_sez.id_sez = ${id_sez};`
+  con.query(sql, (err, result) => {
+     if(err) throw err
+  })
+
   sql = `DELETE FROM seznamy WHERE id_sez = ${id_sez};`
   con.query(sql, (err, result) => {
     if(err) throw err;
   })
+
+  
 }
