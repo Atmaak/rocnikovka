@@ -27,12 +27,10 @@ const onSubmit = async (refUsername, refPassword) => {
   })
   res = await res.json()
   
-  //console.log(res)
   if(res.id){
     setId(res.id)
     setShowMainPage(true)
     setShowLogin(false)
-   // console.log(id)
   }
 }
 

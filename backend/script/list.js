@@ -1,4 +1,3 @@
-const { response } = require("express");
 const mysql = require("mysql");
 const dotenv = require("dotenv").config();
 

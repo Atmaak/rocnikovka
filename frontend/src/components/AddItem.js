@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { BsTypeH1 } from "react-icons/bs";
 
 const AddItem = ({ id_sez }) => {
   var nazev = useRef();
@@ -23,22 +24,31 @@ const AddItem = ({ id_sez }) => {
   return (
     <>
       <div className="addIt">
-        <form onSubmit={(e) => e.preventDefault()}>
-          <label>Nazev</label>
-          <input type="text" placeholder="Nazev" ref={nazev} />
-          <label>Kusy</label>
-          <input type="number" ref={kusy} />
-          <input
-            type="submit"
-            onClick={async () => {
-              await addIt(nazev.current.value, kusy.current.value, id_sez);
-            }}
-          />
-        </form>
+        {id_sez > 0 && (
+          <form onSubmit={(e) => e.preventDefault()}>
+            <label>Název </label>
+            <input type="text" placeholder="Nazev" ref={nazev} />
+            <br />
+            <label> Kusy </label>
+            <input type="number" ref={kusy} />
+            <input
+              type="submit"
+              onClick={async () => {
+                if (
+                  nazev.current.value.length >= 2 &&
+                  kusy.current.value.length >= 1
+                ) {
+                  await addIt(nazev.current.value, kusy.current.value, id_sez);
+                  nazev.current.value = null;
+                  kusy.current.value = null;
+                }
+              }}
+            />
+          </form>
+        )}
       </div>
     </>
   );
 };
 
 export default AddItem;
-//

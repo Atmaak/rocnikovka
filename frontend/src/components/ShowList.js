@@ -28,11 +28,12 @@ const ShowList = ({ id_sez }) => {
     const data = await fetchList.json();
     return data;
   };
-
   return (
     <>
       <AddItem id_sez={id_sez} />
-      <Item items={List} />
+      <div className="itemy">
+        <Item items={List} />
+      </div>
     </>
   );
 };

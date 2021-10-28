@@ -11,7 +11,6 @@ const MainPage = ({ id }) => {
       const listsFromServer = await fetchLists();
       await setLists(listsFromServer);
     };
-
     getLists();
   }, [lists]);
 
@@ -42,7 +41,7 @@ const MainPage = ({ id }) => {
       <div className="row">
         <List lists={lists} funkce={showList} />
       </div>
-      <ShowList id_sez={id_sez} />
+      <ShowList id_sez={id_sez} lists={lists} />
     </>
   );
 };
