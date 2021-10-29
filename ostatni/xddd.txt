@@ -1,6 +1,8 @@
 SELECT polozky.nazev AS 'nazev',
 pol_sez.kusy AS 'kusy',
 pol_sez.id_sez AS 'id_sez',
+pol_sez.id_pol AS 'id_pol',
+stavy.id_sta AS 'id_sta',
 stavy.nazev as 'stav'
 FROM pol_sez
 INNER JOIN polozky ON pol_sez.id_pol = polozky.id_pol

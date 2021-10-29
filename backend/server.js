@@ -48,6 +48,12 @@ app.post('/item/delete', (req, res) => {
     res.send('worked')
 })
 
+app.post('/item/changeState', (req, res) => {
+    const { id_pol, id_sta } = req.body
+    items.changeState(id_sta, id_pol)
+    res.send('worked')
+})
+
 app.post('/list/createList', (req, res) => {
     const {id_uzi} = req.body
     list.createList(id_uzi) 

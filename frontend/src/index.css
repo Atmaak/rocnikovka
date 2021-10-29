@@ -48,3 +48,12 @@ p{
 .err{
     color: rgb(138, 0, 0);
 }
+
+
+.koupeno{
+    color: rgba(0, 0, 0, 0.26);
+}
+
+.nekoupeno{
+    color: brown;
+}

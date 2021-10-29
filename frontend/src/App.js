@@ -28,7 +28,6 @@ const onSubmit = async (refUsername, refPassword) => {
     body: `{"username": "${refUsername}", "password": "${refPassword}"}`
   })
   res = await res.json()
-  console.log(res.id)
   if(res.id){
     setId(res.id)
     setShowMainPage(true)

@@ -28,7 +28,6 @@ const MainPage = ({ id }) => {
 
 
   const showList = (id_sez) => {
-    //console.log(id_sez)
     setId_Sez(id_sez);
   };
   return (

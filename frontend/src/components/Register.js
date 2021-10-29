@@ -29,8 +29,6 @@ const Register = ( { registered } ) => {
               body: `{"username": "${username.current.value}", "password": "${password.current.value}", "email": "${email.current.value}"}`
             })
             const data = await res.json()
-            console.log(data.created)
-
            if(data.created){
             registered()
            }

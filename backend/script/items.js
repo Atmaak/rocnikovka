@@ -1,4 +1,3 @@
-const { response } = require("express");
 const mysql = require("mysql");
 const dotenv = require("dotenv").config();
 
@@ -12,6 +11,8 @@ const con = mysql.createConnection({
 module.exports = { 
   deleteItem: function DeleteItem(id_pol){
     deleteItem(id_pol)
+  },changeState: function ChangeState(id_sta, id_pol){
+    changeState(id_sta, id_pol)
   }
 }
 
@@ -30,3 +31,9 @@ const deleteItem = (id_pol) => {
   })
 }
 
+const changeState = (id_sta, id_pol) => {
+  sql = `UPDATE pol_sez SET id_sta='${id_sta}' WHERE id_pol = ${id_pol}`
+  con.query(sql, (err, result) => {
+    if (err) throw err
+  })
+}
