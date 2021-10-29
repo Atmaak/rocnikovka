@@ -18,7 +18,7 @@ const Login = ({ onSubmit, onClickShowRegister }) => {
         <input type='submit' onClick={async () => await onSubmit(refUsername.current.value, refPassword.current.value)} />
       </div>
     </form>
-    <h1>Not registered? <span onClick={() => {onClickShowRegister(true)}} className='link'>Click here</span></h1>
+    <p>Not registered? <span onClick={() => {onClickShowRegister(true)}} className='link'>Click here</span></p>
     </>
   );
 };
