@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import { BsTypeH1 } from "react-icons/bs";
 
 const AddItem = ({ id_sez }) => {
   var nazev = useRef();

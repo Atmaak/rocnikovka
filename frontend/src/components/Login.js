@@ -1,9 +1,10 @@
 import React, { useRef } from 'react';
 
-const Login = ({ onSubmit }) => {
+const Login = ({ onSubmit, onClickShowRegister }) => {
   var refUsername = useRef();
   var refPassword = useRef();
   return (
+    <>
     <form onSubmit={e => e.preventDefault()}>
       <div>
         <label>Username</label>
@@ -17,6 +18,8 @@ const Login = ({ onSubmit }) => {
         <input type='submit' onClick={async () => await onSubmit(refUsername.current.value, refPassword.current.value)} />
       </div>
     </form>
+    <h1>Not registered? <span onClick={() => {onClickShowRegister(true)}} className='link'>Click here</span></h1>
+    </>
   );
 };
 

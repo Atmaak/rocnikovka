@@ -38,3 +38,13 @@ p{
     display: flex;
     flex-direction: column-reverse;
 }
+
+.link{
+    text-decoration: underline;
+    text-decoration-color: blue;
+    color: blue;
+}
+
+.err{
+    color: rgb(138, 0, 0);
+}

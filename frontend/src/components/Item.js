@@ -14,6 +14,10 @@ const Item = ({ items }) => {
         body: `{"id_pol": ${id_pol}}`,
       });
     }
+
+    const changeState = (state) => {
+      console.log(state)
+    }
   return (
     <>
       {items.map((item) => (
@@ -21,7 +25,7 @@ const Item = ({ items }) => {
           <div className="infoItem">
             <p>{(item.nazev).toUpperCase()} : {item.kusy}</p>
             <div>
-              <p><span className='stav'>{((item.stav === 'koupeno') ? <ImCheckmark />: <ImCross /> )}</span> <button onClick={async () => {await deleteItem(item.id_pol)}}><BsFillTrashFill /></button></p>
+              <p><span className='stav'>{((item.stav === 'koupeno') ? <ImCheckmark onClick={() => {changeState(item.stav)}}/>: <ImCross onClick={() => {console.log(item)} }/> )}</span> <button onClick={async () => {await deleteItem(item.id_pol)}}><BsFillTrashFill /></button></p>
             </div>
             
           </div>

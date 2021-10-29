@@ -16,12 +16,12 @@ app.listen(process.env.port, ()=>{
     console.log('server running on port: ' + process.env.port)
 })
 
-app.post('/reg', (req, res) =>{
-    const { username, password } = req.body
-    register.register(username, password, res)
+app.post('/user/reg', (req, res) =>{
+    const { username, password, email } = req.body
+    register.register(username, password, email, res)
 })
 
-app.post('/log', (req, res) => {
+app.post('/user/log', (req, res) => {
     const { username, password } = req.body
     login.login(username,password, res)
 })

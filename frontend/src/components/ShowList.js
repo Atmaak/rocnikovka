@@ -6,17 +6,20 @@ import AddItem from "./AddItem";
 
 const ShowList = ({ id_sez }) => {
   const [List, setList] = useState([]);
-
+  const [showAddIt, setShowAddIt] = useState(false)
   useEffect(() => {
     const getList = async (id_sez) => {
-      //console.log(id_sez)
       const dataFromServer = await displayList(id_sez);
+      if(dataFromServer == undefined){
+        return
+      }
       await setList(dataFromServer);
     };
     getList(id_sez);
   }, [List]);
 
   const displayList = async (id_sez) => {
+    if(id_sez == undefined){return}
     //console.log(id_sez)
     const fetchList = await fetch("http://localhost:3001/list", {
       method: "POST",
@@ -30,7 +33,7 @@ const ShowList = ({ id_sez }) => {
   };
   return (
     <>
-      <AddItem id_sez={id_sez} />
+      {(id_sez > 0) && <AddItem id_sez={id_sez} />}
       <div className="itemy">
         <Item items={List} />
       </div>
