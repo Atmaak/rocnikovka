@@ -47,7 +47,7 @@ const registered = () => {
 
   return (
     <>
-      <Header title='Shoping List' id_uzi={id} />
+      <Header title='Shoping List' id_uzi={id} showIt={showMainPage} />
       {showLogin && <Login onSubmit={onSubmit} onClickShowRegister={onClickShowRegister}/>}
       {showMainPage && <MainPage id={id}/>}
       {showLogin && <button onClick={() => {onSubmit('admin', 'admin')}}>Log it</button> /* pouze pro testovani*/}

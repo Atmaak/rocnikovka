@@ -32,10 +32,21 @@ app.post('/user/getData', (req, res) => {
     user.getData(id_uzi, res)
 })
 
+app.post('/user/changeEmail', (req, res) => {
+    const { id_uzi, email } = req.body
+    user.changeEmail(id_uzi, email)
+    res.sendStatus(200)
+})
+
 app.post('/user/changeUsername', (req, res) => {
     const { id_uzi, username } = req.body
-    console.log(id_uzi, username)
     user.changeUsername(id_uzi, username)
+    res.sendStatus(200)
+})
+
+app.post('/user/changePassword', (req, res) => {
+    const { id_uzi, password } = req.body
+    user.changePassword(id_uzi, password)
     res.sendStatus(200)
 })
 
