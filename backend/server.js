@@ -7,6 +7,7 @@ const login = require('./script/login')
 const register = require('./script/register')
 const list = require('./script/list')
 const items = require('./script/items')
+const user = require('./script/user')
 
 app.use(express.json()); // parsuje payload na requestu do jsonu
 
@@ -26,9 +27,21 @@ app.post('/user/log', (req, res) => {
     login.login(username,password, res)
 })
 
+app.post('/user/getData', (req, res) => {
+    const { id_uzi } = req.body
+    user.getData(id_uzi, res)
+})
+
+app.post('/user/changeUsername', (req, res) => {
+    const { id_uzi, username } = req.body
+    console.log(id_uzi, username)
+    user.changeUsername(id_uzi, username)
+    res.sendStatus(200)
+})
+
 app.post('/displayNewestList', (req, res) => {
-    const id = req.body
-    list.displayNewestList(id.id, res)
+    const { id } = req.body
+    list.displayNewestList(id, res)
 })
 
 app.post('/list', (req, res) => {
@@ -65,3 +78,4 @@ app.post('/list/deleteList', (req,res) => {
     list.deleteList(id_sez)
     res.send('worked')
 })
+
