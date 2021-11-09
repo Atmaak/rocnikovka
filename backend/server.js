@@ -63,30 +63,29 @@ app.post('/list', (req, res) => {
 app.post('/item/add', (req, res) => {
     const {item, id_sta, id_sez, kusy} = req.body
     list.addItem(item, id_sta, id_sez, kusy)
-    res.send('Worked')    
+    res.sendStatus(200)    
 })
 
 app.post('/item/delete', (req, res) => {
     const { id_pol } = req.body
     items.deleteItem(id_pol)
-    res.send('worked')
+    res.sendStatus(200)  
 })
 
 app.post('/item/changeState', (req, res) => {
     const { id_pol, id_sta } = req.body
     items.changeState(id_sta, id_pol)
-    res.send('worked')
+    res.sendStatus(200)  
 })
 
 app.post('/list/createList', (req, res) => {
     const {id_uzi} = req.body
     list.createList(id_uzi) 
-    res.send('worked')
+    res.sendStatus(200)  
 })
 
 app.post('/list/deleteList', (req,res) => {
     const {id_sez} = req.body
     list.deleteList(id_sez)
-    res.send('worked')
+    res.sendStatus(200)  
 })
-
