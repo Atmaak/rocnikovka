@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: 127.0.0.1
--- Vytvořeno: Ned 24. říj 2021, 19:09
+-- Vytvořeno: Úte 09. lis 2021, 21:02
 -- Verze serveru: 10.4.20-MariaDB
 -- Verze PHP: 7.3.29
 
@@ -32,6 +32,7 @@ CREATE TABLE `items` (
 ,`kusy` int(11)
 ,`id_sez` int(11)
 ,`id_pol` int(11)
+,`id_sta` int(11)
 ,`stav` varchar(64)
 );
 
@@ -105,7 +106,8 @@ INSERT INTO `polozky` (`id_pol`, `nazev`) VALUES
 (83, 'asddasd'),
 (84, 'asddasd'),
 (85, 'asddasd'),
-(87, 'asddasd');
+(87, 'asddasd'),
+(89, 'ads');
 
 -- --------------------------------------------------------
 
@@ -150,7 +152,8 @@ INSERT INTO `pol_sez` (`id_sez`, `id_pol`, `kusy`, `id_sta`) VALUES
 (6, 83, 45, 2),
 (6, 84, 45, 2),
 (6, 85, 45, 2),
-(6, 87, 45, 2);
+(6, 87, 45, 2),
+(10, 89, 123, 1);
 
 -- --------------------------------------------------------
 
@@ -177,7 +180,8 @@ INSERT INTO `seznamy` (`id_sez`, `datum`, `id_uzi`) VALUES
 (14, '2021-10-24 16:47:02', 1),
 (18, '2021-10-24 17:02:47', 1),
 (19, '2021-10-24 17:02:48', 1),
-(20, '2021-10-24 17:02:48', 1);
+(24, '2021-11-07 18:24:49', 1),
+(25, '2021-11-07 18:24:59', 1);
 
 -- --------------------------------------------------------
 
@@ -208,6 +212,7 @@ CREATE TABLE `uzivatele` (
   `id_uzi` int(11) NOT NULL,
   `id_opr` int(11) NOT NULL,
   `jmeno` varchar(64) COLLATE utf8mb4_czech_ci NOT NULL,
+  `email` varchar(256) COLLATE utf8mb4_czech_ci NOT NULL,
   `heslo` varchar(64) COLLATE utf8mb4_czech_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
 
@@ -215,8 +220,8 @@ CREATE TABLE `uzivatele` (
 -- Vypisuji data pro tabulku `uzivatele`
 --
 
-INSERT INTO `uzivatele` (`id_uzi`, `id_opr`, `jmeno`, `heslo`) VALUES
-(1, 1, 'admin', 'sha1$1210f2f7$1$31f14f2bb8ef4623b54350a639d10876adf5e263');
+INSERT INTO `uzivatele` (`id_uzi`, `id_opr`, `jmeno`, `email`, `heslo`) VALUES
+(1, 1, 'admin', 'admin@admin.admin', 'sha1$a3342e7f$1$b5bfc8616511c0c1e7d2157b9c2ca116a5fcd702');
 
 -- --------------------------------------------------------
 
@@ -225,7 +230,7 @@ INSERT INTO `uzivatele` (`id_uzi`, `id_opr`, `jmeno`, `heslo`) VALUES
 --
 DROP TABLE IF EXISTS `items`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `items`  AS SELECT `polozky`.`nazev` AS `nazev`, `pol_sez`.`kusy` AS `kusy`, `pol_sez`.`id_sez` AS `id_sez`, `pol_sez`.`id_pol` AS `id_pol`, `stavy`.`nazev` AS `stav` FROM ((`pol_sez` join `polozky` on(`pol_sez`.`id_pol` = `polozky`.`id_pol`)) join `stavy` on(`pol_sez`.`id_sta` = `stavy`.`id_sta`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `items`  AS SELECT `polozky`.`nazev` AS `nazev`, `pol_sez`.`kusy` AS `kusy`, `pol_sez`.`id_sez` AS `id_sez`, `pol_sez`.`id_pol` AS `id_pol`, `stavy`.`id_sta` AS `id_sta`, `stavy`.`nazev` AS `stav` FROM ((`pol_sez` join `polozky` on(`pol_sez`.`id_pol` = `polozky`.`id_pol`)) join `stavy` on(`pol_sez`.`id_sta` = `stavy`.`id_sta`)) ;
 
 --
 -- Indexy pro exportované tabulky
@@ -285,13 +290,13 @@ ALTER TABLE `opravneni`
 -- AUTO_INCREMENT pro tabulku `polozky`
 --
 ALTER TABLE `polozky`
-  MODIFY `id_pol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `id_pol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- AUTO_INCREMENT pro tabulku `seznamy`
 --
 ALTER TABLE `seznamy`
-  MODIFY `id_sez` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_sez` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT pro tabulku `stavy`
@@ -303,7 +308,7 @@ ALTER TABLE `stavy`
 -- AUTO_INCREMENT pro tabulku `uzivatele`
 --
 ALTER TABLE `uzivatele`
-  MODIFY `id_uzi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_uzi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Omezení pro exportované tabulky
