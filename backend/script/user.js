@@ -2,6 +2,7 @@ const mysql = require("mysql");
 const dotenv = require("dotenv").config();
 const passwordHash = require("password-hash");
 
+const list = require("./list")
 const con = mysql.createConnection({
   host: process.env.db_host,
   user: process.env.db_user,
@@ -44,6 +45,28 @@ const changePassword = (id_uzi, password) => {
   })
 }
 
+const deleteAccount = async (id_uzi) => {
+  sql = `SELECT * FROM seznamy WHERE id_uzi = ${id_uzi};`
+  const seznamy = await new Promise((resolve, reject) => {
+    con.query(
+     sql,
+      (err, result) => {
+        return err ? reject(err) : resolve(result);
+      }
+    );
+  })
+
+  seznamy.map((seznam)=> {
+    list.deleteList(seznam.id_sez)
+  })
+
+  sql = `DELETE FROM uzivatele WHERE id_uzi = ${id_uzi};`
+
+  con.query(sql,(err, result) => {
+    if(err) throw err
+  })
+}
+
 module.exports = {
   getData: function GETDATA(id_uzi, res) {
     getData(id_uzi, res);
@@ -56,5 +79,9 @@ module.exports = {
   },
   changePassword: function CHANGEPASSWORD(id_uzi, password){
     changePassword(id_uzi, password)
+  },
+  deleteAccount: function DELETE(id_uzi){
+    deleteAccount(id_uzi)
   }
+  
 };

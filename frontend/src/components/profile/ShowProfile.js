@@ -9,11 +9,11 @@ const ShowProfile = ({ id_uzi }) => {
   const passwordSameRef = useRef();
 
   useEffect(async () => {
-    await setData(await getProfile(id_uzi));
+    setData(await getProfile(id_uzi));
   }, [data]);
 
   const changeUsername = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (data.jmeno === usernameRef.current.value) return;
     if (usernameRef.current.value.length < 3) return;
 
@@ -49,7 +49,7 @@ const ShowProfile = ({ id_uzi }) => {
   };
 
   const changePassword = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (passwordRef.current.value.length < 6) return;
     if (passwordRef.current.value !== passwordSameRef.current.value) return;
 
@@ -68,55 +68,76 @@ const ShowProfile = ({ id_uzi }) => {
     passwordSameRef.current.value = null;
   };
 
+  const getProfile = async (id_uzi) => {
+    const res = await fetch("http://localhost:3001/user/getData", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: `{"id_uzi": ${id_uzi}}`,
+    });
+    const data = await res.json();
+    return data;
+  };
+
+  const deleteAccount = () => {
+    fetch("http://localhost:3001/user/deleteAccount",{
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: `{"id_uzi": ${id_uzi}}`
+    })
+  
+    window.location.reload();
+  };
+
+  const validateEmail = (email) => {
+    const re =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  };
   return (
-    <div>
-      <p>{data.jmeno}</p>
-      <p>{data.email}</p>
-      <div>
-        <p>Change Username</p>
-        <form onSubmit={(e) => {changeUsername(e)}}>
-        <input type="text" placeholder={data.jmeno} ref={usernameRef} />
+    <div className="changeIt">
+      <h5>Change Username: </h5>
+      <form
+        onSubmit={(e) => {
+          changeUsername(e);
+        }}
+      >
+        <input type="text" placeholder="Username" ref={usernameRef} />
+        <br />
         <input type="submit" />
-        <sub>Min. Length is 3 characters</sub>
-        </form>
-      </div>
+      </form>
       <div>
-        <p>Change Email</p>
+        <h5>Change Email: </h5>
         <form onSubmit={(e) => changeEmail(e)}>
-          <input type="email" placeholder={data.email} ref={emailRef} />
+          <input type="email" placeholder="Email" ref={emailRef} />
+          <br />
           <input type="submit" />
         </form>
       </div>
       <div>
-        <p>Change Password</p>
-        <p>New password</p>
-        <input type="text" ref={passwordRef} />
-        <p>New password Again</p>
-        <form onSubmit={(e) => {changePassword(e)}}>
-          <input type="text" ref={passwordSameRef} />
+        <h5>Change Password: </h5>
+        <form
+          onSubmit={(e) => {
+            changePassword(e);
+          }}
+        >
+          <input type="text" ref={passwordRef} placeholder="New Password" />
+          <br />
+          <input
+            type="text"
+            ref={passwordSameRef}
+            placeholder="New password Again"
+          />
+          <br />
           <input type="submit" />
         </form>
       </div>
+      <button onClick={() => deleteAccount(id_uzi)} className="buttonos">Delete Account</button>
     </div>
   );
-};
-
-const getProfile = async (id_uzi) => {
-  const res = await fetch("http://localhost:3001/user/getData", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: `{"id_uzi": ${id_uzi}}`,
-  });
-  const data = await res.json();
-  return data;
-};
-
-const validateEmail = (email) => {
-  const re =
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(String(email).toLowerCase());
 };
 
 export default ShowProfile;

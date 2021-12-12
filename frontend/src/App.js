@@ -44,14 +44,24 @@ const registered = () => {
   setShowRegister(false)
 }
 
+const back = () => {
+  setShowLogin(true)
+  setShowRegister(false)
+  setShowMainPage(false)
+}
+
 
   return (
     <>
-      <Header title='Shoping List' id_uzi={id} showIt={showMainPage} />
+    <div className='mainpage'>
+      <Header title='Shoping List' id_uzi={id} showIt={showMainPage} back={back}/>
+      <div >
       {showLogin && <Login onSubmit={onSubmit} onClickShowRegister={onClickShowRegister}/>}
       {showMainPage && <MainPage id={id}/>}
       {showLogin && <button onClick={() => {onSubmit('admin', 'admin')}}>Log it</button> /* pouze pro testovani*/}
       {showRegister && <Register registered={registered}/>}
+      </div>
+    </div>
     </>
   )
 }

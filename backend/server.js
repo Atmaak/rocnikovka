@@ -50,6 +50,11 @@ app.post('/user/changePassword', (req, res) => {
     res.sendStatus(200)
 })
 
+app.post('/user/deleteAccount', (req, res) => {
+    const { id_uzi } = req.body
+    user.deleteAccount(id_uzi)
+    res.sendStatus(200)
+})
 app.post('/displayNewestList', (req, res) => {
     const { id } = req.body
     list.displayNewestList(id, res)

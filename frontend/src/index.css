@@ -1,12 +1,12 @@
 body {
-    background-color: grey;
+    background-color: rgb(211, 211, 211);
 }
 
 .List {
     border: 2px solid black;
     margin: 2px;
     text-align: center;
-    width: 150px;
+    width: 15%;
 }
 
 .row{
@@ -25,9 +25,14 @@ body {
     margin: 5px;
 }
 
+.addIt > * {
+    width: 100%;
+}
+
 .infoItem{
     display: flex;
     flex-direction: row;
+    justify-content: center;
 }
 
 p{
@@ -49,7 +54,6 @@ p{
     color: rgb(138, 0, 0);
 }
 
-
 .koupeno{
     color: rgba(0, 0, 0, 0.26);
 }
@@ -57,3 +61,89 @@ p{
 .nekoupeno{
     color: brown;
 }
+
+.mainpage {
+    text-align: center;
+}
+
+
+.List button {
+    width: 50%;
+    background-color: #0071ce;
+    color: white;
+    border: none;
+    margin: 2px;
+    cursor: pointer;
+}
+.List button:hover{
+    background-color: #004883;
+}
+
+input[type=text], select {
+    width: 30%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=email], select {
+    width: 30%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=number], select {
+    width: 30%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=password], select {
+    width: 30%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=submit] {
+    width: 30%;
+    background-color: #0071ce;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  input[type=submit]:hover {
+    background-color: #004883;
+  }
+
+  .buttonos{
+    width: 30%;
+    background-color: #0071ce;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .buttonos:hover{
+    background-color: #004883;
+  }

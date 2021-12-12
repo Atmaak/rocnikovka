@@ -83,7 +83,7 @@ async function displayNewestList(id_uzi, res) {
 //selectne vsechno z view items
 const getList = async (id_sez, res) => {
   sql = `SELECT * FROM items WHERE id_sez = ${id_sez}`
-  const response = con.query(sql, (err, result) => {
+  con.query(sql, (err, result) => {
     if(err) throw err
     res.send(result)
   })

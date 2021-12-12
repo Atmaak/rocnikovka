@@ -8,12 +8,10 @@ const Login = ({ onSubmit, onClickShowRegister }) => {
     <div>
       <form onSubmit={e => e.preventDefault()}>
         <div>
-          <label>Username</label>
-          <input type="text" placeholder="username" ref={refUsername} />
+          <input type="text" placeholder="Username" ref={refUsername} />
         </div>
         <div>
-          <label>Password</label>
-          <input type="password" placeholder="password" ref={refPassword} />
+          <input type="password" placeholder="Password" ref={refPassword} />
         </div>
         <div>
           <input type='submit' onClick={async () => await onSubmit(refUsername.current.value, refPassword.current.value)} />

@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-
 const AddItem = ({ id_sez }) => {
   var nazev = useRef();
   var kusy = useRef();
@@ -25,11 +24,10 @@ const AddItem = ({ id_sez }) => {
       <div className="addIt">
         {id_sez > 0 && (
           <form onSubmit={(e) => e.preventDefault()}>
-            <label>Název </label>
-            <input type="text" placeholder="Nazev" ref={nazev} />
+            <input type="text" placeholder="Nazev" ref={nazev} placeholder='Nazev'/>
             <br />
-            <label> Kusy </label>
-            <input type="number" ref={kusy} />
+            <input type="number" ref={kusy} placeholder="Kusy"/>
+            <br />
             <input
               type="submit"
               onClick={async () => {

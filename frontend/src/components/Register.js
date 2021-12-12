@@ -20,6 +20,8 @@ const Register = ( { registered } ) => {
 
             setErr('Passwords are not matching')
         } 
+
+        console.log(password.current.value, passAgain.current.value)
           
             const res = await fetch('http://localhost:3001/user/reg', {
               method:"POST",
@@ -38,20 +40,18 @@ const Register = ( { registered } ) => {
 
     return (
         <form>   
-            <label >Username </label>
-            <input type="text" ref={username}/>
+            <input type="text" ref={username} placeholder="Username"/>
             <br />
-            <label >E-mail </label>
-            <input type="email" ref={email}/>
+            <input type="email" ref={email} placeholder="Email"/>
             <br />
-            <label>Password </label>
-            <input type="password" ref={password}/>
+            <input type="password" ref={password} placeholder="Password"/>
             <br />
-            <label>Password again </label>
-            <input type="password" ref={passAgain}/>
+            <input type="password" ref={passAgain} placeholder="Password again "/>
             <br />
             <input type="submit" onClick={(e) => {onRegister(e)}}/>
-            
+            <br />
+            <button className="buttonos" onClick={() =>window.location.reload()}>Back</button>
+            <br />
             <p className='err'>{err}</p>
         </form>
     )

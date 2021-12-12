@@ -18,6 +18,7 @@ const CreateList = ({ id_uzi }) => {
       onClick={() => {
         createList(id_uzi);
       }}
+      className='buttonos'
     >
       Create List
     </button>
