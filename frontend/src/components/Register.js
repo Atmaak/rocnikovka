@@ -20,8 +20,6 @@ const Register = ( { registered } ) => {
 
             setErr('Passwords are not matching')
         } 
-
-        console.log(password.current.value, passAgain.current.value)
           
             const res = await fetch('172.105.71.33:3001/user/reg', {
               method:"POST",

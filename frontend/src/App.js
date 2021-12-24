@@ -58,7 +58,6 @@ const back = () => {
       <div >
       {showLogin && <Login onSubmit={onSubmit} onClickShowRegister={onClickShowRegister}/>}
       {showMainPage && <MainPage id={id}/>}
-      {showLogin && <button onClick={() => {onSubmit('admin', 'admin')}}>Log it</button> /* pouze pro testovani*/}
       {showRegister && <Register registered={registered}/>}
       </div>
     </div>
