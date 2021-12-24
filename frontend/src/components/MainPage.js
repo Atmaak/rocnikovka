@@ -8,7 +8,7 @@ const MainPage = ({ id }) => {
   const [id_sez, setId_Sez] = useState([0]);
   useEffect(() => {
     const fetchLists = async () => {
-      const res = await fetch("http://localhost:3001/displayNewestList", {
+      const res = await fetch("172.105.71.33:3001/displayNewestList", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
