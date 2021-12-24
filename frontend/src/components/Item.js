@@ -15,7 +15,7 @@ const Item = ({ items }) => {
 
     const changeState = (item) => {
       if(item.id_sta === 1){
-        fetch("http://localhost:3001/item/changeState", {
+        fetch("172.105.71.33:3001/item/changeState", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -27,7 +27,7 @@ const Item = ({ items }) => {
       });
       }
       if(item.id_sta === 2){
-        fetch("http://localhost:3001/item/changeState", {
+        fetch("172.105.71.33:3001/item/changeState", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

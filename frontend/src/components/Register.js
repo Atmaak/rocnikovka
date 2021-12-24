@@ -23,7 +23,7 @@ const Register = ( { registered } ) => {
 
         console.log(password.current.value, passAgain.current.value)
           
-            const res = await fetch('http://localhost:3001/user/reg', {
+            const res = await fetch('172.105.71.33:3001/user/reg', {
               method:"POST",
               headers: {
                 "Content-Type": "application/json"
