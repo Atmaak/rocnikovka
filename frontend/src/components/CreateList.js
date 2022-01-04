@@ -2,7 +2,7 @@ import React from "react";
 
 const CreateList = ({ id_uzi }) => {
   const createList = async (id_uzi) => {
-    await fetch("172.105.71.33:3001/list/createList", {
+    await fetch("http://localhost:3001/list/createList", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

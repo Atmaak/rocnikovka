@@ -5,7 +5,7 @@ const AddItem = ({ id_sez }) => {
 
   const addIt = async () => {
     //console.log(nazev.current.value, parseInt(kusy.current.value), parseInt(id_sez))
-    await fetch("172.105.71.33:3001/item/add", {
+    await fetch("http://localhost:3001/item/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

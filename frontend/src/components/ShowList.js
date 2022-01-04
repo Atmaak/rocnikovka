@@ -20,7 +20,7 @@ const ShowList = ({ id_sez }) => {
   const displayList = async (id_sez) => {
     if(id_sez === undefined) return
     //console.log(id_sez)
-    const fetchList = await fetch("172.105.71.33:3001/list", {
+    const fetchList = await fetch("http://localhost:3001/list", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

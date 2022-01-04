@@ -11,7 +11,7 @@ const List = ({ lists, funkce, setId_Sez }) => {
   };
 
   const deleteList = async (id_sez) => {
-    await fetch("172.105.71.33:3001/list/deleteList", {
+    await fetch("http://localhost:3001/list/deleteList", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

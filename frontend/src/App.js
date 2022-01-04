@@ -20,7 +20,7 @@ const onSubmit = async (refUsername, refPassword) => {
   //console.log(refUsername)
   //console.log(refPassword)
 
-  var res = await fetch('172.105.71.33:3001/user/log', {
+  var res = await fetch('http://localhost:3001/user/log', {
     method:"POST",
     headers: {
       "Content-Type": "application/json"
