@@ -5,8 +5,8 @@ const passwordHash = require("password-hash");
 const list = require("./list")
 const con = mysql.createConnection({
   host: 'localhost',
-  user: 'Martin',
-  password: "Pejsanek123",
+  user: 'root',
+  password: "",
   database: 'rocnikovka',
 });
 
