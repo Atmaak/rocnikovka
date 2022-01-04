@@ -6,7 +6,7 @@ const list = require("./list")
 const con = mysql.createConnection({
   host: process.env.db_host,
   user: process.env.db_user,
-  password: "",
+  password: "kokotkokot",
   database: process.env.db_name,
 });
 

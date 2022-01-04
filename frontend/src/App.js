@@ -17,6 +17,7 @@ const [showRegister, setShowRegister] = useState(false)
 const [id, setId] = useState(0)
 
 const onSubmit = async (refUsername, refPassword) => {
+  console.log(refUsername, refPassword)
   //console.log(refUsername)
   //console.log(refPassword)
 
