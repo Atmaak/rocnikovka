@@ -4,10 +4,10 @@ const passwordHash = require("password-hash");
 
 const list = require("./list")
 const con = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
+  host: process.env.db_host,
+  user: process.env.db_user,
   password: "",
-  database: 'rocnikovka',
+  database: process.env.db_name,
 });
 
 con.connect();
