@@ -24,7 +24,7 @@ const MainPage = ({ id }) => {
       await setLists(listsFromServer);
     };
     getLists();
-  }, [lists]);
+  }, [lists, id]);
 
 
   const showList = (id_sez) => {

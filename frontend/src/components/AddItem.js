@@ -4,7 +4,6 @@ const AddItem = ({ id_sez }) => {
   var kusy = useRef();
 
   const addIt = async () => {
-    //console.log(nazev.current.value, parseInt(kusy.current.value), parseInt(id_sez))
     await fetch("http://localhost:3001/item/add", {
       method: "POST",
       headers: {
@@ -24,7 +23,7 @@ const AddItem = ({ id_sez }) => {
       <div className="addIt">
         {id_sez > 0 && (
           <form onSubmit={(e) => e.preventDefault()}>
-            <input type="text" placeholder="Nazev" ref={nazev} placeholder='Nazev'/>
+            <input type="text" placeholder="Nazev" ref={nazev}/>
             <br />
             <input type="number" ref={kusy} placeholder="Kusy"/>
             <br />

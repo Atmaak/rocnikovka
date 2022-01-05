@@ -1,6 +1,6 @@
 const mysql = require("mysql");
 const passwordHash = require("password-hash");
-const dotenv = require("dotenv").config();
+require("dotenv").config();
 
 const con = mysql.createConnection({
   host: process.env.db_host,
@@ -16,9 +16,7 @@ module.exports = {
 };
 con.connect()
 function login(username, password, res) {
-    con.query("SELECT * FROM uzivatele", function (err, result, fields) {
-      // sellectne vsechny jmeno z db
-      
+    con.query("SELECT * FROM uzivatele", function (err, result, fields) {      
       if (err) throw err; //pokud je error pri pripojovani k db tak hodi error
       for (let i = 0; i < result.length; i++) {
         if (username == result[i].jmeno && passwordHash.verify(password, result[i].heslo)) {

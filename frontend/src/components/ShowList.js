@@ -15,7 +15,7 @@ const ShowList = ({ id_sez }) => {
       await setList(dataFromServer);
     };
     getList(id_sez);
-  }, [List]);
+  }, [List, id_sez]);
 
   const displayList = async (id_sez) => {
     if(id_sez === undefined) return

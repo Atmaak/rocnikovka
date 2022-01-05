@@ -67,21 +67,22 @@ const deleteAccount = async (id_uzi) => {
   })
 }
 
-module.exports = {
-  getData: function GETDATA(id_uzi, res) {
-    getData(id_uzi, res);
-  },
-  changeUsername: function CHANGEUSERNAME(id_uzi, username){
-    changeUsername(id_uzi, username)
-  },
-  changeEmail: function CHANGEEMAIL(id_uzi, email){
-    changeEmail(id_uzi, email)
-  },
-  changePassword: function CHANGEPASSWORD(id_uzi, password){
-    changePassword(id_uzi, password)
-  },
-  deleteAccount: function DELETE(id_uzi){
-    deleteAccount(id_uzi)
-  }
+const getDataFromMail = async (email) => {
+  sql = `SELECT id_uzi, jmeno FROM uzivatele WHERE email = '${email}';`;
+    return await new Promise((resolve, reject) => {
+      con.query(sql, (err, result) => {
+        if(err) return reject(err)
+        return resolve(result[0])
+      });
+    })
   
-};
+}
+
+module.exports = {
+  getData,
+  changeUsername,
+  changeEmail,
+  changePassword,
+  deleteAccount,
+  getDataFromMail
+}

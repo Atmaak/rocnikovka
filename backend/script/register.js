@@ -1,6 +1,7 @@
 const mysql = require("mysql");
 const passwordHash = require("password-hash");
-const dotenv = require("dotenv").config();
+
+require("dotenv").config();
 
 const con = mysql.createConnection({
   host: process.env.db_host,

@@ -8,10 +8,21 @@ const ShowProfile = ({ id_uzi }) => {
   const passwordRef = useRef();
   const passwordSameRef = useRef();
 
-  useEffect(async () => {
-    setData(await getProfile(id_uzi));
-  }, [data]);
+    const getProfile = async (id_uzi) => {
+      const res = await fetch("http://localhost:3001/user/getData", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: `{"id_uzi": ${id_uzi}}`,
+      });
+      const data = await res.json();
+      setData(data)
+    };
 
+    useEffect(() => {
+      if(!data) getProfile(id_uzi)
+    })
   const changeUsername = (e) => {
     e.preventDefault();
     if (data.jmeno === usernameRef.current.value) return;
@@ -68,17 +79,7 @@ const ShowProfile = ({ id_uzi }) => {
     passwordSameRef.current.value = null;
   };
 
-  const getProfile = async (id_uzi) => {
-    const res = await fetch("http://localhost:3001/user/getData", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: `{"id_uzi": ${id_uzi}}`,
-    });
-    const data = await res.json();
-    return data;
-  };
+  
 
   const deleteAccount = () => {
     fetch("http://localhost:3001/user/deleteAccount",{

@@ -147,3 +147,8 @@ input[type=text], select {
   .buttonos:hover{
     background-color: #004883;
   }
+
+  .btns {
+      font-size:20px;
+      size: 10px;
+  }

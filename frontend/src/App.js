@@ -17,9 +17,6 @@ const [showRegister, setShowRegister] = useState(false)
 const [id, setId] = useState(0)
 
 const onSubmit = async (refUsername, refPassword) => {
-  console.log(refUsername, refPassword)
-  //console.log(refUsername)
-  //console.log(refPassword)
 
   var res = await fetch('http://localhost:3001/user/log', {
     method:"POST",

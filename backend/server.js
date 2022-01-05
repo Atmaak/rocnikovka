@@ -8,7 +8,7 @@ const register = require('./script/register')
 const list = require('./script/list')
 const items = require('./script/items')
 const user = require('./script/user')
-
+const mail = require('./script/sendMail')
 app.use(express.json()); // parsuje payload na requestu do jsonu
 
 app.use(cors())//pouziva knihovnu cors na to aby nebyl cors error
@@ -55,6 +55,12 @@ app.post('/user/deleteAccount', (req, res) => {
     user.deleteAccount(id_uzi)
     res.sendStatus(200)
 })
+
+app.post('/user/newPassword', (req, res) => {
+    const { email } = req.body
+    mail.sendPasswordMail(email)
+    res.sendStatus(200)
+})
 app.post('/displayNewestList', (req, res) => {
     const { id } = req.body
     list.displayNewestList(id, res)
@@ -81,6 +87,12 @@ app.post('/item/changeState', (req, res) => {
     const { id_pol, id_sta } = req.body
     items.changeState(id_sta, id_pol)
     res.sendStatus(200)  
+})
+
+app.post('/item/edit' ,(req, res) => {
+    const { id_pol, nazev, kusy} = req.body
+    items.changeItem(id_pol, nazev, kusy)
+    res.sendStatus(200)
 })
 
 app.post('/list/createList', (req, res) => {

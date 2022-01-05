@@ -8,13 +8,7 @@ const con = mysql.createConnection({
   database: process.env.db_name,
 });
 
-module.exports = { 
-  deleteItem: function DeleteItem(id_pol){
-    deleteItem(id_pol)
-  },changeState: function ChangeState(id_sta, id_pol){
-    changeState(id_sta, id_pol)
-  }
-}
+
 
 
 
@@ -36,4 +30,21 @@ const changeState = (id_sta, id_pol) => {
   con.query(sql, (err, result) => {
     if (err) throw err
   })
+}
+
+const changeItem = (id_pol, nazev, kusy) => {
+  sql = `UPDATE pol_sez SET kusy=${kusy} where id_pol = ${id_pol}`
+  con.query(sql, (err, result) => {
+    if (err) throw err
+  })
+  sql = `UPDATE polozky SET nazev='${nazev}' where id_pol = ${id_pol}`
+  con.query(sql, (err, result) => {
+    if (err) throw err
+  })
+}
+
+module.exports = { 
+  deleteItem: deleteItem,
+  changeState: changeState,
+  changeItem: changeItem,
 }
