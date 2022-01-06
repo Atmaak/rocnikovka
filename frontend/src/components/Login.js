@@ -1,12 +1,17 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import ForgotPassword from './ForgotPassword';
 const Login = ({ onSubmit, onClickShowRegister }) => {
   var refUsername = useRef();
   var refPassword = useRef();
-  
+  const [showLogin, setShowLogin] = useState(true);
+  const [showForgot, setShowForgot] = useState(false);
+  const changeIt = () => {
+    setShowLogin(false); 
+    setShowForgot(true)
+  }
   return (
     <>
-    <div>
+    {showLogin && <div>
       <form onSubmit={e => e.preventDefault()}>
         <div>
           <input type="text" placeholder="Username" ref={refUsername} />
@@ -18,9 +23,10 @@ const Login = ({ onSubmit, onClickShowRegister }) => {
           <input type='submit' onClick={async () => await onSubmit(refUsername.current.value, refPassword.current.value)} />
         </div>
       </form>
-      <p>Forgot your username or password? <span onClick={async () => await onClick(refUsername.current)}></span></p>
-      <p>Not registered? <span onClick={() => {onClickShowRegister(true)}} className='link'>Click here</span></p>
-    </div>
+      <span onClick={() => {changeIt()}} className="link"><p>Forgot your username or password?</p> </span>
+      <span onClick={() => {onClickShowRegister(true)}} className='link'><p>Not registered?</p></span>
+    </div>}
+    {showForgot && <ForgotPassword />}
     </>
   );
 };
