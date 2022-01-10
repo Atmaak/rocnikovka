@@ -26,6 +26,7 @@ const onSubmit = async (refUsername, refPassword) => {
     body: `{"username": "${refUsername}", "password": "${refPassword}"}`
   })
   res = await res.json()
+  if(!res.login) return alert('Wrong username or password')
   if(res.id){
     setId(res.id)
     setShowMainPage(true)
