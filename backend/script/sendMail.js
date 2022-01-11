@@ -12,8 +12,12 @@ const transporter = nodemailer.createTransport({
 
 
 const sendPasswordMail = async (email) => {
+    console.log(email)
     const newPassword = randomPass()
     const data = await user.getDataFromMail(email)
+    console.log(data)
+    if(!data) return console.log('XD')
+    
     const mailOptions = {
         from: 'Shoping List',
         to: 'kubjak21@gmail.com',

@@ -58,6 +58,7 @@ app.post('/user/deleteAccount', (req, res) => {
 
 app.post('/user/newPassword', (req, res) => {
     const { email } = req.body
+    console.log(email)
     mail.sendPasswordMail(email)
     res.sendStatus(200)
 })
