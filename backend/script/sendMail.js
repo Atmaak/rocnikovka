@@ -16,7 +16,7 @@ const sendPasswordMail = async (email) => {
     const newPassword = randomPass()
     const data = await user.getDataFromMail(email)
     console.log(data)
-    if(!data) return console.log('XD')
+    if(!data) return 
     
     const mailOptions = {
         from: 'Shoping List',
