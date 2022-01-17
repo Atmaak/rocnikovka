@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import ShowProfile from './profile/ShowProfile'
 const Header = ({ title, id_uzi, showIt }) => {
-    
 const [showProfile, setShowProfile] = useState(false)
 
     return (
