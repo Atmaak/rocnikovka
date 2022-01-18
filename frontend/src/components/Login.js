@@ -23,7 +23,7 @@ const Login = ({ onSubmit, onClickShowRegister }) => {
           <input type='submit' onClick={async () => await onSubmit(refUsername.current.value, refPassword.current.value)} />
         </div>
       </form>
-      <span onClick={() => {changeIt()}} className="link"><p>Forgot your username or password?</p> </span>
+      <span onClick={() => { /*changeIt()*/ alert('Not implemented yet')}} className="link"><p>Forgot your username or password?</p> </span>
       <span onClick={() => {onClickShowRegister(true)}} className='link'><p>Not registered?</p></span>
     </div>}
     {showForgot && <ForgotPassword />}
