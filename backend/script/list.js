@@ -45,16 +45,15 @@ function createList(id_uzi) {
 
 //addItem('xdPEPEGA', 2, 13, 69)
 
-function addItem(item, id_sta, id_sez, kusy) {
-
-  sql = `INSERT INTO polozky (nazev, id_szn) VALUES ("${item}", 1)`
+function addItem(item) {
+  sql = `INSERT INTO polozky (nazev, id_szn) VALUES ("${item.item}", ${item.id_szn})`
 
   con.query(sql, function (err, result) {
     if(err) throw err
   })
-  con.query(`SELECT id_pol FROM polozky WHERE nazev = "${item}"`, function (err, result) {
+  con.query(`SELECT id_pol FROM polozky WHERE nazev = "${item.item}"`, function (err, result) {
     if(err) throw err
-    sql = `INSERT INTO pol_sez(id_sez, id_pol, kusy, id_sta) VALUES (${id_sez}, ${result[result.length-1].id_pol}, ${kusy}, ${id_sta})`
+    sql = `INSERT INTO pol_sez(id_sez, id_pol, kusy, id_sta) VALUES (${item.id_sez}, ${result[result.length-1].id_pol}, ${item.kusy}, ${item.id_sta})`
     
     con.query(sql, function (err, result) {
       if(err) throw err

@@ -1,10 +1,23 @@
-import React, { useRef } from "react";
+import fetch from 'node-fetch';
+import React, { useRef, useState, useEffect } from 'react';
+
 const AddItem = ({ id_sez }) => {
+  const [data, setData] = useState([])
+  const [id_szn, setIdszn] = useState(0)
   var nazev = useRef();
   var kusy = useRef();
 
-  const addIt = async () => {
-    await fetch("http://localhost:3001/item/add", {
+  useEffect(() => {
+    fetchdata()
+  },[])
+
+  const fetchdata = async () => {
+    const res = await fetch('http://localhost:3001/item/types')
+    const dat = await res.json()
+    setData(dat)
+  }
+  const addIt = () => {
+    fetch("http://localhost:3001/item/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -13,7 +26,8 @@ const AddItem = ({ id_sez }) => {
                 "item": "${nazev.current.value}",
                 "id_sta": 2,
                 "id_sez": ${id_sez},
-                "kusy": ${kusy.current.value}
+                "kusy": ${kusy.current.value},
+                "id_szn": ${id_szn}
             }`,
     });
   };
@@ -32,13 +46,21 @@ const AddItem = ({ id_sez }) => {
     <>
       <div className="addIt">
         {id_sez > 0 && (
+          <>
           <form onSubmit={(e) => {doIt(e)}}>
             <input type="text" placeholder="Nazev" ref={nazev}/>
             <br />
             <input type="number" ref={kusy} placeholder="Kusy" min="1" />
             <br />
+            
+          <div>{data.map((item) => {
+            return <button onClick={(e) => {e.preventDefault(); setIdszn(item.id_szn)}} key={item.id_szn}>{item.nazev}</button>
+          })}</div>
+          
+            <br />
             <input type="submit"/>
           </form>
+          </>
         )}
       </div>
     </>

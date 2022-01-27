@@ -73,8 +73,7 @@ app.post('/list', (req, res) => {
 })
 
 app.post('/item/add', (req, res) => {
-    const {item, id_sta, id_sez, kusy} = req.body
-    list.addItem(item, id_sta, id_sez, kusy)
+    list.addItem(req.body)
     res.sendStatus(200)    
 })
 
