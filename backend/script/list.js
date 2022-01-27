@@ -47,7 +47,7 @@ function createList(id_uzi) {
 
 function addItem(item, id_sta, id_sez, kusy) {
 
-  sql = `INSERT INTO polozky (nazev) VALUES ("${item}")`
+  sql = `INSERT INTO polozky (nazev, id_szn) VALUES ("${item}", 1)`
 
   con.query(sql, function (err, result) {
     if(err) throw err
@@ -59,7 +59,6 @@ function addItem(item, id_sta, id_sez, kusy) {
     con.query(sql, function (err, result) {
       if(err) throw err
     })
-
   })
 }
 

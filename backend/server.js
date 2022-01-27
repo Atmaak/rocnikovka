@@ -96,6 +96,9 @@ app.post('/item/edit' ,(req, res) => {
     res.sendStatus(200)
 })
 
+app.get('/item/types', async (req, res) => [
+    res.send(await items.getAllTypes())
+])
 app.post('/list/createList', (req, res) => {
     const {id_uzi} = req.body
     list.createList(id_uzi) 

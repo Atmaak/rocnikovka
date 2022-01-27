@@ -53,7 +53,6 @@ const Item = ({ items }) => {
     }
   return (
     <>
-    
       {items.map((item) => (
         <div key={item.id_pol} className={item.stav}>
           <div className="infoItem">
@@ -64,9 +63,7 @@ const Item = ({ items }) => {
             {edit && shownEdit === item.id_pol && <EditItem item={item}/>}
           </div>
         </div>
-        
       ))}
-      
     </>
   );
 };

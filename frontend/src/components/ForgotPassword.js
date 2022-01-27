@@ -12,6 +12,7 @@ const ForgotPassword = () => {
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify({email: `${email.current.value}`})
           })
+          window.location.reload();
       }
     return (
         <div>

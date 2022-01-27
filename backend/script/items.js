@@ -43,8 +43,20 @@ const changeItem = (id_pol, nazev, kusy) => {
   })
 }
 
+const getAllTypes = () => {
+  sql = `SELECT * FROM serazeni`
+  const res = new Promise((resolve, reject) => {
+    con.query(sql, (err, result) => {
+      if(err) return reject(err)
+      return resolve(result)
+    })
+  })
+  return res
+}
+
 module.exports = { 
   deleteItem: deleteItem,
   changeState: changeState,
   changeItem: changeItem,
+  getAllTypes: getAllTypes,
 }
