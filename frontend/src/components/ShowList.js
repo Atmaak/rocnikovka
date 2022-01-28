@@ -19,7 +19,6 @@ const ShowList = ({ id_sez }) => {
 
   const displayList = async (id_sez) => {
     if(id_sez === undefined) return
-    //console.log(id_sez)
     const fetchList = await fetch("http://localhost:3001/list", {
       method: "POST",
       headers: {

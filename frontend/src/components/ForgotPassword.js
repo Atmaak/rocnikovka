@@ -5,7 +5,6 @@ const ForgotPassword = () => {
     const [err, setErr] = useState()
     const forgotPassword = (e) => {
         e.preventDefault()
-        console.log(email.current.value)
         if(email.current.value === '') return setErr('No email address provided')
         fetch("http://localhost:3001/user/newPassword", {
             method: 'POST',

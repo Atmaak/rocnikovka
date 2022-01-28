@@ -4,6 +4,7 @@ import React, { useRef, useState, useEffect } from 'react';
 const AddItem = ({ id_sez }) => {
   const [data, setData] = useState([])
   const [id_szn, setIdszn] = useState(0)
+  const [error, setError] = useState('')
   var nazev = useRef();
   var kusy = useRef();
 
@@ -35,11 +36,14 @@ const AddItem = ({ id_sez }) => {
     e.preventDefault();
     if (
       nazev.current.value.length >= 2 &&
-      kusy.current.value.length >= 1
+      kusy.current.value.length >= 1 &&
+      id_szn != 0
     ) {
       await addIt(nazev.current.value, kusy.current.value, id_sez);
       nazev.current.value = null;
       kusy.current.value = null;
+      setIdszn(0)
+      setError('')
     }
   }
   return (
@@ -52,11 +56,10 @@ const AddItem = ({ id_sez }) => {
             <br />
             <input type="number" ref={kusy} placeholder="Kusy" min="1" />
             <br />
-            
-          <div>{data.map((item) => {
+          <div className="types">{data.map((item) => {
             return <button onClick={(e) => {e.preventDefault(); setIdszn(item.id_szn)}} key={item.id_szn}>{item.nazev}</button>
           })}</div>
-          
+          {error && <p className='err'>{error}</p>}
             <br />
             <input type="submit"/>
           </form>

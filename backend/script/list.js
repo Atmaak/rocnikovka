@@ -64,7 +64,6 @@ function addItem(item) {
 //selectne vsechny seznamy od 1 uzivatele podle id_uzi
 
 async function displayNewestList(id_uzi, res) {
-  //console.log(id_uzi)
   sql = `SELECT * FROM seznamy WHERE id_uzi = ${id_uzi}`
 
   res.send(await new Promise((resolve, reject) => {
