@@ -8,21 +8,21 @@ const ShowProfile = ({ id_uzi }) => {
   const passwordRef = useRef();
   const passwordSameRef = useRef();
 
-    const getProfile = async (id_uzi) => {
-      const res = await fetch("http://localhost:3001/user/getData", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: `{"id_uzi": ${id_uzi}}`,
-      });
-      const data = await res.json();
-      setData(data)
-    };
+  const getProfile = async (id_uzi) => {
+    const res = await fetch("http://localhost:3001/user/getData", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: `{"id_uzi": ${id_uzi}}`,
+    });
+    const data = await res.json();
+    setData(data);
+  };
 
-    useEffect(() => {
-      if(!data) getProfile(id_uzi)
-    })
+  useEffect(() => {
+    if (!data) getProfile(id_uzi);
+  });
   const changeUsername = (e) => {
     e.preventDefault();
     if (data.jmeno === usernameRef.current.value) return;
@@ -79,17 +79,15 @@ const ShowProfile = ({ id_uzi }) => {
     passwordSameRef.current.value = null;
   };
 
-  
-
   const deleteAccount = () => {
-    fetch("http://localhost:3001/user/deleteAccount",{
+    fetch("http://localhost:3001/user/deleteAccount", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: `{"id_uzi": ${id_uzi}}`
-    })
-  
+      body: `{"id_uzi": ${id_uzi}}`,
+    });
+
     window.location.reload();
   };
 
@@ -108,23 +106,19 @@ const ShowProfile = ({ id_uzi }) => {
       >
         <input type="text" placeholder="Username" ref={usernameRef} />
         <br />
-        <input type="submit" />
+        <input type="submit" value="Submit" />
       </form>
       <div>
         <h5>Change Email: </h5>
         <form onSubmit={(e) => changeEmail(e)}>
           <input type="email" placeholder="Email" ref={emailRef} />
           <br />
-          <input type="submit" />
+          <input type="submit" value="Submit" />
         </form>
       </div>
       <div>
         <h5>Change Password: </h5>
-        <form
-          onSubmit={(e) => {
-            changePassword(e);
-          }}
-        >
+        <form onSubmit={(e) => {changePassword(e)}}>
           <input type="text" ref={passwordRef} placeholder="New Password" />
           <br />
           <input
@@ -133,10 +127,12 @@ const ShowProfile = ({ id_uzi }) => {
             placeholder="New password Again"
           />
           <br />
-          <input type="submit" />
+          <input type="submit" value="Submit" />
         </form>
       </div>
-      <button onClick={() => deleteAccount(id_uzi)} className="buttonos">Delete Account</button>
+      <button onClick={() => deleteAccount(id_uzi)} className="buttonos">
+        Delete Account
+      </button>
     </div>
   );
 };

@@ -1,27 +1,28 @@
-import React from "react";
+import React, { useRef } from "react";
 
 const CreateList = ({ id_uzi }) => {
-  const createList = async (id_uzi) => {
+  const nazev = useRef()
+  const createList = async () => {
+    if(nazev.current.value === '') return
     await fetch("http://localhost:3001/list/createList", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: `{
-                "id_uzi": ${id_uzi}
+                "id_uzi": ${id_uzi},
+                "nazev": "${nazev.current.value}"
             }`,
     });
+    nazev.current.value = ''
   };
 
   return (
-    <button
-      onClick={() => {
-        createList(id_uzi);
-      }}
-      className='buttonos'
-    >
-      Create List
-    </button>
+    <form onSubmit={(e) => {e.preventDefault(); createList()}}>
+      <input type="text" placeholder="Name for da list" ref={nazev}/>
+      <br />
+      <input type="submit" value="Create List"/>
+    </form>
   );
 };
 

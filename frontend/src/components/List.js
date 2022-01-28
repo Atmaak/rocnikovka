@@ -23,6 +23,7 @@ const List = ({ lists, funkce, setId_Sez }) => {
     <>
       {lists.map((list) => (
         <div key={list.id_sez} className="List">
+          <h4>{list.nazev}</h4>
           <h4>
               {getTime(list.datum)} <br /> {getDate(list.datum)}
           </h4>

@@ -54,9 +54,22 @@ const getAllTypes = () => {
   return res
 }
 
+
+const getHowManyTypes = () => {
+  sql = `SELECT id_szn FROM serazeni ORDER BY id_szn DESC LIMIT 0, 1`
+  const res = new Promise((resolve, reject) => {
+    con.query(sql, (err, result)=> {
+      if(err) return reject(err)
+      return resolve(result)
+    })
+  })
+  return res
+}
+
 module.exports = { 
   deleteItem: deleteItem,
   changeState: changeState,
   changeItem: changeItem,
   getAllTypes: getAllTypes,
+  getHowManyTypes: getHowManyTypes,
 }

@@ -34,8 +34,8 @@ var sql
 
 //vytvori list
 
-function createList(id_uzi) {
-  sql = `INSERT INTO seznamy(id_uzi) VALUES ("${id_uzi}")`
+function createList(list) {
+  sql = `INSERT INTO seznamy(id_uzi, nazev) VALUES (${list.id_uzi}, "${list.nazev}")`
   con.query(sql, function (err, result) {
       if(err) throw err;
   })

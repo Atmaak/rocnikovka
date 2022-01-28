@@ -56,7 +56,8 @@ const Item = ({ items }) => {
       {items.map((item) => (
         <div key={item.id_pol} className={item.stav}>
           <div className="infoItem">
-            <p>{(item.nazev).toUpperCase()} : {item.kusy}</p>
+            <p>{(item.nazev)} : {item.kusy} ({item.nazevSerazeni})</p>
+            <p></p>
             <div>
              <span className="btns">{((item.stav === 'koupeno') ? <ImCheckmark onClick={() => {changeState(item)}}/>: <ImCross onClick={() => {changeState(item)}}/> )} <button onClick={async () => {await deleteItem(item.id_pol)}}><BsFillTrashFill /></button> <button onClick={() => { showEdits(item)} } ><BsFillPencilFill /></button></span>
             </div>

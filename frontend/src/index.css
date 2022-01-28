@@ -81,16 +81,16 @@ p {
     background-color: #004883;
 }
 
-button:hover {
+.types > button:hover {
     background-color: #004883;
 }
 
-button {
-    min-width: 30%;
+.types > button {
+    min-width: 49%;
     background-color: #0071ce;
     color: white;
     border: none;
-    margin: 2px;
+    margin: 0.5px;
     cursor: pointer;
 }
 

@@ -5,13 +5,26 @@ const AddItem = ({ id_sez }) => {
   const [data, setData] = useState([])
   const [id_szn, setIdszn] = useState(0)
   const [error, setError] = useState('')
-  var nazev = useRef();
-  var kusy = useRef();
+  const [showTypes, setShowTypes] = useState(false)
+  var nazev = useRef('');
+  var kusy = useRef('');
 
   useEffect(() => {
     fetchdata()
+    fillUseEffect()
   },[])
 
+  useEffect(() => {
+    if(nazev.current.value !== '' && kusy.current.value !== '') setShowTypes(true)
+    if(nazev.current.value === '' || kusy.current.value === '') setShowTypes(false)
+    
+  },[nazev.current.value, kusy.current.value])
+
+  const fillUseEffect = () => {
+    nazev.current.value = ''
+    kusy.current.value = ''
+  }
+  
   const fetchdata = async () => {
     const res = await fetch('http://localhost:3001/item/types')
     const dat = await res.json()
@@ -37,7 +50,7 @@ const AddItem = ({ id_sez }) => {
     if (
       nazev.current.value.length >= 2 &&
       kusy.current.value.length >= 1 &&
-      id_szn != 0
+      id_szn !== 0
     ) {
       await addIt(nazev.current.value, kusy.current.value, id_sez);
       nazev.current.value = null;
@@ -52,15 +65,15 @@ const AddItem = ({ id_sez }) => {
         {id_sez > 0 && (
           <>
           <form onSubmit={(e) => {doIt(e)}}>
-            <input type="text" placeholder="Nazev" ref={nazev}/>
+            <input type="text" placeholder="Name" ref={nazev}/>
             <br />
-            <input type="number" ref={kusy} placeholder="Kusy" min="1" />
+            <input type="number" ref={kusy} placeholder="Count" min="1" />
             <br />
-          <div className="types">{data.map((item) => {
+          {showTypes && <><div className="types">{data.map((item) => {
             return <button onClick={(e) => {e.preventDefault(); setIdszn(item.id_szn)}} key={item.id_szn}>{item.nazev}</button>
-          })}</div>
-          {error && <p className='err'>{error}</p>}
-            <br />
+          })}</div><br /></>}
+          {error && <><p className='err'>{error}</p> <br /></>}
+            
             <input type="submit"/>
           </form>
           </>

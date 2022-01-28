@@ -9,10 +9,10 @@ const ShowList = ({ id_sez }) => {
   useEffect(() => {
     const getList = async (id_sez) => {
       const dataFromServer = await displayList(id_sez);
-      if(dataFromServer === undefined){
-        return
+      if(dataFromServer !== undefined){
+        await setList(dataFromServer);
       }
-      await setList(dataFromServer);
+      
     };
     getList(id_sez);
   }, [List, id_sez]);
