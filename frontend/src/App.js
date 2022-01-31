@@ -1,7 +1,8 @@
 import Header from './components/Header'
-import Login from './components/Login'
+import Login from './components/mainpage/Login'
 import MainPage from './components/MainPage'
-import Register from './components/Register'
+import Register from './components/mainpage/Register'
+import HeaderMainPage from './components/mainpage/HeaderMainPage'
 import './index.css'
 
 import {useState} from 'react'
@@ -11,9 +12,10 @@ import {useState} from 'react'
 //const dotenv = require('dotenv').config()
 
 function App() {
-const [showLogin, setShowLogin] = useState(true)
+const [showLogin, setShowLogin] = useState(false)
 const [showMainPage, setShowMainPage] = useState(false)
 const [showRegister, setShowRegister] = useState(false)
+const [showCreateList, setShowCreateList] = useState(false);
 const [id, setId] = useState(0)
 
 const onSubmit = async (refUsername, refPassword) => {
@@ -48,16 +50,15 @@ const back = () => {
   setShowRegister(false)
   setShowMainPage(false)
 }
-
-
   return (
     <>
     <div className='mainpage'>
-      <Header title='Shoping List' id_uzi={id} showIt={showMainPage} back={back}/>
+      {!showMainPage &&<HeaderMainPage setShowLogin={setShowLogin} setShowRegister={setShowRegister}/>}
+      {showMainPage && <Header title='Shoping List' id_uzi={id} showIt={showMainPage} back={back} setShowCreateList={setShowCreateList}/>} 
       <div >
-      {showLogin && <Login onSubmit={onSubmit} onClickShowRegister={onClickShowRegister}/>}
-      {showMainPage && <MainPage id={id}/>}
-      {showRegister && <Register registered={registered}/>}
+      {showLogin && <Login onSubmit={onSubmit} onClickShowRegister={onClickShowRegister} setShowRegister={setShowLogin} setShowLoginos={setShowLogin} />}
+      {showMainPage && <MainPage id={id} showCreateList={showCreateList} setShowCreateList={setShowCreateList}/>}
+      {showRegister && <Register registered={registered} setShowRegister={setShowRegister}/>}
       </div>
     </div>
     </>

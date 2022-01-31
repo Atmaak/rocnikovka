@@ -49,24 +49,10 @@ const Item = ({ items }) => {
       else {
         setShownEdit(item.id_pol)
       }
-      
-
-      /*<div key={item.id_pol} className={item.stav}>
-          <div className="infoItem">
-            <p>{(item.nazev)} : {item.kusy} ({item.nazevSerazeni})</p>
-            <p></p>
-            <div>
-             <span className="btns">{((item.stav === 'koupeno') ? <ImCheckmark onClick={() => {changeState(item)}}/>: <ImCross onClick={() => {changeState(item)}}/> )} <button onClick={async () => {await deleteItem(item.id_pol)}}><BsFillTrashFill /></button> <button onClick={() => { showEdits(item)} } ><BsFillPencilFill /></button></span>
-            </div>
-            
-          </div>
-        </div>*/ 
     }
   return (
     <>
       {items.map((item) => (
-        
-
         <div key={item.id_pol} className={item.stav}>
           <div className="item">
           <div className="headerItem">

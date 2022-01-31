@@ -14,7 +14,9 @@ const ForgotPassword = () => {
           window.location.reload();
       }
     return (
-        <div>
+        <div className="form">
+            <br />
+            <h1>Forgot Password</h1>
             <form onSubmit={(e) => {forgotPassword(e)}}>
                 <input type="email" ref={email} placeholder="Email"/>
                 <br />

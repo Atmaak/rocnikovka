@@ -4,7 +4,7 @@ import Item from "./Item";
 
 import AddItem from "./AddItem";
 
-const ShowList = ({ id_sez }) => {
+const ShowList = ({ id_sez, showAddItem, setShowAddItem }) => {
   const [List, setList] = useState([]);
   useEffect(() => {
     const getList = async (id_sez) => {
@@ -32,7 +32,7 @@ const ShowList = ({ id_sez }) => {
   return (
     <>
       <div className="body">
-      {(id_sez > 0) && <AddItem id_sez={id_sez} />}
+      {showAddItem && <AddItem id_sez={id_sez} setShowAddItem={setShowAddItem}/>}
       <div className="itemy">
         <Item items={List} />
       </div>

@@ -21,12 +21,6 @@ body {
     padding: 2px;
 }
 
-.infoItem {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
 .itemy {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 250px));
@@ -39,8 +33,8 @@ body {
 .item {
     padding-bottom: 2vh;
     border: 1px solid black;
-    border-radius: 35px;
-    margin: 5px;
+    border-radius: 15px;
+    margin: 2px;
 }
 
 .link {
@@ -53,35 +47,22 @@ body {
     color: rgb(138, 0, 0);
 }
 
-.koupeno {
+.koupeno .btns{
     color: rgba(0, 0, 0, 0.26);
 }
 
-.nekoupeno {
+.nekoupeno .btns {
     color: brown;
 }
 
-
-.List button {
-    width: 50%;
-    background-color: #0071ce;
-    color: white;
-    border: none;
-    margin: 2px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #004883;
-}
 
 button:hover {
     background-color: #004883;
 }
 
 .types {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 150px);
 }
 
 .types button {
@@ -165,8 +146,8 @@ input[type=submit]:hover {
     width: 100%;
     background-color: #0071ce;
     color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
+    padding: 14px;
+    margin: 4px 0;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -177,27 +158,11 @@ input[type=submit]:hover {
     size: 10px;
 }
 
-.types {
-    display: inline-block;
-    width: 30%;
-}
 
 .mainHeader {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-}
-
-.changeIt input[type="text"] {
-    min-width: 100%;
-}
-
-.changeIt input[type="submit"] {
-    min-width: 100%;
-}
-
-.changeIt input[type="email"] {
-    min-width: 100%;
 }
 
 .popup {
@@ -214,10 +179,9 @@ input[type=submit]:hover {
 
 .popup_inner {
     position: absolute;
+    top: 5vw;
     left: 25vw;
     right: 25vw;
-    top: 15vh;
-    bottom: 15vh;
     padding: 15px;
     background-color: rgb(211, 211, 211);
     text-align: center;
@@ -233,8 +197,7 @@ input[type=submit]:hover {
     cursor: pointer;
 }
 
-
-@media all and (max-width: 680px){
+@media all and (max-width: 900px){
     .popup_inner {
         position: absolute;
         top: 0;
@@ -243,4 +206,55 @@ input[type=submit]:hover {
         bottom: 0;
         overflow: scroll;
     }
+}
+@media all and (max-height: 810px){
+    .popup_inner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow: scroll;
+    }
+}
+.mainpage {
+    text-align: center;
+}
+
+.form input[type="text"] {
+    min-width: 100%;
+}
+
+.form input[type="submit"] {
+    min-width: 100%;
+}
+
+.form input[type="email"] {
+    min-width: 100%;
+}
+.form input[type="password"] {
+    min-width: 100%;
+}
+.form input[type="number"] {
+    min-width: 100%;
+}
+.form button {
+}
+.icons {
+   display: flex;
+   flex-direction: row;
+   gap: 10px;
+}
+.link{
+    color: #002341;
+    text-decoration: none;
+}
+.link > * {
+    padding: 10px;
+    border-radius: 15px;
+    background-color: #0071ce;
+}
+.link > *:hover {
+    border-color: #004883;
+    color: white;
 }

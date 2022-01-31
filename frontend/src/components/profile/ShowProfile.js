@@ -100,12 +100,11 @@ const ShowProfile = ({ id_uzi, setShowProfile }) => {
 
   const close = (e) => {
     if((e.target).classList[0] === 'popup') setShowProfile(false)
-   
   }
   return (
     <div className="popup" onClick={(e)=> {close(e)}}>
       <div className="popup_inner">
-        <div className="changeIt">
+        <div className="form">
           <span
             className="close"
             onClick={() => {

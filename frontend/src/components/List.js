@@ -1,6 +1,5 @@
 import React from "react";
-import { BsFillTrashFill } from "react-icons/bs";
-const List = ({ lists, funkce, setId_Sez }) => {
+const List = ({ lists, showList, setId_Sez, setShowAddItem, showAddItem, sezIsShown }) => {
   const getTime = (string) => {
     let time = string.substring(11, 16);
     return time;
@@ -23,30 +22,37 @@ const List = ({ lists, funkce, setId_Sez }) => {
     <>
       {lists.map((list) => (
         <div key={list.id_sez} className="List">
-          <h4>{list.nazev}</h4>
+          <h4>{(list.nazev)[0].toUpperCase() + (list.nazev).slice(1)}</h4>
           <h4>
-              {getTime(list.datum)} <br /> {getDate(list.datum)}
+            {getTime(list.datum)} <br /> {getDate(list.datum)}
           </h4>
-          <button
-            onClick={() => {
-              funkce(list.id_sez);
-            }}
-          >
-            Show
-          </button>
-          <br />
-          <button
-            onClick={async () => {
-              await deleteList(list.id_sez);
-              setId_Sez(0)
-            }}
-          >
-            <BsFillTrashFill />
-          </button>
+          <div>
+            <button
+              onClick={() => {
+                showList(list.id_sez);
+              }}
+              className="buttonos"
+            >
+              Show
+            </button>
+            <br />
+
+            <button
+              className="buttonos"
+              onClick={async () => {
+                await deleteList(list.id_sez);
+                setId_Sez(0);
+              }}
+            >
+              Delete List
+            </button>
+            {sezIsShown && <button className="buttonos" onClick={() => {setShowAddItem(!showAddItem)}}>
+              Add Item
+            </button>}
+          </div>
         </div>
       ))}
     </>
   );
 };
-
 export default List;
