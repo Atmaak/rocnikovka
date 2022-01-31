@@ -1,5 +1,6 @@
 body {
     background-color: rgb(211, 211, 211);
+    margin: 20px;
 }
 
 .List {
@@ -11,23 +12,13 @@ body {
 }
 
 .row {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 150px));
+    gap: 0.5em;
 }
 
 .stav {
     padding: 2px;
-}
-
-.addIt {
-    display: flex;
-    justify-content: center;
-    margin: 5px;
-}
-
-.addIt>* {
-    width: 100%;
 }
 
 .infoItem {
@@ -36,13 +27,20 @@ body {
     justify-content: center;
 }
 
-p {
-    font-size: 25px;
+.itemy {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 250px));
+    min-width: 200px;
+    overflow: hidden;
+    gap: .25rem;
+    text-align: center;
 }
 
-.itemy {
-    display: flex;
-    flex-direction: column-reverse;
+.item {
+    padding-bottom: 2vh;
+    border: 1px solid black;
+    border-radius: 35px;
+    margin: 5px;
 }
 
 .link {
@@ -63,10 +61,6 @@ p {
     color: brown;
 }
 
-.mainpage {
-    text-align: center;
-}
-
 
 .List button {
     width: 50%;
@@ -77,25 +71,35 @@ p {
     cursor: pointer;
 }
 
-.List button:hover {
+button:hover {
     background-color: #004883;
 }
 
-.types > button:hover {
+button:hover {
     background-color: #004883;
 }
 
-.types > button {
-    min-width: 49%;
+.types {
+    display: flex;
+    flex-direction: column;
+}
+
+.types button {
+    min-width: 10vw;
+    max-width: 20vw;
+    margin: .05rem;
+}
+
+button {
     background-color: #0071ce;
     color: white;
     border: none;
-    margin: 0.5px;
     cursor: pointer;
 }
 
 input[type=text],
 select {
+    min-width: 20vh;
     width: 30%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -107,6 +111,7 @@ select {
 
 input[type=email],
 select {
+    min-width: 20vh;
     width: 30%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -118,6 +123,7 @@ select {
 
 input[type=number],
 select {
+    min-width: 20vh;
     width: 30%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -129,6 +135,7 @@ select {
 
 input[type=password],
 select {
+    min-width: 20vh;
     width: 30%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -139,6 +146,7 @@ select {
 }
 
 input[type=submit] {
+    min-width: 20vh;
     width: 30%;
     background-color: #0071ce;
     color: white;
@@ -154,7 +162,7 @@ input[type=submit]:hover {
 }
 
 .buttonos {
-    width: 30%;
+    width: 100%;
     background-color: #0071ce;
     color: white;
     padding: 14px 20px;
@@ -162,10 +170,6 @@ input[type=submit]:hover {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-}
-
-.buttonos:hover {
-    background-color: #004883;
 }
 
 .btns {
@@ -176,4 +180,67 @@ input[type=submit]:hover {
 .types {
     display: inline-block;
     width: 30%;
+}
+
+.mainHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.changeIt input[type="text"] {
+    min-width: 100%;
+}
+
+.changeIt input[type="submit"] {
+    min-width: 100%;
+}
+
+.changeIt input[type="email"] {
+    min-width: 100%;
+}
+
+.popup {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    background-color: rgba(0, 0, 0, .95);
+}
+
+.popup_inner {
+    position: absolute;
+    left: 25vw;
+    right: 25vw;
+    top: 15vh;
+    bottom: 15vh;
+    padding: 15px;
+    background-color: rgb(211, 211, 211);
+    text-align: center;
+}
+
+.close {
+    color: Black;
+    float: right;
+}
+
+.close:hover {
+    color: white;
+    cursor: pointer;
+}
+
+
+@media all and (max-width: 680px){
+    .popup_inner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow: scroll;
+    }
 }

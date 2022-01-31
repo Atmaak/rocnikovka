@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
-
-const ShowProfile = ({ id_uzi }) => {
+import { CgCloseR } from "react-icons/cg";
+const ShowProfile = ({ id_uzi, setShowProfile }) => {
   const [data, setData] = useState([]);
 
   const usernameRef = useRef();
@@ -96,43 +96,67 @@ const ShowProfile = ({ id_uzi }) => {
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
   };
+
+
+  const close = (e) => {
+    if((e.target).classList[0] === 'popup') setShowProfile(false)
+   
+  }
   return (
-    <div className="changeIt">
-      <h5>Change Username: </h5>
-      <form
-        onSubmit={(e) => {
-          changeUsername(e);
-        }}
-      >
-        <input type="text" placeholder="Username" ref={usernameRef} />
-        <br />
-        <input type="submit" value="Submit" />
-      </form>
-      <div>
-        <h5>Change Email: </h5>
-        <form onSubmit={(e) => changeEmail(e)}>
-          <input type="email" placeholder="Email" ref={emailRef} />
-          <br />
-          <input type="submit" value="Submit" />
-        </form>
+    <div className="popup" onClick={(e)=> {close(e)}}>
+      <div className="popup_inner">
+        <div className="changeIt">
+          <span
+            className="close"
+            onClick={() => {
+              setShowProfile(false);
+            }}
+          >
+            <CgCloseR />
+          </span>
+          <div>
+            <h5>Change Username: </h5>
+            <form
+              onSubmit={(e) => {
+                changeUsername(e);
+              }}
+            >
+              <input type="text" placeholder="Username" ref={usernameRef} />
+              <br />
+              <input type="submit" value="Submit" />
+            </form>
+          </div>
+          <div>
+            <h5>Change Email: </h5>
+            <form onSubmit={(e) => changeEmail(e)}>
+              <input type="email" placeholder="Email" ref={emailRef} />
+              <br />
+              <input type="submit" value="Submit" />
+            </form>
+          </div>
+          <div>
+            <h5>Change Password: </h5>
+            <form
+              onSubmit={(e) => {
+                changePassword(e);
+              }}
+            >
+              <input type="text" ref={passwordRef} placeholder="New Password" />
+              <br />
+              <input
+                type="text"
+                ref={passwordSameRef}
+                placeholder="New password Again"
+              />
+              <br />
+              <input type="submit" value="Submit" />
+            </form>
+          </div>
+        </div>
+        <button onClick={() => deleteAccount(id_uzi)} className="buttonos">
+          Delete Account
+        </button>
       </div>
-      <div>
-        <h5>Change Password: </h5>
-        <form onSubmit={(e) => {changePassword(e)}}>
-          <input type="text" ref={passwordRef} placeholder="New Password" />
-          <br />
-          <input
-            type="text"
-            ref={passwordSameRef}
-            placeholder="New password Again"
-          />
-          <br />
-          <input type="submit" value="Submit" />
-        </form>
-      </div>
-      <button onClick={() => deleteAccount(id_uzi)} className="buttonos">
-        Delete Account
-      </button>
     </div>
   );
 };

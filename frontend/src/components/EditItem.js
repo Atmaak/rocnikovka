@@ -30,7 +30,9 @@ const EditItem = ({ item }) => {
         <div>
             <form onSubmit={(e) => {editItem(e)}}>
                 <input type="text" placeholder="name" ref={name} size="1"/>
+                <br />
                 <input type="number" placeholder="count" ref={count} size="1" min="1"/>
+                <br />
                 <input type="submit" size="1"/>
             </form>
         </div>

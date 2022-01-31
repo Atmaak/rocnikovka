@@ -1,16 +1,19 @@
 import React, {useState} from 'react'
 import ShowProfile from './profile/ShowProfile'
+import {ImProfile} from 'react-icons/im'
 const Header = ({ title, id_uzi, showIt }) => {
 const [showProfile, setShowProfile] = useState(false)
 
     return (
-        <header>
+        <>
+        <div className="mainHeader">
             <h1>{title}</h1>
-            {showIt && <div><button onClick={() => {setShowProfile(!showProfile)}} className="buttonos">Profile</button></div>}
-            {showProfile && <ShowProfile id_uzi={id_uzi} />}
+            <p>{showIt && <ImProfile onClick={() => {setShowProfile(!showProfile)}} size="5vh"/>}</p>
+        </div>
+        {showProfile && <ShowProfile id_uzi={id_uzi} setShowProfile={setShowProfile}/>}
             
-        </header>
+        </>
     )
 }
-
+/*{showIt && <ImProfile onClick={() => {setShowProfile(!showProfile)}} size="5vh"/>}*/
 export default Header
