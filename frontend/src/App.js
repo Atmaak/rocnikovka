@@ -56,9 +56,11 @@ const back = () => {
       {!showMainPage &&<HeaderMainPage setShowLogin={setShowLogin} setShowRegister={setShowRegister}/>}
       {showMainPage && <Header title='Shoping List' id_uzi={id} showIt={showMainPage} back={back} setShowCreateList={setShowCreateList}/>} 
       <div >
+        <div className='main'>
       {showLogin && <Login onSubmit={onSubmit} onClickShowRegister={onClickShowRegister} setShowRegister={setShowLogin} setShowLoginos={setShowLogin} />}
       {showMainPage && <MainPage id={id} showCreateList={showCreateList} setShowCreateList={setShowCreateList}/>}
       {showRegister && <Register registered={registered} setShowRegister={setShowRegister}/>}
+      </div>
       </div>
     </div>
     </>

@@ -42,7 +42,7 @@ const MainPage = ({ id, showCreateList, setShowCreateList }) => {
     <>
       {showCreateList && <CreateList id_uzi={id} setShowCreateList={setShowCreateList}/>}
       <div className="row">
-        <List lists={lists} showList={showList} setId_Sez={setId_Sez} setShowAddItem={setShowAddItem} showAddItem={showAddItem} sezIsShown={sezIsShown}/>
+        <List lists={lists} showList={showList} setId_Sez={setId_Sez} setShowAddItem={setShowAddItem} showAddItem={showAddItem} sezIsShown={sezIsShown} id_sez={id_sez}/>
       </div>
       <ShowList id_sez={id_sez} lists={lists} showAddItem={showAddItem} setShowAddItem={setShowAddItem}/>
     </>

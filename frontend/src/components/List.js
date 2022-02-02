@@ -1,5 +1,5 @@
 import React from "react";
-const List = ({ lists, showList, setId_Sez, setShowAddItem, showAddItem, sezIsShown }) => {
+const List = ({ lists, showList, setId_Sez, setShowAddItem, showAddItem, sezIsShown, id_sez }) => {
   const getTime = (string) => {
     let time = string.substring(11, 16);
     return time;
@@ -46,7 +46,7 @@ const List = ({ lists, showList, setId_Sez, setShowAddItem, showAddItem, sezIsSh
             >
               Delete List
             </button>
-            {sezIsShown && <button className="buttonos" onClick={() => {setShowAddItem(!showAddItem)}}>
+            {sezIsShown && list.id_sez === id_sez && <button className="buttonos" onClick={() => {setShowAddItem(!showAddItem)}}>
               Add Item
             </button>}
           </div>

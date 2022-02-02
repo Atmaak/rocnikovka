@@ -1,19 +1,17 @@
 body {
-    background-color: rgb(211, 211, 211);
-    margin: 20px;
+    background-color: rgb(60, 60, 60);
+    color: white;
 }
 
 .List {
-    border: 2px solid black;
-    margin: 2px;
+    border: 2px solid rgb(122, 122, 122);
+    margin: 1rem;
     text-align: center;
-    width: 15%;
-    min-width: 150px;
 }
 
 .row {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 150px));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 150px));
     gap: 0.5em;
 }
 
@@ -23,8 +21,7 @@ body {
 
 .itemy {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 250px));
-    min-width: 200px;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 200px));
     overflow: hidden;
     gap: .25rem;
     text-align: center;
@@ -32,9 +29,8 @@ body {
 
 .item {
     padding-bottom: 2vh;
-    border: 1px solid black;
+    border: 1px solid rgb(122, 122, 122);
     border-radius: 15px;
-    margin: 2px;
 }
 
 .link {
@@ -49,10 +45,12 @@ body {
 
 .koupeno .btns{
     color: rgba(0, 0, 0, 0.26);
+    cursor: pointer;
 }
 
 .nekoupeno .btns {
     color: brown;
+    cursor: pointer;
 }
 
 
@@ -162,7 +160,13 @@ input[type=submit]:hover {
 .mainHeader {
     display: flex;
     flex-direction: row;
+    flex-grow: 0;
     justify-content: space-between;
+    position: sticky;
+    top: 0;
+    background-color: rgb(60, 60, 60);
+    width: 100%;
+    padding: .5rem;
 }
 
 .popup {
@@ -183,7 +187,7 @@ input[type=submit]:hover {
     left: 25vw;
     right: 25vw;
     padding: 15px;
-    background-color: rgb(211, 211, 211);
+    background-color: rgb(60, 60, 60);
     text-align: center;
 }
 
@@ -243,11 +247,13 @@ input[type=submit]:hover {
 .icons {
    display: flex;
    flex-direction: row;
+   flex-grow: 0;
    gap: 10px;
 }
 .link{
-    color: #002341;
+    color: #ffffff;
     text-decoration: none;
+    cursor: pointer;
 }
 .link > * {
     padding: 10px;
@@ -257,4 +263,8 @@ input[type=submit]:hover {
 .link > *:hover {
     border-color: #004883;
     color: white;
+}
+
+.main {
+    margin-top: 1rem;
 }
