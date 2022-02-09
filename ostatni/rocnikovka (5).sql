@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: 127.0.0.1
--- Vytvořeno: Čtv 27. led 2022, 16:58
--- Verze serveru: 10.4.13-MariaDB
--- Verze PHP: 7.4.7
+-- Vytvořeno: Stř 09. úno 2022, 14:40
+-- Verze serveru: 10.4.20-MariaDB
+-- Verze PHP: 7.3.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 
 --
 -- Zástupná struktura pro pohled `items`
--- (See below for the actual view)
+-- (Vlastní pohled viz níže)
 --
 CREATE TABLE `items` (
 `nazev` varchar(64)
@@ -33,8 +33,22 @@ CREATE TABLE `items` (
 ,`id_sez` int(11)
 ,`id_pol` int(11)
 ,`id_sta` int(11)
+,`id_szn` int(11)
+,`nazevSerazeni` varchar(64)
 ,`stav` varchar(64)
 );
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabulky `markety`
+--
+
+CREATE TABLE `markety` (
+  `id_mark` int(11) NOT NULL,
+  `nazev` varchar(64) COLLATE utf8mb4_czech_ci NOT NULL,
+  `poradi` text COLLATE utf8mb4_czech_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
 
 -- --------------------------------------------------------
 
@@ -72,9 +86,18 @@ CREATE TABLE `polozky` (
 --
 
 INSERT INTO `polozky` (`id_pol`, `nazev`, `id_szn`) VALUES
-(115, 'dasdasd', 1),
-(117, 'dasd', 1),
-(118, 'dasda', 1);
+(128, 'dasdas', 14),
+(129, 'dasdsa', 8),
+(130, 'dasdas', 11),
+(131, 'dasda', 8),
+(132, 'dsadas', 9),
+(133, 'dasdas', 4),
+(134, 'dasd', 13),
+(135, 'dasdas', 4),
+(136, 'dasd', 12),
+(137, 'dasda', 15),
+(138, 'dasda', 5),
+(139, 'dasdas', 6);
 
 -- --------------------------------------------------------
 
@@ -94,8 +117,12 @@ CREATE TABLE `pol_sez` (
 --
 
 INSERT INTO `pol_sez` (`id_sez`, `id_pol`, `kusy`, `id_sta`) VALUES
-(29, 117, 4, 2),
-(29, 118, 45, 2);
+(53, 134, 45, 1),
+(53, 135, 45, 2),
+(53, 136, 1, 2),
+(53, 137, 45, 2),
+(53, 138, 44, 2),
+(53, 139, 458, 2);
 
 -- --------------------------------------------------------
 
@@ -113,8 +140,21 @@ CREATE TABLE `serazeni` (
 --
 
 INSERT INTO `serazeni` (`id_szn`, `nazev`) VALUES
-(1, 'piti'),
-(2, 'sladkosti');
+(1, 'nealko'),
+(2, 'sladkosti'),
+(3, 'alko'),
+(4, 'ovoce a zelenina'),
+(5, 'mléčné výrobky'),
+(6, 'zahrada'),
+(7, 'pečivo'),
+(8, 'maso'),
+(9, 'koupelna'),
+(10, 'uzeniny'),
+(11, 'oblečení'),
+(12, 'děti'),
+(13, 'elektronika'),
+(14, 'nádobí'),
+(15, 'zamražené');
 
 -- --------------------------------------------------------
 
@@ -124,6 +164,7 @@ INSERT INTO `serazeni` (`id_szn`, `nazev`) VALUES
 
 CREATE TABLE `seznamy` (
   `id_sez` int(11) NOT NULL,
+  `nazev` varchar(64) COLLATE utf8mb4_czech_ci NOT NULL,
   `datum` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `id_uzi` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
@@ -132,11 +173,9 @@ CREATE TABLE `seznamy` (
 -- Vypisuji data pro tabulku `seznamy`
 --
 
-INSERT INTO `seznamy` (`id_sez`, `datum`, `id_uzi`) VALUES
-(27, '2021-12-15 08:00:59', 9),
-(29, '2022-01-15 13:56:55', 1),
-(30, '2022-01-20 09:08:44', 12),
-(31, '2022-01-27 15:39:44', 11);
+INSERT INTO `seznamy` (`id_sez`, `nazev`, `datum`, `id_uzi`) VALUES
+(53, 'funkcni', '2022-01-31 17:59:52', 1),
+(54, 'Do lidlu', '2022-02-02 16:54:31', 1);
 
 -- --------------------------------------------------------
 
@@ -176,11 +215,9 @@ CREATE TABLE `uzivatele` (
 --
 
 INSERT INTO `uzivatele` (`id_uzi`, `id_opr`, `jmeno`, `email`, `heslo`) VALUES
-(1, 1, 'admin', 'admin@admin.admin', 'sha1$a3342e7f$1$b5bfc8616511c0c1e7d2157b9c2ca116a5fcd702'),
-(9, 2, 'honza', 'xd@pepega.cs', 'sha1$b3dafceb$1$a271ec2180917c3a4c10356c84f736b63b3795c6'),
-(10, 2, 'admin', 'admin@admin.admin', 'sha1$7ec49284$1$5bbd8d41e1bce8dc6463ec10a9fa50ce5a8f280f'),
-(11, 2, 'atmaak', 'kubjak21@gmail.com', 'sha1$afd3f467$1$92ff81b966c5c5f65708f5d3809139f59f962b33'),
-(12, 2, 'test', 'test@test.cz', 'sha1$ab1a9393$1$d7c1e9497e2959c18ed33ed37ba6b00ca3df8be1');
+(1, 1, 'admin', 'admin@admin.admin', 'sha1$e2b87d22$1$ded12fd3dadbd39ae86b95aabaf899ca46b097d8'),
+(15, 2, 'dasdsadas', 'dasdsadadasdasd', 'sha1$7f95815f$1$c46fb1bad3026b34997de5905b24f0de6edc5766'),
+(16, 2, 'atmaak', 'kubjak21@gmail.com', 'sha1$e01558a1$1$2ffb16d07c47190706e0ae3bc5affafcd4e5feeb');
 
 -- --------------------------------------------------------
 
@@ -189,27 +226,33 @@ INSERT INTO `uzivatele` (`id_uzi`, `id_opr`, `jmeno`, `email`, `heslo`) VALUES
 --
 DROP TABLE IF EXISTS `items`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `items`  AS  select `polozky`.`nazev` AS `nazev`,`pol_sez`.`kusy` AS `kusy`,`pol_sez`.`id_sez` AS `id_sez`,`pol_sez`.`id_pol` AS `id_pol`,`stavy`.`id_sta` AS `id_sta`,`stavy`.`nazev` AS `stav` from ((`pol_sez` join `polozky` on(`pol_sez`.`id_pol` = `polozky`.`id_pol`)) join `stavy` on(`pol_sez`.`id_sta` = `stavy`.`id_sta`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `items`  AS SELECT `polozky`.`nazev` AS `nazev`, `pol_sez`.`kusy` AS `kusy`, `pol_sez`.`id_sez` AS `id_sez`, `pol_sez`.`id_pol` AS `id_pol`, `stavy`.`id_sta` AS `id_sta`, `polozky`.`id_szn` AS `id_szn`, `serazeni`.`nazev` AS `nazevSerazeni`, `stavy`.`nazev` AS `stav` FROM (((`pol_sez` join `polozky` on(`pol_sez`.`id_pol` = `polozky`.`id_pol`)) join `stavy` on(`pol_sez`.`id_sta` = `stavy`.`id_sta`)) join `serazeni` on(`polozky`.`id_szn` = `serazeni`.`id_szn`)) ;
 
 --
--- Klíče pro exportované tabulky
+-- Indexy pro exportované tabulky
 --
 
 --
--- Klíče pro tabulku `opravneni`
+-- Indexy pro tabulku `markety`
+--
+ALTER TABLE `markety`
+  ADD PRIMARY KEY (`id_mark`);
+
+--
+-- Indexy pro tabulku `opravneni`
 --
 ALTER TABLE `opravneni`
   ADD PRIMARY KEY (`id_opr`);
 
 --
--- Klíče pro tabulku `polozky`
+-- Indexy pro tabulku `polozky`
 --
 ALTER TABLE `polozky`
   ADD PRIMARY KEY (`id_pol`),
   ADD KEY `id_szn` (`id_szn`);
 
 --
--- Klíče pro tabulku `pol_sez`
+-- Indexy pro tabulku `pol_sez`
 --
 ALTER TABLE `pol_sez`
   ADD KEY `id_sez` (`id_sez`),
@@ -217,26 +260,26 @@ ALTER TABLE `pol_sez`
   ADD KEY `id_sta` (`id_sta`);
 
 --
--- Klíče pro tabulku `serazeni`
+-- Indexy pro tabulku `serazeni`
 --
 ALTER TABLE `serazeni`
   ADD PRIMARY KEY (`id_szn`);
 
 --
--- Klíče pro tabulku `seznamy`
+-- Indexy pro tabulku `seznamy`
 --
 ALTER TABLE `seznamy`
   ADD PRIMARY KEY (`id_sez`),
   ADD KEY `id_uzi` (`id_uzi`);
 
 --
--- Klíče pro tabulku `stavy`
+-- Indexy pro tabulku `stavy`
 --
 ALTER TABLE `stavy`
   ADD PRIMARY KEY (`id_sta`);
 
 --
--- Klíče pro tabulku `uzivatele`
+-- Indexy pro tabulku `uzivatele`
 --
 ALTER TABLE `uzivatele`
   ADD PRIMARY KEY (`id_uzi`),
@@ -245,6 +288,12 @@ ALTER TABLE `uzivatele`
 --
 -- AUTO_INCREMENT pro tabulky
 --
+
+--
+-- AUTO_INCREMENT pro tabulku `markety`
+--
+ALTER TABLE `markety`
+  MODIFY `id_mark` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pro tabulku `opravneni`
@@ -256,19 +305,19 @@ ALTER TABLE `opravneni`
 -- AUTO_INCREMENT pro tabulku `polozky`
 --
 ALTER TABLE `polozky`
-  MODIFY `id_pol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
+  MODIFY `id_pol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
 
 --
 -- AUTO_INCREMENT pro tabulku `serazeni`
 --
 ALTER TABLE `serazeni`
-  MODIFY `id_szn` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_szn` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT pro tabulku `seznamy`
 --
 ALTER TABLE `seznamy`
-  MODIFY `id_sez` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_sez` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT pro tabulku `stavy`
@@ -280,7 +329,7 @@ ALTER TABLE `stavy`
 -- AUTO_INCREMENT pro tabulku `uzivatele`
 --
 ALTER TABLE `uzivatele`
-  MODIFY `id_uzi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_uzi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Omezení pro exportované tabulky
