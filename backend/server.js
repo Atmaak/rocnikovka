@@ -27,9 +27,9 @@ app.post('/user/log', (req, res) => {
     login.login(username,password, res)
 })
 
-app.post('/user/getData', (req, res) => {
-    const { id_uzi } = req.body
-    user.getData(id_uzi, res)
+app.post('/user/getData', async (req, res) => {
+    console.log(req.body)
+    res.send(await user.getData(req.body))
 })
 
 app.post('/user/changeEmail', (req, res) => {
@@ -107,7 +107,11 @@ app.post('/list/createList', (req, res) => {
 })
 
 app.post('/list/deleteList', (req,res) => {
-    const {id_sez} = req.body
-    list.deleteList(id_sez)
+    list.deleteList(req.body)
     res.sendStatus(200)  
+})
+
+app.post('/inviteFamily' , (req, res) => {
+    user.addToFamily(req.body)
+    res.sendStatus(200)
 })

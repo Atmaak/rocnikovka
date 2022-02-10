@@ -13,6 +13,7 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 150px));
     gap: 0.5em;
+    align-items: flex-start;
 }
 
 .stav {
@@ -49,7 +50,7 @@ body {
 }
 
 .nekoupeno .btns {
-    color: brown;
+    color: brown; 
     cursor: pointer;
 }
 

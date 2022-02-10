@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: 127.0.0.1
--- Vytvořeno: Stř 09. úno 2022, 14:40
+-- Vytvořeno: Čtv 10. úno 2022, 20:43
 -- Verze serveru: 10.4.20-MariaDB
 -- Verze PHP: 7.3.29
 
@@ -86,18 +86,7 @@ CREATE TABLE `polozky` (
 --
 
 INSERT INTO `polozky` (`id_pol`, `nazev`, `id_szn`) VALUES
-(128, 'dasdas', 14),
-(129, 'dasdsa', 8),
-(130, 'dasdas', 11),
-(131, 'dasda', 8),
-(132, 'dsadas', 9),
-(133, 'dasdas', 4),
-(134, 'dasd', 13),
-(135, 'dasdas', 4),
-(136, 'dasd', 12),
-(137, 'dasda', 15),
-(138, 'dasda', 5),
-(139, 'dasdas', 6);
+(140, 'dasdas', 2);
 
 -- --------------------------------------------------------
 
@@ -112,17 +101,24 @@ CREATE TABLE `pol_sez` (
   `id_sta` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
 
+-- --------------------------------------------------------
+
 --
--- Vypisuji data pro tabulku `pol_sez`
+-- Struktura tabulky `rodiny`
 --
 
-INSERT INTO `pol_sez` (`id_sez`, `id_pol`, `kusy`, `id_sta`) VALUES
-(53, 134, 45, 1),
-(53, 135, 45, 2),
-(53, 136, 1, 2),
-(53, 137, 45, 2),
-(53, 138, 44, 2),
-(53, 139, 458, 2);
+CREATE TABLE `rodiny` (
+  `id_fam` int(11) NOT NULL,
+  `id_hla` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
+
+--
+-- Vypisuji data pro tabulku `rodiny`
+--
+
+INSERT INTO `rodiny` (`id_fam`, `id_hla`) VALUES
+(0, 0),
+(1, 1);
 
 -- --------------------------------------------------------
 
@@ -166,16 +162,16 @@ CREATE TABLE `seznamy` (
   `id_sez` int(11) NOT NULL,
   `nazev` varchar(64) COLLATE utf8mb4_czech_ci NOT NULL,
   `datum` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `id_uzi` int(11) NOT NULL
+  `id_uzi` int(11) NOT NULL,
+  `id_fam` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
 
 --
 -- Vypisuji data pro tabulku `seznamy`
 --
 
-INSERT INTO `seznamy` (`id_sez`, `nazev`, `datum`, `id_uzi`) VALUES
-(53, 'funkcni', '2022-01-31 17:59:52', 1),
-(54, 'Do lidlu', '2022-02-02 16:54:31', 1);
+INSERT INTO `seznamy` (`id_sez`, `nazev`, `datum`, `id_uzi`, `id_fam`) VALUES
+(81, 'adasd', '2022-02-10 19:40:18', 17, 1);
 
 -- --------------------------------------------------------
 
@@ -205,6 +201,7 @@ INSERT INTO `stavy` (`id_sta`, `nazev`) VALUES
 CREATE TABLE `uzivatele` (
   `id_uzi` int(11) NOT NULL,
   `id_opr` int(11) NOT NULL,
+  `id_fam` int(11) NOT NULL,
   `jmeno` varchar(64) COLLATE utf8mb4_czech_ci NOT NULL,
   `email` varchar(256) COLLATE utf8mb4_czech_ci NOT NULL,
   `heslo` varchar(64) COLLATE utf8mb4_czech_ci NOT NULL
@@ -214,10 +211,10 @@ CREATE TABLE `uzivatele` (
 -- Vypisuji data pro tabulku `uzivatele`
 --
 
-INSERT INTO `uzivatele` (`id_uzi`, `id_opr`, `jmeno`, `email`, `heslo`) VALUES
-(1, 1, 'admin', 'admin@admin.admin', 'sha1$e2b87d22$1$ded12fd3dadbd39ae86b95aabaf899ca46b097d8'),
-(15, 2, 'dasdsadas', 'dasdsadadasdasd', 'sha1$7f95815f$1$c46fb1bad3026b34997de5905b24f0de6edc5766'),
-(16, 2, 'atmaak', 'kubjak21@gmail.com', 'sha1$e01558a1$1$2ffb16d07c47190706e0ae3bc5affafcd4e5feeb');
+INSERT INTO `uzivatele` (`id_uzi`, `id_opr`, `id_fam`, `jmeno`, `email`, `heslo`) VALUES
+(1, 1, 1, 'admin', 'admin@admin.admin', 'sha1$e2b87d22$1$ded12fd3dadbd39ae86b95aabaf899ca46b097d8'),
+(17, 2, 1, 'atmaak', 'kubjak21@gmail.com', 'sha1$cb90a39f$1$9fb38f614dad5a6e56be345f69734d4fc16ca268'),
+(18, 2, 0, 'xdd', 'xdd@xdd.xdd', 'sha1$ae9bced2$1$32426f36a8adc808baf00e2dc575000e08651fe6');
 
 -- --------------------------------------------------------
 
@@ -260,6 +257,12 @@ ALTER TABLE `pol_sez`
   ADD KEY `id_sta` (`id_sta`);
 
 --
+-- Indexy pro tabulku `rodiny`
+--
+ALTER TABLE `rodiny`
+  ADD PRIMARY KEY (`id_fam`);
+
+--
 -- Indexy pro tabulku `serazeni`
 --
 ALTER TABLE `serazeni`
@@ -270,7 +273,8 @@ ALTER TABLE `serazeni`
 --
 ALTER TABLE `seznamy`
   ADD PRIMARY KEY (`id_sez`),
-  ADD KEY `id_uzi` (`id_uzi`);
+  ADD KEY `id_uzi` (`id_uzi`),
+  ADD KEY `id_fam` (`id_fam`);
 
 --
 -- Indexy pro tabulku `stavy`
@@ -305,7 +309,13 @@ ALTER TABLE `opravneni`
 -- AUTO_INCREMENT pro tabulku `polozky`
 --
 ALTER TABLE `polozky`
-  MODIFY `id_pol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
+  MODIFY `id_pol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
+
+--
+-- AUTO_INCREMENT pro tabulku `rodiny`
+--
+ALTER TABLE `rodiny`
+  MODIFY `id_fam` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pro tabulku `serazeni`
@@ -317,7 +327,7 @@ ALTER TABLE `serazeni`
 -- AUTO_INCREMENT pro tabulku `seznamy`
 --
 ALTER TABLE `seznamy`
-  MODIFY `id_sez` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id_sez` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT pro tabulku `stavy`
@@ -329,7 +339,7 @@ ALTER TABLE `stavy`
 -- AUTO_INCREMENT pro tabulku `uzivatele`
 --
 ALTER TABLE `uzivatele`
-  MODIFY `id_uzi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_uzi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Omezení pro exportované tabulky
@@ -353,7 +363,8 @@ ALTER TABLE `pol_sez`
 -- Omezení pro tabulku `seznamy`
 --
 ALTER TABLE `seznamy`
-  ADD CONSTRAINT `id_uzi` FOREIGN KEY (`id_uzi`) REFERENCES `uzivatele` (`id_uzi`);
+  ADD CONSTRAINT `id_fam` FOREIGN KEY (`id_fam`) REFERENCES `rodiny` (`id_fam`),
+  ADD CONSTRAINT `id_uzi` FOREIGN KEY (`id_uzi`) REFERENCES `uzivatele` (`id_uzi`) ON DELETE CASCADE;
 
 --
 -- Omezení pro tabulku `uzivatele`

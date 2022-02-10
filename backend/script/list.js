@@ -1,6 +1,7 @@
 const mysql = require("mysql");
 const dotenv = require("dotenv").config();
 
+const user = require('./user')
 const con = mysql.createConnection({
   host: process.env.db_host,
   user: process.env.db_user,
@@ -34,8 +35,9 @@ var sql
 
 //vytvori list
 
-function createList(list) {
-  sql = `INSERT INTO seznamy(id_uzi, nazev) VALUES (${list.id_uzi}, "${list.nazev}")`
+async function createList(list) {
+  let User = await user.getData({id_uzi: list.id_uzi})
+  sql = `INSERT INTO seznamy(id_uzi, nazev,id_fam) VALUES (${list.id_uzi}, "${list.nazev}",${User.id_fam})`
   con.query(sql, function (err, result) {
       if(err) throw err;
   })
@@ -51,9 +53,9 @@ function addItem(item) {
   con.query(sql, function (err, result) {
     if(err) throw err
   })
-  con.query(`SELECT id_pol FROM polozky WHERE nazev = "${item.item}"`, function (err, result) {
+  con.query(`SELECT id_pol FROM polozky WHERE nazev = "${item.item}"`, (err, result) => {
     if(err) throw err
-    sql = `INSERT INTO pol_sez(id_sez, id_pol, kusy, id_sta) VALUES (${item.id_sez}, ${result[result.length-1].id_pol}, ${item.kusy}, ${item.id_sta})`
+    sql = `INSERT INTO pol_sez(id_sez, id_pol, kusy, id_sta) VALUES (${item.id_sez}, ${result[result.length-1].id_pol}, ${item.kusy}, ${item.id_sta} )`
     
     con.query(sql, function (err, result) {
       if(err) throw err
@@ -64,11 +66,11 @@ function addItem(item) {
 //selectne vsechny seznamy od 1 uzivatele podle id_uzi
 
 async function displayNewestList(id_uzi, res) {
-  sql = `SELECT * FROM seznamy WHERE id_uzi = ${id_uzi}`
-
+  let User = await user.getData({id_uzi: id_uzi})
+  sql = `SELECT * FROM seznamy WHERE (id_uzi = ${id_uzi}) OR ((id_fam = ${User.id_fam}) AND (id_fam > 0))`
   res.send(await new Promise((resolve, reject) => {
     con.query(
-     sql,
+     sql, 
       (err, result) => {
         return err ? reject(err) : resolve(result);
       }
@@ -86,13 +88,13 @@ const getList = async (id_sez, res) => {
   })
 }
 
-const deleteList = (id_sez) =>{
-  sql = `DELETE FROM pol_sez WHERE pol_sez.id_sez = ${id_sez};`
+const deleteList = (data) =>{
+  sql = `DELETE FROM pol_sez WHERE pol_sez.id_sez = ${data.id_sez};`
   con.query(sql, (err, result) => {
      if(err) throw err
   })
 
-  sql = `DELETE FROM seznamy WHERE id_sez = ${id_sez};`
+  sql = `DELETE FROM seznamy WHERE id_sez = ${data.id_sez};`
   con.query(sql, (err, result) => {
     if(err) throw err;
   })

@@ -14,6 +14,7 @@ const ShowList = ({ id_sez, showAddItem, setShowAddItem }) => {
       }
       
     };
+
     getList(id_sez);
   }, [List, id_sez]);
 
