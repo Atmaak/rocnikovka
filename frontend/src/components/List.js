@@ -1,5 +1,5 @@
 import React from "react";
-const List = ({ lists, showList, setId_Sez, setShowAddItem, showAddItem, sezIsShown, id_sez }) => {
+const List = ({ lists, showList, setId_Sez, setShowAddItem, showAddItem, sezIsShown, id_sez, id_uzi }) => {
   const getTime = (string) => {
     let time = string.substring(11, 16);
     return time;
@@ -18,11 +18,19 @@ const List = ({ lists, showList, setId_Sez, setShowAddItem, showAddItem, sezIsSh
       body: `{"id_sez": ${id_sez}}`,
     });
   };
+  let isOwned = false;
+  const setIsOwned = (state) => {
+    isOwned = state
+  }
   return (
     <>
       {lists.map((list) => (
         <div key={list.id_sez} className="List">
+          {setIsOwned(false)}
+          {(parseInt(list.id_uzi) === parseInt(id_uzi)) && setIsOwned(true)}
           <h4>{(list.nazev)[0].toUpperCase() + (list.nazev).slice(1)}</h4>
+          {!isOwned && <h6 style={{color: 'red'}}>Owned by {(list.jmeno)[0].toUpperCase() + (list.jmeno).slice(1)}</h6>}
+          {isOwned && <h6 style={{color: 'green'}}>Owned by you</h6>}
           <h4>
             {getTime(list.datum)} <br /> {getDate(list.datum)}
           </h4>

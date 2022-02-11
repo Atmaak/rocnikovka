@@ -7,7 +7,7 @@ import AddToFamily from "./mainpage/AddToFamily"
 
 const MainPage = ({ id, showCreateList, setShowCreateList, setShowAddToFamily, showAddToFamily }) => {
   const [lists, setLists] = useState([]);
-  const [id_sez, setId_Sez] = useState([0]);
+  const [id_sez, setId_Sez] = useState(0);
   const [showAddItem, setShowAddItem] = useState(false);
   const [sezIsShown, setSezIsShown] = useState(false);
   useEffect(() => {
@@ -30,24 +30,21 @@ const MainPage = ({ id, showCreateList, setShowCreateList, setShowAddToFamily, s
     getLists();
   }, [lists, id]);
 
-
-  const showList = (id_sez) => {
-    if(sezIsShown) {
-      setId_Sez(0)
-      setSezIsShown(false)
-      return
+  const showList = (iD_sez) => {
+    if(iD_sez === id_sez) {
+      return setSezIsShown(!sezIsShown)
     }
-    setId_Sez(id_sez);
     setSezIsShown(true)
+    setId_Sez(iD_sez);
   };
   return (
     <>
-    {showAddToFamily&& <AddToFamily setShowAddToFamily={setShowAddToFamily} />}
+    {showAddToFamily&& <AddToFamily setShowAddToFamily={setShowAddToFamily} id_uzi={id}/>}
       {showCreateList && <CreateList id_uzi={id} setShowCreateList={setShowCreateList}/>}
       <div className="row">
-        <List lists={lists} showList={showList} setId_Sez={setId_Sez} setShowAddItem={setShowAddItem} showAddItem={showAddItem} sezIsShown={sezIsShown} id_sez={id_sez}/>
+        <List lists={lists} showList={showList} setId_Sez={setId_Sez} setShowAddItem={setShowAddItem} showAddItem={showAddItem} sezIsShown={sezIsShown} id_sez={id_sez} id_uzi={id}/>
       </div>
-      <ShowList id_sez={id_sez} lists={lists} showAddItem={showAddItem} setShowAddItem={setShowAddItem}/>
+      <ShowList id_sez={id_sez} lists={lists} showAddItem={showAddItem} setShowAddItem={setShowAddItem} id_uzi={id}/>
     </>
   );
 };

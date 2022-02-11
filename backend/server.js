@@ -62,7 +62,7 @@ app.post('/user/newPassword', (req, res) => {
     res.sendStatus(200)
 })
 
-app.post('/user/isAdmin', async (req, res) => {
+app.post('/user/isAdminOfFamily', async (req, res) => {
     res.send(await user.chechIfAdminOfFamily((req.body).id_uzi))
 })
 app.post('/displayNewestList', (req, res) => {
@@ -70,9 +70,8 @@ app.post('/displayNewestList', (req, res) => {
     list.displayNewestList(id, res)
 })
 
-app.post('/list', (req, res) => {
-    const { id_sez } = req.body
-    list.getList(id_sez, res)
+app.post('/list', async (req, res) => {
+    res.send(await list.getList(req.body)) 
 })
 
 app.post('/item/add', (req, res) => {

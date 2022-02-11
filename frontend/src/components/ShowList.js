@@ -4,7 +4,7 @@ import Item from "./Item";
 
 import AddItem from "./AddItem";
 
-const ShowList = ({ id_sez, showAddItem, setShowAddItem }) => {
+const ShowList = ({ id_sez, showAddItem, setShowAddItem, id_uzi }) => {
   const [List, setList] = useState([]);
   useEffect(() => {
     const getList = async (id_sez) => {
@@ -27,8 +27,7 @@ const ShowList = ({ id_sez, showAddItem, setShowAddItem }) => {
       },
       body: `{"id_sez":${id_sez}}`,
     });
-    const data = await fetchList.json();
-    return data;
+    return await fetchList.json();;
   };
   return (
     <>

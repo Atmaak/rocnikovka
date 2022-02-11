@@ -6,7 +6,7 @@ const Header = ({ title, id_uzi, setShowCreateList, setShowAddToFamily }) => {
   const [showProfile, setShowProfile] = useState(false);
   const [admin, setAdmin] = useState(false)
   const checkIfAdmin = async (id_uzi) => {
-    const res = await fetch('http://localhost:3001/user/isAdmin', {
+    const res = await fetch('http://localhost:3001/user/isAdminOfFamily', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json'},
       body: JSON.stringify({

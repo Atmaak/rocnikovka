@@ -10,26 +10,6 @@ const con = mysql.createConnection({
 });
 
 
-module.exports = {
-    register: function reg(username, password, res) {
-      register(username, password, res);
-    },
-    displayNewestList: function dis(user, res) {
-      displayNewestList(user, res)
-    },
-    getList: function geTList (id_sez, response) {
-      getList(id_sez, response)
-    },
-    addItem: function AddItem(item, id_sta, id_sez, kusy){
-      addItem(item, id_sta, id_sez, kusy)
-    },
-    createList: function CreateList(id_uzi){
-      createList(id_uzi)
-    },
-    deleteList: function DeleteList(id_sez){
-      deleteList(id_sez)
-    }
-  };
 
 var sql
 
@@ -49,7 +29,6 @@ async function createList(list) {
 
 function addItem(item) {
   sql = `INSERT INTO polozky (nazev, id_szn) VALUES ("${item.item}", ${item.id_szn})`
-
   con.query(sql, function (err, result) {
     if(err) throw err
   })
@@ -68,6 +47,7 @@ function addItem(item) {
 async function displayNewestList(id_uzi, res) {
   let User = await user.getData({id_uzi: id_uzi})
   sql = `SELECT * FROM seznamy WHERE (id_uzi = ${id_uzi}) OR ((id_fam = ${User.id_fam}) AND (id_fam > 0))`
+  sql = `SELECT seznamy.id_sez, seznamy.nazev, seznamy.datum, seznamy.id_uzi, seznamy.id_fam, uzivatele.jmeno FROM seznamy JOIN uzivatele on seznamy.id_uzi = uzivatele.id_uzi WHERE (seznamy.id_uzi = ${id_uzi}) OR ((seznamy.id_fam = ${User.id_fam}) AND (seznamy.id_fam > 0));`
   res.send(await new Promise((resolve, reject) => {
     con.query(
      sql, 
@@ -80,11 +60,27 @@ async function displayNewestList(id_uzi, res) {
 
 
 //selectne vsechno z view items
-const getList = async (id_sez, res) => {
-  sql = `SELECT * FROM items WHERE id_sez = ${id_sez}`
-  con.query(sql, (err, result) => {
-    if(err) throw err
-    res.send(result)
+const getList = (data) => {
+  console.log(data)
+  sql = `SELECT * FROM items WHERE id_sez = ${data.id_sez};`
+  return new Promise((resolve, reject) => {
+    con.query(sql, (err, result) => {
+      if(err) reject(err)
+      return resolve(result)
+      
+    })
+  })
+}
+
+const checkIfListIsUsers = (data) => {
+  sql = `SELECT id_sez, id_uzi FROM seznamy where id_sez = ${data.id_sez};`
+  return new Promise((resolve, reject) => {
+    con.query(sql, (err, result) => {
+      if(err) reject(err)
+      if(data.id_uzi == result[0].id_uzi) return resolve(true)
+      return resolve(false)
+      
+    })
   })
 }
 
@@ -101,3 +97,13 @@ const deleteList = (data) =>{
 
   
 }
+
+
+
+module.exports = {
+  displayNewestList,
+  getList,
+  addItem,
+  createList,
+  deleteList
+};

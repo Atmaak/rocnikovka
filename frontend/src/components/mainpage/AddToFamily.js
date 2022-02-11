@@ -1,12 +1,23 @@
 import fetch from "node-fetch";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef } from "react";
 import { CgCloseR } from "react-icons/cg";
-const  AddToFamily = ({setShowAddToFamily}) => {
-  const [err, setErr] = useState("");
-  
+const AddToFamily = ({setShowAddToFamily, id_uzi}) => {
+    const email = useRef()
   const close = (e) => {
     if (e.target.classList[0] === "popup") setShowAddToFamily(false);
   };
+
+  const doIt = (e) => {
+    e.preventDefault();
+    fetch('http://localhost:3001/inviteFamily', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        id_uzi: id_uzi,
+        email: email.current.value
+    })
+    })
+  }
   return <div
   className="popup"
   onClick={(e) => {
@@ -25,15 +36,10 @@ const  AddToFamily = ({setShowAddToFamily}) => {
     <div className="form">
         <>
           <h1>Add to Family</h1>
-          <form>
-              <input type="email" placeholder="Type Email of your family member."/>
+          <form onSubmit={(e) => doIt(e)}>
+              <input type="email" placeholder="Type Email of your family member." ref={email}/>
               <input type="submit" />
           </form>
-          {err && (
-            <>
-              <p className="err">{err}</p> <br />
-            </>
-          )}
         </>
     </div>
   </div>

@@ -76,9 +76,8 @@ const getDataFromMail = async (email) => {
 }
 
 const addToFamily = async (data) => {
-  console.log(data)
+  if(!chechIfAdminOfFamily(data.id_uzi)) return {message: 'Not an admin of a Family'} 
   let User = await getDataFromMail(data.email)
-  console.log(User)
   sql = `UPDATE uzivatele SET id_fam= ${data.id_uzi} WHERE id_uzi = ${User.id_uzi}`
   con.query(sql, (err, result) => {
     if(err) throw err
@@ -90,7 +89,8 @@ const chechIfAdminOfFamily = (id_uzi) => {
   sql = `SELECT id_hla FROM adminrodiny WHERE id_uzi = ${id_uzi}`
   return new Promise((resolve, reject) => {
     con.query(sql, (err, result) => {
-      if(err) return err
+      if(err) return reject(err)
+      if(result.length == 0) return resolve(false)
       if(id_uzi == result[0].id_hla) return resolve(true)
       return resolve(false)
     })
