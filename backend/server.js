@@ -61,6 +61,10 @@ app.post('/user/newPassword', (req, res) => {
     mail.sendPasswordMail(email)
     res.sendStatus(200)
 })
+
+app.post('/user/isAdmin', async (req, res) => {
+    res.send(await user.chechIfAdminOfFamily((req.body).id_uzi))
+})
 app.post('/displayNewestList', (req, res) => {
     const { id } = req.body
     list.displayNewestList(id, res)

@@ -16,6 +16,7 @@ const [showLogin, setShowLogin] = useState(false)
 const [showMainPage, setShowMainPage] = useState(false)
 const [showRegister, setShowRegister] = useState(false)
 const [showCreateList, setShowCreateList] = useState(false);
+const [showAddToFamily, setShowAddToFamily] = useState(false);
 const [id, setId] = useState(0)
 
 const onSubmit = async (refUsername, refPassword) => {
@@ -53,12 +54,12 @@ const back = () => {
   return (
     <>
     <div className='mainpage'>
-      {!showMainPage &&<HeaderMainPage setShowLogin={setShowLogin} setShowRegister={setShowRegister}/>}
-      {showMainPage && <Header title='Shoping List' id_uzi={id} showIt={showMainPage} back={back} setShowCreateList={setShowCreateList}/>} 
+      {!showMainPage &&<HeaderMainPage setShowLogin={setShowLogin} setShowRegister={setShowRegister} />}
+      {showMainPage && <Header title='Shoping List' id_uzi={id} showIt={showMainPage} back={back} setShowCreateList={setShowCreateList} setShowAddToFamily={setShowAddToFamily}/>} 
       <div >
         <div className='main'>
       {showLogin && <Login onSubmit={onSubmit} onClickShowRegister={onClickShowRegister} setShowRegister={setShowLogin} setShowLoginos={setShowLogin} />}
-      {showMainPage && <MainPage id={id} showCreateList={showCreateList} setShowCreateList={setShowCreateList}/>}
+      {showMainPage && <MainPage id={id} showCreateList={showCreateList} setShowCreateList={setShowCreateList} showAddToFamily={showAddToFamily} setShowAddToFamily={setShowAddToFamily}/>}
       {showRegister && <Register registered={registered} setShowRegister={setShowRegister}/>}
       </div>
       </div>

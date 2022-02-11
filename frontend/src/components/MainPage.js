@@ -3,7 +3,9 @@ import React, { useState, useEffect } from "react";
 import List from "./List";
 import ShowList from "./ShowList";
 import CreateList from "./CreateList";
-const MainPage = ({ id, showCreateList, setShowCreateList }) => {
+import AddToFamily from "./mainpage/AddToFamily"
+
+const MainPage = ({ id, showCreateList, setShowCreateList, setShowAddToFamily, showAddToFamily }) => {
   const [lists, setLists] = useState([]);
   const [id_sez, setId_Sez] = useState([0]);
   const [showAddItem, setShowAddItem] = useState(false);
@@ -40,6 +42,7 @@ const MainPage = ({ id, showCreateList, setShowCreateList }) => {
   };
   return (
     <>
+    {showAddToFamily&& <AddToFamily setShowAddToFamily={setShowAddToFamily} />}
       {showCreateList && <CreateList id_uzi={id} setShowCreateList={setShowCreateList}/>}
       <div className="row">
         <List lists={lists} showList={showList} setId_Sez={setId_Sez} setShowAddItem={setShowAddItem} showAddItem={showAddItem} sezIsShown={sezIsShown} id_sez={id_sez}/>

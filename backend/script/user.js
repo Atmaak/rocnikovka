@@ -86,6 +86,18 @@ const addToFamily = async (data) => {
   })
 }
 
+const chechIfAdminOfFamily = (id_uzi) => {
+  sql = `SELECT id_hla FROM adminrodiny WHERE id_uzi = ${id_uzi}`
+  return new Promise((resolve, reject) => {
+    con.query(sql, (err, result) => {
+      if(err) return err
+      if(id_uzi == result[0].id_hla) return resolve(true)
+      return resolve(false)
+    })
+  })
+}
+
+
 module.exports = {
   getData,
   changeUsername,
@@ -93,5 +105,6 @@ module.exports = {
   changePassword,
   deleteAccount,
   getDataFromMail,
-  addToFamily
+  addToFamily,
+  chechIfAdminOfFamily
 }
