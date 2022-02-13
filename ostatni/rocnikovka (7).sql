@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: 127.0.0.1
--- Vytvořeno: Pát 11. úno 2022, 14:49
--- Verze serveru: 10.4.13-MariaDB
--- Verze PHP: 7.4.7
+-- Vytvořeno: Ned 13. úno 2022, 14:32
+-- Verze serveru: 10.4.20-MariaDB
+-- Verze PHP: 7.3.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 
 --
 -- Zástupná struktura pro pohled `adminrodiny`
--- (See below for the actual view)
+-- (Vlastní pohled viz níže)
 --
 CREATE TABLE `adminrodiny` (
 `id_uzi` int(11)
@@ -36,7 +36,7 @@ CREATE TABLE `adminrodiny` (
 
 --
 -- Zástupná struktura pro pohled `items`
--- (See below for the actual view)
+-- (Vlastní pohled viz níže)
 --
 CREATE TABLE `items` (
 `nazev` varchar(64)
@@ -47,6 +47,7 @@ CREATE TABLE `items` (
 ,`id_szn` int(11)
 ,`nazevSerazeni` varchar(64)
 ,`stav` varchar(64)
+,`id_uzi` int(11)
 );
 
 -- --------------------------------------------------------
@@ -97,7 +98,9 @@ CREATE TABLE `polozky` (
 --
 
 INSERT INTO `polozky` (`id_pol`, `nazev`, `id_szn`) VALUES
-(140, 'dasdas', 2);
+(140, 'dasdas', 2),
+(149, 'XDdasda', 10),
+(150, 'dasdad', 9);
 
 -- --------------------------------------------------------
 
@@ -111,6 +114,14 @@ CREATE TABLE `pol_sez` (
   `kusy` int(11) NOT NULL,
   `id_sta` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
+
+--
+-- Vypisuji data pro tabulku `pol_sez`
+--
+
+INSERT INTO `pol_sez` (`id_sez`, `id_pol`, `kusy`, `id_sta`) VALUES
+(82, 149, 4475, 2),
+(82, 150, 456465, 2);
 
 -- --------------------------------------------------------
 
@@ -182,7 +193,9 @@ CREATE TABLE `seznamy` (
 --
 
 INSERT INTO `seznamy` (`id_sez`, `nazev`, `datum`, `id_uzi`, `id_fam`) VALUES
-(81, 'adasd', '2022-02-10 19:40:18', 17, 1);
+(81, 'adasd', '2022-02-10 19:40:18', 17, 1),
+(82, 'XD', '2022-02-11 14:32:27', 1, 1),
+(83, 'xd', '2022-02-11 14:44:23', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -225,8 +238,7 @@ CREATE TABLE `uzivatele` (
 INSERT INTO `uzivatele` (`id_uzi`, `id_opr`, `id_fam`, `jmeno`, `email`, `heslo`) VALUES
 (1, 1, 1, 'admin', 'admin@admin.admin', 'sha1$e2b87d22$1$ded12fd3dadbd39ae86b95aabaf899ca46b097d8'),
 (17, 2, 1, 'atmaak', 'kubjak21@gmail.com', 'sha1$cb90a39f$1$9fb38f614dad5a6e56be345f69734d4fc16ca268'),
-(18, 2, 0, 'xdd', 'xdd@xdd.xdd', 'sha1$ae9bced2$1$32426f36a8adc808baf00e2dc575000e08651fe6'),
-(19, 2, 0, 'honza', 'dasdas@dasdascacca.casca', 'sha1$442cd053$1$588ecaefc15ac7d29930a63b8b2fe8d1b786fe34');
+(20, 2, 1, 'xddd', 'xddd@xddd.xddd', 'sha1$0e6ae730$1$69621940e3db6bbef8123bb92810d027ed8f98c6');
 
 -- --------------------------------------------------------
 
@@ -235,7 +247,7 @@ INSERT INTO `uzivatele` (`id_uzi`, `id_opr`, `id_fam`, `jmeno`, `email`, `heslo`
 --
 DROP TABLE IF EXISTS `adminrodiny`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `adminrodiny`  AS  select `uzivatele`.`id_uzi` AS `id_uzi`,`rodiny`.`id_hla` AS `id_hla` from (`uzivatele` join `rodiny` on(`uzivatele`.`id_fam` = `rodiny`.`id_fam`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `adminrodiny`  AS SELECT `uzivatele`.`id_uzi` AS `id_uzi`, `rodiny`.`id_hla` AS `id_hla` FROM (`uzivatele` join `rodiny` on(`uzivatele`.`id_fam` = `rodiny`.`id_fam`)) ;
 
 -- --------------------------------------------------------
 
@@ -244,33 +256,33 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `items`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `items`  AS  select `polozky`.`nazev` AS `nazev`,`pol_sez`.`kusy` AS `kusy`,`pol_sez`.`id_sez` AS `id_sez`,`pol_sez`.`id_pol` AS `id_pol`,`stavy`.`id_sta` AS `id_sta`,`polozky`.`id_szn` AS `id_szn`,`serazeni`.`nazev` AS `nazevSerazeni`,`stavy`.`nazev` AS `stav` from (((`pol_sez` join `polozky` on(`pol_sez`.`id_pol` = `polozky`.`id_pol`)) join `stavy` on(`pol_sez`.`id_sta` = `stavy`.`id_sta`)) join `serazeni` on(`polozky`.`id_szn` = `serazeni`.`id_szn`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `items`  AS SELECT `polozky`.`nazev` AS `nazev`, `pol_sez`.`kusy` AS `kusy`, `pol_sez`.`id_sez` AS `id_sez`, `pol_sez`.`id_pol` AS `id_pol`, `stavy`.`id_sta` AS `id_sta`, `polozky`.`id_szn` AS `id_szn`, `serazeni`.`nazev` AS `nazevSerazeni`, `stavy`.`nazev` AS `stav`, `seznamy`.`id_uzi` AS `id_uzi` FROM ((((`pol_sez` join `polozky` on(`pol_sez`.`id_pol` = `polozky`.`id_pol`)) join `stavy` on(`pol_sez`.`id_sta` = `stavy`.`id_sta`)) join `serazeni` on(`polozky`.`id_szn` = `serazeni`.`id_szn`)) join `seznamy` on(`pol_sez`.`id_sez` = `seznamy`.`id_sez`)) ;
 
 --
--- Klíče pro exportované tabulky
+-- Indexy pro exportované tabulky
 --
 
 --
--- Klíče pro tabulku `markety`
+-- Indexy pro tabulku `markety`
 --
 ALTER TABLE `markety`
   ADD PRIMARY KEY (`id_mark`);
 
 --
--- Klíče pro tabulku `opravneni`
+-- Indexy pro tabulku `opravneni`
 --
 ALTER TABLE `opravneni`
   ADD PRIMARY KEY (`id_opr`);
 
 --
--- Klíče pro tabulku `polozky`
+-- Indexy pro tabulku `polozky`
 --
 ALTER TABLE `polozky`
   ADD PRIMARY KEY (`id_pol`),
   ADD KEY `id_szn` (`id_szn`);
 
 --
--- Klíče pro tabulku `pol_sez`
+-- Indexy pro tabulku `pol_sez`
 --
 ALTER TABLE `pol_sez`
   ADD KEY `id_sez` (`id_sez`),
@@ -278,19 +290,19 @@ ALTER TABLE `pol_sez`
   ADD KEY `id_sta` (`id_sta`);
 
 --
--- Klíče pro tabulku `rodiny`
+-- Indexy pro tabulku `rodiny`
 --
 ALTER TABLE `rodiny`
   ADD PRIMARY KEY (`id_fam`);
 
 --
--- Klíče pro tabulku `serazeni`
+-- Indexy pro tabulku `serazeni`
 --
 ALTER TABLE `serazeni`
   ADD PRIMARY KEY (`id_szn`);
 
 --
--- Klíče pro tabulku `seznamy`
+-- Indexy pro tabulku `seznamy`
 --
 ALTER TABLE `seznamy`
   ADD PRIMARY KEY (`id_sez`),
@@ -298,13 +310,13 @@ ALTER TABLE `seznamy`
   ADD KEY `id_fam` (`id_fam`);
 
 --
--- Klíče pro tabulku `stavy`
+-- Indexy pro tabulku `stavy`
 --
 ALTER TABLE `stavy`
   ADD PRIMARY KEY (`id_sta`);
 
 --
--- Klíče pro tabulku `uzivatele`
+-- Indexy pro tabulku `uzivatele`
 --
 ALTER TABLE `uzivatele`
   ADD PRIMARY KEY (`id_uzi`),
@@ -330,7 +342,7 @@ ALTER TABLE `opravneni`
 -- AUTO_INCREMENT pro tabulku `polozky`
 --
 ALTER TABLE `polozky`
-  MODIFY `id_pol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
+  MODIFY `id_pol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
 
 --
 -- AUTO_INCREMENT pro tabulku `rodiny`
@@ -348,7 +360,7 @@ ALTER TABLE `serazeni`
 -- AUTO_INCREMENT pro tabulku `seznamy`
 --
 ALTER TABLE `seznamy`
-  MODIFY `id_sez` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `id_sez` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- AUTO_INCREMENT pro tabulku `stavy`
@@ -360,7 +372,7 @@ ALTER TABLE `stavy`
 -- AUTO_INCREMENT pro tabulku `uzivatele`
 --
 ALTER TABLE `uzivatele`
-  MODIFY `id_uzi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_uzi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Omezení pro exportované tabulky
