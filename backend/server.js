@@ -28,7 +28,6 @@ app.post('/user/log', (req, res) => {
 })
 
 app.post('/user/getData', async (req, res) => {
-    console.log(req.body)
     res.send(await user.getData(req.body))
 })
 
@@ -103,6 +102,10 @@ app.get('/item/types', async (req, res) => [
 
 app.get('/item/howManyTypes', async (req, res) => {
     res.send(await items.getHowManyTypes())
+})
+
+app.post('/item/getSortBy' , async (req, res) => {
+    res.send(await items.getSortBy(req.body))
 })
 app.post('/list/createList', (req, res) => {
     list.createList(req.body) 

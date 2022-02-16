@@ -11,12 +11,26 @@ const ShowList = ({ id_sez, showAddItem, setShowAddItem, id_uzi }) => {
       const dataFromServer = await displayList(id_sez);
       if(dataFromServer !== undefined){
         await setList(dataFromServer);
+        sortList()
       }
       
     };
 
     getList(id_sez);
   }, [List, id_sez]);
+
+  const sortList = async () => {
+    const res = await fetch('http://localhost:3001/item/getSortBy', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        "id_mark":1
+      })
+    }) 
+    const data = await res.json()
+    console.log(data)
+    console.log(List)
+  }
 
   const displayList = async (id_sez) => {
     if(id_sez === undefined) return
@@ -28,7 +42,18 @@ const ShowList = ({ id_sez, showAddItem, setShowAddItem, id_uzi }) => {
       body: `{"id_sez":${id_sez}}`,
     });
     return await fetchList.json();;
-  };
+  };/*
+  const compare = (a, b) => {    
+    if (a.) {    
+      return -1;    
+    }    
+    if (a is greater than b by the ordering criterion) {    
+      return 1;    
+    }    
+    // a must be equal to b    
+    return 0;    
+  } /*/
+
   return (
     <>
       <div className="body">
@@ -40,5 +65,7 @@ const ShowList = ({ id_sez, showAddItem, setShowAddItem, id_uzi }) => {
     </>
   );
 };
+
+
 
 export default ShowList;

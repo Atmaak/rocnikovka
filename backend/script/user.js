@@ -81,7 +81,6 @@ const addToFamily = async (data) => {
   sql = `UPDATE uzivatele SET id_fam= ${data.id_uzi} WHERE id_uzi = ${User.id_uzi}`
   con.query(sql, (err, result) => {
     if(err) throw err
-    console.log(result)
   })
 }
 

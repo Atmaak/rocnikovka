@@ -61,7 +61,6 @@ async function displayNewestList(id_uzi, res) {
 
 //selectne vsechno z view items
 const getList = (data) => {
-  console.log(data)
   sql = `SELECT * FROM items WHERE id_sez = ${data.id_sez};`
   return new Promise((resolve, reject) => {
     con.query(sql, (err, result) => {

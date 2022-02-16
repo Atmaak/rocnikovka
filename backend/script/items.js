@@ -66,10 +66,29 @@ const getHowManyTypes = () => {
   return res
 }
 
+
+const getSortBy = (data) => {
+  sql = `SELECT * FROM markety where id_mark = ${data.id_mark}`
+  return new Promise((resolve, reject) => {
+    con.query(sql, (err, result) => {
+      if(err) reject(err)
+      console.log(result)
+      if(result.length == 0) return resolve({message: 'no result'})
+      resolve({
+        nazev: result[0].nazev,
+        poradi: (result[0].poradi).split(',')
+      })
+    })
+  })
+}
+
+
+
 module.exports = { 
-  deleteItem: deleteItem,
-  changeState: changeState,
-  changeItem: changeItem,
-  getAllTypes: getAllTypes,
-  getHowManyTypes: getHowManyTypes,
+  deleteItem,
+  changeState,
+  changeItem,
+  getAllTypes,
+  getHowManyTypes,
+  getSortBy
 }
