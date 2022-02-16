@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: 127.0.0.1
--- Vytvořeno: Ned 13. úno 2022, 14:32
+-- Vytvořeno: Stř 16. úno 2022, 18:09
 -- Verze serveru: 10.4.20-MariaDB
 -- Verze PHP: 7.3.29
 
@@ -59,7 +59,7 @@ CREATE TABLE `items` (
 CREATE TABLE `markety` (
   `id_mark` int(11) NOT NULL,
   `nazev` varchar(64) COLLATE utf8mb4_czech_ci NOT NULL,
-  `poradi` text COLLATE utf8mb4_czech_ci NOT NULL
+  `id_ser` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
 
 -- --------------------------------------------------------
@@ -158,20 +158,20 @@ CREATE TABLE `serazeni` (
 --
 
 INSERT INTO `serazeni` (`id_szn`, `nazev`) VALUES
-(1, 'nealko'),
-(2, 'sladkosti'),
 (3, 'alko'),
-(4, 'ovoce a zelenina'),
-(5, 'mléčné výrobky'),
-(6, 'zahrada'),
-(7, 'pečivo'),
-(8, 'maso'),
-(9, 'koupelna'),
-(10, 'uzeniny'),
-(11, 'oblečení'),
 (12, 'děti'),
 (13, 'elektronika'),
+(9, 'koupelna'),
+(8, 'maso'),
+(5, 'mléčné výrobky'),
 (14, 'nádobí'),
+(1, 'nealko'),
+(11, 'oblečení'),
+(4, 'ovoce a zelenina'),
+(7, 'pečivo'),
+(2, 'sladkosti'),
+(10, 'uzeniny'),
+(6, 'zahrada'),
 (15, 'zamražené');
 
 -- --------------------------------------------------------
@@ -193,9 +193,7 @@ CREATE TABLE `seznamy` (
 --
 
 INSERT INTO `seznamy` (`id_sez`, `nazev`, `datum`, `id_uzi`, `id_fam`) VALUES
-(81, 'adasd', '2022-02-10 19:40:18', 17, 1),
-(82, 'XD', '2022-02-11 14:32:27', 1, 1),
-(83, 'xd', '2022-02-11 14:44:23', 1, 1);
+(82, 'XD', '2022-02-11 14:32:27', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -299,7 +297,8 @@ ALTER TABLE `rodiny`
 -- Indexy pro tabulku `serazeni`
 --
 ALTER TABLE `serazeni`
-  ADD PRIMARY KEY (`id_szn`);
+  ADD PRIMARY KEY (`id_szn`),
+  ADD UNIQUE KEY `nazev` (`nazev`);
 
 --
 -- Indexy pro tabulku `seznamy`
@@ -330,7 +329,7 @@ ALTER TABLE `uzivatele`
 -- AUTO_INCREMENT pro tabulku `markety`
 --
 ALTER TABLE `markety`
-  MODIFY `id_mark` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_mark` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pro tabulku `opravneni`
