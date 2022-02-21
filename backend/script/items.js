@@ -72,7 +72,6 @@ const getSortBy = (data) => {
   return new Promise((resolve, reject) => {
     con.query(sql, (err, result) => {
       if(err) reject(err)
-      console.log(result)
       if(result.length == 0) return resolve({message: 'no result'})
       resolve({
         nazev: result[0].nazev,
