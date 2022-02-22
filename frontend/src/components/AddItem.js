@@ -39,6 +39,7 @@ const AddItem = ({ id_sez, setShowAddItem }) => {
                 "id_szn": ${id_szn}
             }`,
     });
+    setShowAddItem(false)
   };
   const doIt = (e) => {
     e.preventDefault();

@@ -9,6 +9,8 @@ const list = require('./script/list')
 const items = require('./script/items')
 const user = require('./script/user')
 const mail = require('./script/sendMail')
+const shop = require('./script/shop')
+
 app.use(express.json()); // parsuje payload na requestu do jsonu
 
 app.use(cors())//pouziva knihovnu cors na to aby nebyl cors error
@@ -64,6 +66,11 @@ app.post('/user/newPassword', (req, res) => {
 app.post('/user/isAdminOfFamily', async (req, res) => {
     res.send(await user.chechIfAdminOfFamily((req.body).id_uzi))
 })
+
+app.post('/user/isAdmin', async (req, res) => {
+    res.send(await user.isAdmin(req.body))
+})
+
 app.post('/displayNewestList', (req, res) => {
     const { id } = req.body
     list.displayNewestList(id, res)
@@ -119,5 +126,15 @@ app.post('/list/deleteList', (req,res) => {
 
 app.post('/inviteFamily' , (req, res) => {
     user.addToFamily(req.body)
+    res.sendStatus(200)
+})
+
+app.post('/type/createShop', (req, res) => {
+    
+})
+
+
+app.post('/test', (req, res) => {
+    console.log(req.body)
     res.sendStatus(200)
 })

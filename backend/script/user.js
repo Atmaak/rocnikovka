@@ -96,6 +96,17 @@ const chechIfAdminOfFamily = (id_uzi) => {
   })
 }
 
+const isAdmin = (data) => {
+  sql = `SELECT id_opr FROM uzivatele WHERE id_uzi = ${data.id_uzi}`
+    return new Promise((resolve, reject) => {
+      con.query(sql, (err, result) => {
+        if(err) reject(err)
+        //console.log(result[0].id_opr)
+        if(result[0].id_opr === 1) return resolve(true)
+        return resolve(false)
+      })
+    })
+}
 
 module.exports = {
   getData,
@@ -105,5 +116,6 @@ module.exports = {
   deleteAccount,
   getDataFromMail,
   addToFamily,
-  chechIfAdminOfFamily
+  chechIfAdminOfFamily,
+  isAdmin
 }

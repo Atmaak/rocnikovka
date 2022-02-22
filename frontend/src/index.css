@@ -269,3 +269,11 @@ input[type=submit]:hover {
 .main {
     margin-top: 1rem;
 }
+
+.adminPanel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,  minmax(33%, auto));
+    gap: 10px;
+    margin: 0 5px;
+    
+}

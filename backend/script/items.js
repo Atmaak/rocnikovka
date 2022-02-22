@@ -44,7 +44,7 @@ const changeItem = (id_pol, nazev, kusy) => {
 }
 
 const getAllTypes = () => {
-  sql = `SELECT * FROM serazeni`
+  sql = `SELECT * FROM typy`
   const res = new Promise((resolve, reject) => {
     con.query(sql, (err, result) => {
       if(err) return reject(err)
@@ -56,7 +56,7 @@ const getAllTypes = () => {
 
 
 const getHowManyTypes = () => {
-  sql = `SELECT id_szn FROM serazeni ORDER BY id_szn DESC LIMIT 0, 1`
+  sql = `SELECT id_szn FROM typy ORDER BY id_szn DESC LIMIT 0, 1`
   const res = new Promise((resolve, reject) => {
     con.query(sql, (err, result)=> {
       if(err) return reject(err)
@@ -68,17 +68,7 @@ const getHowManyTypes = () => {
 
 
 const getSortBy = (data) => {
-  sql = `SELECT * FROM markety where id_mark = ${data.id_mark}`
-  return new Promise((resolve, reject) => {
-    con.query(sql, (err, result) => {
-      if(err) reject(err)
-      if(result.length == 0) return resolve({message: 'no result'})
-      resolve({
-        nazev: result[0].nazev,
-        poradi: (result[0].poradi).split(',')
-      })
-    })
-  })
+  return {message: 'notworking'}
 }
 
 

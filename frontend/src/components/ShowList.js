@@ -11,7 +11,7 @@ const ShowList = ({ id_sez, showAddItem, setShowAddItem, id_uzi }) => {
       const dataFromServer = await displayList(id_sez);
       if(dataFromServer !== undefined){
         await setList(dataFromServer);
-        sortList()
+        //sortList()
       }
       
     };
@@ -24,12 +24,12 @@ const ShowList = ({ id_sez, showAddItem, setShowAddItem, id_uzi }) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json'},
       body: JSON.stringify({
-        "id_mark":1
+        "id_mark": 1
       })
     }) 
     const data = await res.json()
-    console.log(data)
-    console.log(List)
+    //console.log(data)
+    //console.log(List)
   }
 
   const displayList = async (id_sez) => {
