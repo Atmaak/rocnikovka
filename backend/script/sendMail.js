@@ -10,7 +10,6 @@ const transporter = nodemailer.createTransport({
     },
 })
 
-
 const sendPasswordMail = async (email) => {
     const newPassword = randomPass()
     const data = await user.getDataFromMail(email)

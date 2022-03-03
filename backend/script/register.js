@@ -10,7 +10,6 @@ const con = mysql.createConnection({
   database: process.env.db_name,
 });
 
-
 module.exports = {
   register: function reg(username, password, email, res) {
     register(username, password, email, res);

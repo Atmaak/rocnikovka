@@ -8,10 +8,6 @@ const con = mysql.createConnection({
   database: process.env.db_name,
 });
 
-
-
-
-
 const deleteItem = (id_pol) => {
     sql = `DELETE FROM polozky WHERE polozky.id_pol = ${id_pol};`
     

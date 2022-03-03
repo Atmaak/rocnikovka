@@ -9,8 +9,6 @@ const con = mysql.createConnection({
   database: process.env.db_name,
 });
 
-
-
 var sql
 
 //vytvori list
