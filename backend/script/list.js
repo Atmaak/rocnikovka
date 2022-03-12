@@ -44,8 +44,7 @@ function addItem(item) {
 
 async function displayNewestList(id_uzi, res) {
   let User = await user.getData({id_uzi: id_uzi})
-  sql = `SELECT * FROM seznamy WHERE (id_uzi = ${id_uzi}) OR ((id_fam = ${User.id_fam}) AND (id_fam > 0))`
-  sql = `SELECT seznamy.id_sez, seznamy.nazev, seznamy.datum, seznamy.id_uzi, seznamy.id_fam, uzivatele.jmeno FROM seznamy JOIN uzivatele on seznamy.id_uzi = uzivatele.id_uzi WHERE (seznamy.id_uzi = ${id_uzi}) OR ((seznamy.id_fam = ${User.id_fam}) AND (seznamy.id_fam > 0));`
+  sql = `SELECT seznamy.id_sez, seznamy.nazev, seznamy.datum, seznamy.id_uzi, seznamy.id_fam, uzivatele.jmeno, seznamy.cena FROM seznamy JOIN uzivatele on seznamy.id_uzi = uzivatele.id_uzi WHERE (seznamy.id_uzi = ${id_uzi}) OR ((seznamy.id_fam = ${User.id_fam}) AND (seznamy.id_fam > 0));`
   res.send(await new Promise((resolve, reject) => {
     con.query(
      sql, 
@@ -96,11 +95,19 @@ const deleteList = (data) =>{
 }
 
 
+const setPrice = (data) => {
+  sql = `UPDATE seznamy SET cena = ${data.price} WHERE id_sez = ${data.id_sez};`
+  con.query(sql, (err, result) => {
+    if(err) throw err
+  })
+}
+
 
 module.exports = {
   displayNewestList,
   getList,
   addItem,
   createList,
-  deleteList
+  deleteList,
+  setPrice
 };

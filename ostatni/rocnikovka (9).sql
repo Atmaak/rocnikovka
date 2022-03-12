@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: 127.0.0.1
--- Vytvořeno: Úte 22. úno 2022, 16:54
+-- Vytvořeno: Sob 12. bře 2022, 20:30
 -- Verze serveru: 10.4.20-MariaDB
 -- Verze PHP: 7.3.29
 
@@ -109,7 +109,8 @@ INSERT INTO `polozky` (`id_pol`, `nazev`, `id_szn`) VALUES
 (149, 'XDdasda', 10),
 (150, 'dasdad', 9),
 (152, 'dasd', 6),
-(153, 'dasd', 7);
+(153, 'dasd', 7),
+(154, 'XdasD', 12);
 
 -- --------------------------------------------------------
 
@@ -130,7 +131,8 @@ CREATE TABLE `pol_sez` (
 
 INSERT INTO `pol_sez` (`id_sez`, `id_pol`, `kusy`, `id_sta`) VALUES
 (82, 149, 4475, 2),
-(82, 150, 456465, 2);
+(82, 150, 456465, 2),
+(86, 154, 526, 2);
 
 -- --------------------------------------------------------
 
@@ -173,6 +175,7 @@ CREATE TABLE `seznamy` (
   `id_sez` int(11) NOT NULL,
   `done` tinyint(1) NOT NULL,
   `nazev` varchar(64) COLLATE utf8mb4_czech_ci NOT NULL,
+  `cena` int(11) NOT NULL,
   `datum` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `id_uzi` int(11) NOT NULL,
   `id_fam` int(11) NOT NULL
@@ -182,8 +185,9 @@ CREATE TABLE `seznamy` (
 -- Vypisuji data pro tabulku `seznamy`
 --
 
-INSERT INTO `seznamy` (`id_sez`, `done`, `nazev`, `datum`, `id_uzi`, `id_fam`) VALUES
-(82, 0, 'XD', '2022-02-11 14:32:27', 1, 1);
+INSERT INTO `seznamy` (`id_sez`, `done`, `nazev`, `cena`, `datum`, `id_uzi`, `id_fam`) VALUES
+(82, 0, 'XD', 69, '2022-03-12 19:20:41', 1, 1),
+(86, 0, 'xddd', 0, '2022-03-12 19:24:18', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -370,7 +374,7 @@ ALTER TABLE `opravneni`
 -- AUTO_INCREMENT pro tabulku `polozky`
 --
 ALTER TABLE `polozky`
-  MODIFY `id_pol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=154;
+  MODIFY `id_pol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
 
 --
 -- AUTO_INCREMENT pro tabulku `rodiny`
@@ -379,16 +383,10 @@ ALTER TABLE `rodiny`
   MODIFY `id_fam` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT pro tabulku `serazeni`
---
-ALTER TABLE `serazeni`
-  MODIFY `id_itm` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT pro tabulku `seznamy`
 --
 ALTER TABLE `seznamy`
-  MODIFY `id_sez` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id_sez` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT pro tabulku `stavy`

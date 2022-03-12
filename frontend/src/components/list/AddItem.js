@@ -1,6 +1,7 @@
 import fetch from "node-fetch";
 import React, { useRef, useState, useEffect } from "react";
 import { CgCloseR } from "react-icons/cg";
+
 const AddItem = ({ id_sez, setShowAddItem }) => {
   const [data, setData] = useState([]);
   const [id_szn, setIdszn] = useState(0);

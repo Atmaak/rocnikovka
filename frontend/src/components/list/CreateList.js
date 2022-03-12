@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
-import { CgCloseR } from 'react-icons/cg'
+import { CgCloseR } from "react-icons/cg";
+
 const CreateList = ({ id_uzi, setShowCreateList }) => {
   const nazev = useRef();
   const createList = async () => {
@@ -15,7 +16,7 @@ const CreateList = ({ id_uzi, setShowCreateList }) => {
             }`,
     });
     nazev.current.value = "";
-    setShowCreateList(false)
+    setShowCreateList(false);
   };
   const close = (e) => {
     if (e.target.classList[0] === "popup") setShowCreateList(false);
@@ -40,15 +41,21 @@ const CreateList = ({ id_uzi, setShowCreateList }) => {
         <div className="form">
           <br />
           <h1>Create List</h1>
-        <form onSubmit={(e) => {e.preventDefault(); createList()}}>
-<input type="text" placeholder="Name for da list" ref={nazev}/>
-<br />
-<input type="submit" value="Create List"/>
-</form></div>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              createList();
+            }}
+          >
+            <input type="text" placeholder="Name for da list" ref={nazev} />
+            <br />
+            <input type="submit" value="Create List" />
+          </form>
+        </div>
       </div>
     </div>
   );
 };
 /*
-*/
+ */
 export default CreateList;

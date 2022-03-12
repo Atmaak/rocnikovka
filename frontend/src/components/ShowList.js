@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-import Item from "./Item";
+import Item from "./list/Item";
 
-import AddItem from "./AddItem";
+import AddItem from "./list/AddItem";
 
 const ShowList = ({ id_sez, showAddItem, setShowAddItem, id_uzi }) => {
   const [List, setList] = useState([]);
