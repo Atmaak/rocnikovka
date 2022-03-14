@@ -17,7 +17,7 @@ const sendPasswordMail = async (email) => {
     
     const mailOptions = {
         from: 'Shoping List',
-        to: 'kubjak21@gmail.com',
+        to: `${email}`,
         subject: 'Forgot Password',
         text: `Your username is: ${data.jmeno} and your new password is: ${newPassword}`
     }
