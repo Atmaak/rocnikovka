@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 
-import List from "./List";
+import List from "./list/List";
 import ShowList from "./ShowList";
-import CreateList from "./CreateList";
+import CreateList from "./list/CreateList";
 import AddToFamily from "./mainpage/AddToFamily"
-import AdminPanel from "./admin/AdminPanel";
+//import AdminPanel from "./admin/AdminPanel";
 
 const MainPage = ({ id, showCreateList, setShowCreateList, setShowAddToFamily, showAddToFamily }) => {
   const [lists, setLists] = useState([]);
@@ -66,7 +66,7 @@ const MainPage = ({ id, showCreateList, setShowCreateList, setShowAddToFamily, s
         <List lists={lists} showList={showList} setId_Sez={setId_Sez} setShowAddItem={setShowAddItem} showAddItem={showAddItem} sezIsShown={sezIsShown} id_sez={id_sez} id_uzi={id}/>
       </div>
       <ShowList id_sez={id_sez} lists={lists} showAddItem={showAddItem} setShowAddItem={setShowAddItem} id_uzi={id}/>
-      {admin && <AdminPanel />}
+      {/*admin && <AdminPanel />*/}
     </>
   );
 };

@@ -80,6 +80,10 @@ app.post('/list', async (req, res) => {
     res.send(await list.getList(req.body)) 
 })
 
+app.post('/list/setPrice', async (req, res) => {
+    list.setPrice(req.body)
+    res.sendStatus(200)
+})
 app.post('/item/add', (req, res) => {
     list.addItem(req.body)
     res.sendStatus(200)    
