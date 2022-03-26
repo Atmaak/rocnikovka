@@ -15,7 +15,7 @@ var sql
 
 async function createList(list) {
   let User = await user.getData({id_uzi: list.id_uzi})
-  sql = `INSERT INTO seznamy(id_uzi, nazev,id_fam) VALUES (${list.id_uzi}, "${list.nazev}",${User.id_fam})`
+  sql = `INSERT INTO seznamy(id_uzi, nazev,id_fam, typ) VALUES (${list.id_uzi}, "${list.nazev}",${User.id_fam}, "${list.type}")`
   con.query(sql, function (err, result) {
       if(err) throw err;
   })
@@ -26,6 +26,7 @@ async function createList(list) {
 //addItem('xdPEPEGA', 2, 13, 69)
 
 function addItem(item) {
+  console.log(item)
   sql = `INSERT INTO polozky (nazev, id_szn) VALUES ("${item.item}", ${item.id_szn})`
   con.query(sql, function (err, result) {
     if(err) throw err
