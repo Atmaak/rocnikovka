@@ -7,6 +7,7 @@ body {
     border: 2px solid rgb(122, 122, 122);
     margin: 1rem;
     text-align: center;
+    overflow: hidden;
 }
 
 .row {

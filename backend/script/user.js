@@ -101,7 +101,6 @@ const isAdmin = (data) => {
     return new Promise((resolve, reject) => {
       con.query(sql, (err, result) => {
         if(err) reject(err)
-        //console.log(result[0].id_opr)
         if(result[0].id_opr === 1) return resolve(true)
         return resolve(false)
       })

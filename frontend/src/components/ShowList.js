@@ -28,8 +28,6 @@ const ShowList = ({ id_sez, showAddItem, setShowAddItem, id_uzi }) => {
       })
     }) 
     const data = await res.json()
-    //console.log(data)
-    //console.log(List)
   }
 
   const displayList = async (id_sez) => {

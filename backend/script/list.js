@@ -26,7 +26,6 @@ async function createList(list) {
 //addItem('xdPEPEGA', 2, 13, 69)
 
 function addItem(item) {
-  console.log(item)
   sql = `INSERT INTO polozky (nazev, id_szn) VALUES ("${item.item}", ${item.id_szn})`
   con.query(sql, function (err, result) {
     if(err) throw err
@@ -45,7 +44,7 @@ function addItem(item) {
 
 async function displayNewestList(id_uzi, res) {
   let User = await user.getData({id_uzi: id_uzi})
-  sql = `SELECT seznamy.id_sez, seznamy.nazev, seznamy.datum, seznamy.id_uzi, seznamy.id_fam, uzivatele.jmeno, seznamy.cena FROM seznamy JOIN uzivatele on seznamy.id_uzi = uzivatele.id_uzi WHERE (seznamy.id_uzi = ${id_uzi}) OR ((seznamy.id_fam = ${User.id_fam}) AND (seznamy.id_fam > 0));`
+  sql = `SELECT seznamy.id_sez, seznamy.nazev, seznamy.datum, seznamy.id_uzi, seznamy.id_fam, uzivatele.jmeno, seznamy.cena, seznamy.typ FROM seznamy JOIN uzivatele on seznamy.id_uzi = uzivatele.id_uzi WHERE (seznamy.id_uzi = ${id_uzi}) OR ((seznamy.id_fam = ${User.id_fam}) AND (seznamy.id_fam > 0));`
   res.send(await new Promise((resolve, reject) => {
     con.query(
      sql, 

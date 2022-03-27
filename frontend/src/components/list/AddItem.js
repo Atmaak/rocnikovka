@@ -6,7 +6,6 @@ import "react-dropdown/style.css";
 
 const AddItem = ({ id_sez, setShowAddItem }) => {
   const [data, setData] = useState([]);
-  const [id_szn, setIdszn] = useState(0);
   const [err, setErr] = useState("");
   var nazev = useRef("");
   var kusy = useRef("");
@@ -40,8 +39,7 @@ const AddItem = ({ id_sez, setShowAddItem }) => {
     const dat = await res.json();
     setData(dat);
   };
-  const addIt = () => {
-    console.log(id_szn)
+  const addIt = (XD) => {
     fetch("http://localhost:3001/item/add", {
       method: "POST",
       headers: {
@@ -52,23 +50,26 @@ const AddItem = ({ id_sez, setShowAddItem }) => {
                 "id_sta": 2,
                 "id_sez": ${id_sez},
                 "kusy": ${kusy.current.value},
-                "id_szn": ${id_szn}
+                "id_szn": ${XD}
             }`,
     });
     setShowAddItem(false)
   };
-  const doIt = (e) => {
+  const doIt = async (e) => {
     e.preventDefault();
     if (nazev.current.value.length < 3) return setErr("Too short name!");
     if (id_sez === 0) return setErr("You need to choose type of item!");
     if(!drop.current.state.selected.value) return setErr("Set type of item!")
-    var xdddd = options.find({value: drop.current.state.selected.value})
-    console.log(xdddd)
-    // addIt(nazev.current.value, kusy.current.value, id_sez);
-    // nazev.current.value = null;
-    // kusy.current.value = null;
-    // setIdszn(0);
-    setErr("");
+    for (let i = 0; i < options.length; i++) {
+      if(String(options[i].value) === String(drop.current.state.selected.value)){ 
+        addIt(options[i].id_szn);
+        nazev.current.value = null;
+        kusy.current.value = null;
+        return setErr("");
+        
+      }
+      setErr('Something went wrong')
+    }
   };
   const close = (e) => {
     if (e.target.classList[0] === "popup") setShowAddItem(false);

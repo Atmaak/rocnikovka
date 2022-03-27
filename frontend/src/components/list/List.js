@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import SetPrice from "./SetPrice"
-
+import AddTypeToList from './AddTypeToList'
 const List = ({ lists, showList, setId_Sez, setShowAddItem, showAddItem, sezIsShown, id_sez, id_uzi }) => {
   const [showSetAsCompleted, setshowSetAsCompleted] = useState(false)
-
-
+  const [err, setErr] = useState('')
+  const [showAddType, setShowAddType] = useState(false);
   const getTime = (string) => {
     let time = string.substring(11, 16);
     return time;
@@ -30,7 +30,7 @@ const List = ({ lists, showList, setId_Sez, setShowAddItem, showAddItem, sezIsSh
 
   const setPrice = (e, price) => {
     e.preventDefault();
-    if (price.current.value === null) return;
+    if (price.current.value === '') return setErr('No price typed in!');
     fetch("http://localhost:3001/list/setPrice", {
       method: "POST",
       headers: {
@@ -41,7 +41,13 @@ const List = ({ lists, showList, setId_Sez, setShowAddItem, showAddItem, sezIsSh
           "id_sez": ${id_sez}
       }`
     });
+    setErr('')
     setshowSetAsCompleted(false)
+  }
+
+  const setType = (e, type) => {
+    e.preventDefault();
+    if(type.current.state.selected.value === '') return setErr('Nothing selected');
   }
 
   return (
@@ -53,7 +59,7 @@ const List = ({ lists, showList, setId_Sez, setShowAddItem, showAddItem, sezIsSh
           <h4>{(list.nazev)[0].toUpperCase() + (list.nazev).slice(1)} {list.cena > 0 && <span style={{color: '#85bb65'}}>{list.cena} kč</span>}</h4>
           {!isOwned && <h6 style={{color: 'red'}}>Owned by {(list.jmeno)[0].toUpperCase() + (list.jmeno).slice(1)}</h6>}
           {isOwned && <h6 style={{color: 'green'}}>Owned by you</h6>}
-          
+          {<h6>{list.typ}</h6>}
           <h4>
             {getTime(list.datum)} <br /> {getDate(list.datum)}
           </h4>
@@ -63,7 +69,7 @@ const List = ({ lists, showList, setId_Sez, setShowAddItem, showAddItem, sezIsSh
                 showList(list.id_sez);
               }}
               className="buttonos"
-            >
+            > 
               Show
             </button>
             <br />
@@ -79,10 +85,13 @@ const List = ({ lists, showList, setId_Sez, setShowAddItem, showAddItem, sezIsSh
             </button>
             
             {list.cena == 0 && sezIsShown && list.id_sez === id_sez && <button className="buttonos" onClick={async () =>{setshowSetAsCompleted(!showSetAsCompleted)}} >Mark as completed</button>}
-            {showSetAsCompleted && <SetPrice doIt={setPrice} setshowSetAsCompleted={setshowSetAsCompleted}/>}
+            {showSetAsCompleted && <SetPrice doIt={setPrice} setshowSetAsCompleted={setshowSetAsCompleted} err={err}/>}
             {sezIsShown && list.id_sez === id_sez && list.cena == 0 &&<button className="buttonos" onClick={() => {setShowAddItem(!showAddItem)}}>
               Add Item
             </button>}
+            {list.cena > 0 && <button className="buttonos" onClick={() => {setShowAddType(!showAddType)}}>Add type</button> }
+            {list.cena > 0 && showAddType && <AddTypeToList doIt={setType} setShowIt={setShowAddType} err={err}/>}
+            <br />
           </div>
         </div>
       ))}

@@ -139,6 +139,5 @@ app.post('/type/createShop', (req, res) => {
 
 
 app.post('/test', (req, res) => {
-    console.log(req.body)
     res.sendStatus(200)
 })

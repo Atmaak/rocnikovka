@@ -12,7 +12,7 @@ const AddShopLayout = () => {
       data.sort(function(a, b) {
         return parseFloat(a.id_szn) - parseFloat(b.id_szn);
     });
-    console.log(data)
+    (data)
       setTypes(data)
     }
     fetchIt()
@@ -23,8 +23,6 @@ const AddShopLayout = () => {
   var array = []
   const onSubmit = (e) => {
     e.preventDefault()
-    //console.log(data)
-    //console.log(data.current[1].value)
     for (let i = 0; i < max+1; i++) {
       array[i] = data.current[i].value
     }
@@ -39,7 +37,6 @@ const AddShopLayout = () => {
         "serazeni": array.slice(1)
       })
     })
-    console.log(array.slice(1))
   }
 
   const hasDuplicates = (array) => {

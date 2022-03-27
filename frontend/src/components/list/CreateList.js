@@ -27,7 +27,6 @@ const CreateList = ({ id_uzi, setShowCreateList }) => {
   const nazev = useRef();
 
   const createList = async () => {
-    console.log(drop.current.state.selected.value)
     if (nazev.current.value === "") return;
     await fetch("http://localhost:3001/list/createList", {
       method: "POST",

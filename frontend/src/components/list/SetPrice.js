@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { CgCloseR } from "react-icons/cg";
 
-const SetPrice = ({doIt, setshowSetAsCompleted}) => {
+const SetPrice = ({doIt, setshowSetAsCompleted, err}) => {
   const price = useRef();
 
   const close = (e) => {
@@ -32,6 +32,11 @@ const SetPrice = ({doIt, setshowSetAsCompleted}) => {
           >
             <input type="number" min="1" ref={price}/>
             <input type="submit" />
+            {err && (
+                <>
+                  <p className="err">{err}</p> <br />
+                </>
+              )}
           </form>
         </div>
       </div>

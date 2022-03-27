@@ -9,7 +9,6 @@ const sortList = async () => {
       })
     }) 
     const data = await res.json()
-    console.log(data)
   }
 
   const displayList = async (id_sez) => {
@@ -22,7 +21,6 @@ const sortList = async () => {
       body: `{"id_sez":${id_sez}}`,
     });
     const data = await fetchList.json();
-    console.log(data)
   };
 
   displayList(82)
