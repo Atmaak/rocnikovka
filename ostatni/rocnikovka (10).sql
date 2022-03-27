@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: 127.0.0.1
--- Vytvořeno: Sob 12. bře 2022, 20:30
+-- Vytvořeno: Ned 27. bře 2022, 18:48
 -- Verze serveru: 10.4.20-MariaDB
 -- Verze PHP: 7.3.29
 
@@ -110,7 +110,13 @@ INSERT INTO `polozky` (`id_pol`, `nazev`, `id_szn`) VALUES
 (150, 'dasdad', 9),
 (152, 'dasd', 6),
 (153, 'dasd', 7),
-(154, 'XdasD', 12);
+(154, 'XdasD', 12),
+(164, 'dasdas', 1),
+(172, 'dadad', 3),
+(173, 'XDD', 3),
+(174, 'dasda2', 9),
+(175, 'dasdas', 1),
+(176, 'dada', 3);
 
 -- --------------------------------------------------------
 
@@ -124,15 +130,6 @@ CREATE TABLE `pol_sez` (
   `kusy` int(11) NOT NULL,
   `id_sta` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
-
---
--- Vypisuji data pro tabulku `pol_sez`
---
-
-INSERT INTO `pol_sez` (`id_sez`, `id_pol`, `kusy`, `id_sta`) VALUES
-(82, 149, 4475, 2),
-(82, 150, 456465, 2),
-(86, 154, 526, 2);
 
 -- --------------------------------------------------------
 
@@ -178,16 +175,9 @@ CREATE TABLE `seznamy` (
   `cena` int(11) NOT NULL,
   `datum` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `id_uzi` int(11) NOT NULL,
-  `id_fam` int(11) NOT NULL
+  `id_fam` int(11) NOT NULL,
+  `typ` varchar(64) COLLATE utf8mb4_czech_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
-
---
--- Vypisuji data pro tabulku `seznamy`
---
-
-INSERT INTO `seznamy` (`id_sez`, `done`, `nazev`, `cena`, `datum`, `id_uzi`, `id_fam`) VALUES
-(82, 0, 'XD', 69, '2022-03-12 19:20:41', 1, 1),
-(86, 0, 'xddd', 0, '2022-03-12 19:24:18', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -224,6 +214,7 @@ CREATE TABLE `typy` (
 --
 
 INSERT INTO `typy` (`id_szn`, `nazev`) VALUES
+(1, '-'),
 (3, 'alko'),
 (12, 'děti'),
 (13, 'elektronika'),
@@ -231,7 +222,7 @@ INSERT INTO `typy` (`id_szn`, `nazev`) VALUES
 (8, 'maso'),
 (5, 'mléčné výrobky'),
 (14, 'nádobí'),
-(1, 'nealko'),
+(16, 'nealko'),
 (11, 'oblečení'),
 (4, 'ovoce a zelenina'),
 (7, 'pečivo'),
@@ -374,7 +365,7 @@ ALTER TABLE `opravneni`
 -- AUTO_INCREMENT pro tabulku `polozky`
 --
 ALTER TABLE `polozky`
-  MODIFY `id_pol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
+  MODIFY `id_pol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=177;
 
 --
 -- AUTO_INCREMENT pro tabulku `rodiny`
@@ -386,7 +377,7 @@ ALTER TABLE `rodiny`
 -- AUTO_INCREMENT pro tabulku `seznamy`
 --
 ALTER TABLE `seznamy`
-  MODIFY `id_sez` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `id_sez` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 
 --
 -- AUTO_INCREMENT pro tabulku `stavy`
@@ -398,7 +389,7 @@ ALTER TABLE `stavy`
 -- AUTO_INCREMENT pro tabulku `typy`
 --
 ALTER TABLE `typy`
-  MODIFY `id_szn` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_szn` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT pro tabulku `uzivatele`
