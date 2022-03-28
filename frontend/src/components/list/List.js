@@ -48,6 +48,18 @@ const List = ({ lists, showList, setId_Sez, setShowAddItem, showAddItem, sezIsSh
   const setType = (e, type) => {
     e.preventDefault();
     if(type.current.state.selected.value === '') return setErr('Nothing selected');
+    fetch("http://localhost:3001/list/setType", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: `{
+        "id_sez": ${id_sez},
+        "type":"${type.current.state.selected.value}"
+      }`
+    })
+
+    setShowAddType(false)
   }
 
   return (

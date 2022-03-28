@@ -10,25 +10,22 @@ const AddItem = ({ id_sez, setShowAddItem }) => {
   var nazev = useRef("");
   var kusy = useRef("");
 
-  
-  const [options, setOptions] = useState()
+  const [options, setOptions] = useState();
   useEffect(() => {
-    var xd = []
+    var xd = [];
     const fillOptions = async () => {
       const res = await fetch("http://localhost:3001/item/types");
       const data = await res.json();
       for (let i = 0; i < data.length; i++) {
-        xd[i] = {value: data[i].nazev, id_szn: data[i].id_szn}
+        xd[i] = { value: data[i].nazev, id_szn: data[i].id_szn };
       }
-      
     };
     fillOptions();
-    xd.sort()
-    setOptions(xd)
-  },[]);
-  
-  const drop = useRef()
+    xd.sort();
+    setOptions(xd);
+  }, []);
 
+  const drop = useRef();
 
   useEffect(() => {
     fetchdata();
@@ -53,22 +50,23 @@ const AddItem = ({ id_sez, setShowAddItem }) => {
                 "id_szn": ${XD}
             }`,
     });
-    setShowAddItem(false)
+    setShowAddItem(false);
   };
   const doIt = async (e) => {
     e.preventDefault();
     if (nazev.current.value.length < 3) return setErr("Too short name!");
     if (id_sez === 0) return setErr("You need to choose type of item!");
-    if(!drop.current.state.selected.value) return setErr("Set type of item!")
+    if (!drop.current.state.selected.value) return setErr("Set type of item!");
     for (let i = 0; i < options.length; i++) {
-      if(String(options[i].value) === String(drop.current.state.selected.value)){ 
+      if (
+        String(options[i].value) === String(drop.current.state.selected.value)
+      ) {
         addIt(options[i].id_szn);
         nazev.current.value = null;
         kusy.current.value = null;
         return setErr("");
-        
       }
-      setErr('Something went wrong')
+      setErr("Something went wrong");
     }
   };
   const close = (e) => {
@@ -104,10 +102,10 @@ const AddItem = ({ id_sez, setShowAddItem }) => {
                 <input type="number" ref={kusy} placeholder="Count" min="1" />
                 <br />
                 <Dropdown
-              options={options}
-              placeholder="Select an option"
-              ref={drop}
-            />
+                  options={options}
+                  placeholder="Select an option"
+                  ref={drop}
+                />
 
                 <input type="submit" />
               </form>

@@ -102,6 +102,13 @@ const setPrice = (data) => {
   })
 }
 
+const addType = (data) => {
+  sql = `UPDATE seznamy SET typ='${data.type}' WHERE ${data.id_sez}`
+  con.query(sql, (err, result) => {
+    if(err) throw err
+  })
+}
+
 
 module.exports = {
   displayNewestList,
@@ -109,5 +116,6 @@ module.exports = {
   addItem,
   createList,
   deleteList,
-  setPrice
+  setPrice,
+  addType
 };

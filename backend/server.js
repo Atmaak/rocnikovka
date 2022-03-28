@@ -128,6 +128,11 @@ app.post('/list/deleteList', (req,res) => {
     res.sendStatus(200)  
 })
 
+app.post('/list/setType', (req, res) => {
+    list.addType(req.body)
+    res.sendStatus(200)
+})
+
 app.post('/inviteFamily' , (req, res) => {
     user.addToFamily(req.body)
     res.sendStatus(200)
