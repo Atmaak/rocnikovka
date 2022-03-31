@@ -30,7 +30,7 @@ const SetPrice = ({doIt, setshowSetAsCompleted, err}) => {
               doIt(e, price);
             }}
           >
-            <input type="number" min="1" ref={price}/>
+            <input type="number" min="1" ref={price} placeholder="Type price that you payed in the shop."/>
             <input type="submit" />
             {err && (
                 <>

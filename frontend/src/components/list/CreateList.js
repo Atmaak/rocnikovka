@@ -28,6 +28,10 @@ const CreateList = ({ id_uzi, setShowCreateList }) => {
 
   const createList = async () => {
     if (nazev.current.value === "") return;
+    if((nazev.current.value).includes('script')) return (
+      alert("Nice try!"),
+      setShowCreateList(false)
+      )
     await fetch("http://localhost:3001/list/createList", {
       method: "POST",
       headers: {
@@ -41,7 +45,8 @@ const CreateList = ({ id_uzi, setShowCreateList }) => {
     });
     nazev.current.value = "";
     setShowCreateList(false);
-  };
+  
+    };
   const close = (e) => {
     if (e.target.classList[0] === "popup") setShowCreateList(false);
   };
