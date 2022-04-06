@@ -278,3 +278,13 @@ input[type=submit]:hover {
     margin: 0 5px;
     
 }
+
+.dropdown{
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+}
+
+.dropdown > * {
+    width: 250px;
+}

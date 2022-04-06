@@ -4,7 +4,7 @@ import Item from "./list/Item";
 
 import AddItem from "./list/AddItem";
 
-const ShowList = ({ id_sez, showAddItem, setShowAddItem, id_uzi }) => {
+const ShowList = ({ id_sez, showAddItem, setShowAddItem }) => {
   const [List, setList] = useState([]);
   useEffect(() => {
     const getList = async (id_sez) => {
@@ -13,9 +13,7 @@ const ShowList = ({ id_sez, showAddItem, setShowAddItem, id_uzi }) => {
         await setList(dataFromServer);
         //sortList()
       }
-      
     };
-
     getList(id_sez);
   }, [List, id_sez]);
 

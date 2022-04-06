@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: 127.0.0.1
--- Vytvořeno: Ned 27. bře 2022, 18:48
--- Verze serveru: 10.4.20-MariaDB
--- Verze PHP: 7.3.29
+-- Vytvořeno: Stř 06. dub 2022, 09:18
+-- Verze serveru: 10.4.13-MariaDB
+-- Verze PHP: 7.4.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -111,12 +111,8 @@ INSERT INTO `polozky` (`id_pol`, `nazev`, `id_szn`) VALUES
 (152, 'dasd', 6),
 (153, 'dasd', 7),
 (154, 'XdasD', 12),
-(164, 'dasdas', 1),
-(172, 'dadad', 3),
-(173, 'XDD', 3),
-(174, 'dasda2', 9),
-(175, 'dasdas', 1),
-(176, 'dada', 3);
+(177, 'nigger', 9),
+(178, 'dasdasd', 12);
 
 -- --------------------------------------------------------
 
@@ -130,6 +126,13 @@ CREATE TABLE `pol_sez` (
   `kusy` int(11) NOT NULL,
   `id_sta` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
+
+--
+-- Vypisuji data pro tabulku `pol_sez`
+--
+
+INSERT INTO `pol_sez` (`id_sez`, `id_pol`, `kusy`, `id_sta`) VALUES
+(104, 178, 5, 2);
 
 -- --------------------------------------------------------
 
@@ -172,12 +175,23 @@ CREATE TABLE `seznamy` (
   `id_sez` int(11) NOT NULL,
   `done` tinyint(1) NOT NULL,
   `nazev` varchar(64) COLLATE utf8mb4_czech_ci NOT NULL,
+  `typ` varchar(65) COLLATE utf8mb4_czech_ci NOT NULL,
   `cena` int(11) NOT NULL,
   `datum` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `id_uzi` int(11) NOT NULL,
-  `id_fam` int(11) NOT NULL,
-  `typ` varchar(64) COLLATE utf8mb4_czech_ci NOT NULL
+  `id_fam` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
+
+--
+-- Vypisuji data pro tabulku `seznamy`
+--
+
+INSERT INTO `seznamy` (`id_sez`, `done`, `nazev`, `typ`, `cena`, `datum`, `id_uzi`, `id_fam`) VALUES
+(102, 0, 'adsa', 'elektronika', 2147483647, '2022-03-31 07:19:22', 1, 1),
+(103, 0, 'asdasdas', 'elektronika', 69, '2022-04-06 06:02:15', 1, 1),
+(104, 0, 'hjshdjsa', 'alko', 0, '2022-04-04 10:07:26', 1, 1),
+(105, 0, 'ghdgashdg', '*', 0, '2022-04-06 06:45:06', 1, 1),
+(106, 0, 'dasdas', '*', 0, '2022-04-06 06:45:20', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -214,7 +228,7 @@ CREATE TABLE `typy` (
 --
 
 INSERT INTO `typy` (`id_szn`, `nazev`) VALUES
-(1, '-'),
+(1, '*'),
 (3, 'alko'),
 (12, 'děti'),
 (13, 'elektronika'),
@@ -222,7 +236,7 @@ INSERT INTO `typy` (`id_szn`, `nazev`) VALUES
 (8, 'maso'),
 (5, 'mléčné výrobky'),
 (14, 'nádobí'),
-(16, 'nealko'),
+(17, 'nealko'),
 (11, 'oblečení'),
 (4, 'ovoce a zelenina'),
 (7, 'pečivo'),
@@ -262,7 +276,7 @@ INSERT INTO `uzivatele` (`id_uzi`, `id_opr`, `id_fam`, `jmeno`, `email`, `heslo`
 --
 DROP TABLE IF EXISTS `adminrodiny`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `adminrodiny`  AS SELECT `uzivatele`.`id_uzi` AS `id_uzi`, `rodiny`.`id_hla` AS `id_hla` FROM (`uzivatele` join `rodiny` on(`uzivatele`.`id_fam` = `rodiny`.`id_fam`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `adminrodiny`  AS SELECT `uzivatele`.`id_uzi` AS `id_uzi`, `rodiny`.`id_hla` AS `id_hla` FROM (`uzivatele` join `rodiny` on(`uzivatele`.`id_fam` = `rodiny`.`id_fam`))  ;
 
 -- --------------------------------------------------------
 
@@ -271,7 +285,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `items`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `items`  AS SELECT `polozky`.`nazev` AS `nazev`, `pol_sez`.`kusy` AS `kusy`, `pol_sez`.`id_sez` AS `id_sez`, `pol_sez`.`id_pol` AS `id_pol`, `stavy`.`id_sta` AS `id_sta`, `polozky`.`id_szn` AS `id_szn`, `typy`.`nazev` AS `nazevSerazeni`, `stavy`.`nazev` AS `stav`, `seznamy`.`id_uzi` AS `id_uzi` FROM ((((`pol_sez` join `polozky` on(`pol_sez`.`id_pol` = `polozky`.`id_pol`)) join `stavy` on(`pol_sez`.`id_sta` = `stavy`.`id_sta`)) join `typy` on(`polozky`.`id_szn` = `typy`.`id_szn`)) join `seznamy` on(`pol_sez`.`id_sez` = `seznamy`.`id_sez`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `items`  AS SELECT `polozky`.`nazev` AS `nazev`, `pol_sez`.`kusy` AS `kusy`, `pol_sez`.`id_sez` AS `id_sez`, `pol_sez`.`id_pol` AS `id_pol`, `stavy`.`id_sta` AS `id_sta`, `polozky`.`id_szn` AS `id_szn`, `typy`.`nazev` AS `nazevSerazeni`, `stavy`.`nazev` AS `stav`, `seznamy`.`id_uzi` AS `id_uzi` FROM ((((`pol_sez` join `polozky` on(`pol_sez`.`id_pol` = `polozky`.`id_pol`)) join `stavy` on(`pol_sez`.`id_sta` = `stavy`.`id_sta`)) join `typy` on(`polozky`.`id_szn` = `typy`.`id_szn`)) join `seznamy` on(`pol_sez`.`id_sez` = `seznamy`.`id_sez`))  ;
 
 --
 -- Indexy pro exportované tabulky
@@ -365,7 +379,7 @@ ALTER TABLE `opravneni`
 -- AUTO_INCREMENT pro tabulku `polozky`
 --
 ALTER TABLE `polozky`
-  MODIFY `id_pol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=177;
+  MODIFY `id_pol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=179;
 
 --
 -- AUTO_INCREMENT pro tabulku `rodiny`
@@ -377,7 +391,7 @@ ALTER TABLE `rodiny`
 -- AUTO_INCREMENT pro tabulku `seznamy`
 --
 ALTER TABLE `seznamy`
-  MODIFY `id_sez` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+  MODIFY `id_sez` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 
 --
 -- AUTO_INCREMENT pro tabulku `stavy`
@@ -389,7 +403,7 @@ ALTER TABLE `stavy`
 -- AUTO_INCREMENT pro tabulku `typy`
 --
 ALTER TABLE `typy`
-  MODIFY `id_szn` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_szn` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT pro tabulku `uzivatele`
