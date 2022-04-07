@@ -142,6 +142,10 @@ app.post('/type/createShop', (req, res) => {
     
 })
 
+app.get('/type/getShops', async (req, res) => {
+    res.send(await shop.getShops())
+})
+
 
 app.post('/test', (req, res) => {
     res.sendStatus(200)

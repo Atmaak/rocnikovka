@@ -12,7 +12,7 @@ const AddShopLayout = () => {
       data.sort(function(a, b) {
         return parseFloat(a.id_szn) - parseFloat(b.id_szn);
     });
-    (data)
+    if(data)
       setTypes(data)
     }
     fetchIt()

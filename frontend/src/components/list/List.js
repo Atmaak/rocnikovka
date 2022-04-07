@@ -76,9 +76,9 @@ const List = ({
   return (
     <>
       {lists.map((list) => (
-        <span key={list.id_sez}>
+        <>
           {(shown === list.typ || shown === "*") &&
-            <div key={list.id_sez} className="List">
+            <div  key={list.id_sez} className="List">
               {setIsOwned(false)}
               {parseInt(list.id_uzi) === parseInt(id_uzi) && setIsOwned(true)}
               <h4>
@@ -166,8 +166,7 @@ const List = ({
               </div>
             </div>
           }
-        </span>
-      ))}
+      </>))}
     </>
   );
 };

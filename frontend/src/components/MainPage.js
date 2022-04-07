@@ -6,7 +6,7 @@ import CreateList from "./list/CreateList";
 import AddToFamily from "./mainpage/AddToFamily";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
-//import AdminPanel from "./admin/AdminPanel";
+import AdminPanel from "./admin/AdminPanel";
 
 const MainPage = ({
   id,
@@ -21,14 +21,16 @@ const MainPage = ({
   const [sezIsShown, setSezIsShown] = useState(false);
   const [admin, setIsAdmin] = useState(false);
   const [options, setOptions] = useState();
+  const [options2, setOptions2] = useState();
   const [shown, setShown] = useState("");
 
   const [xd, setXD] = useState(false);
 
   const drop = useRef();
+  const drop2 = useRef();
 
   useEffect(() => {
-    if(drop.current.state.selected.value === '') return setShown("*");
+    if (drop.current.state.selected.value === "") return setShown("*");
     setShown(drop.current.state.selected.value);
   }, [xd]);
 
@@ -44,6 +46,21 @@ const MainPage = ({
     fillOptions();
     xd.sort();
     setOptions(xd);
+
+    const fillOptions2 = async () => {
+      const res = await fetch("http://localhost:3001/type/getShops");
+      const data = await res.json();
+      console.log(data)
+      for (let i = 0; i < data.length; i++) {
+        xd[i] = { value: data[i].nazev, id_mark: data[i].id_mark };
+      }
+      
+      //setOptions2(data);
+    }
+
+    fillOptions2()
+
+
     const fetchIt = async () => {
       const res = await fetch("http://localhost:3001/user/isAdmin", {
         method: "POST",
@@ -59,7 +76,7 @@ const MainPage = ({
     };
 
     fetchIt();
-    setXD(!xd)
+    setXD(!xd);
   }, []);
 
   useEffect(() => {
@@ -98,8 +115,25 @@ const MainPage = ({
       {showCreateList && (
         <CreateList id_uzi={id} setShowCreateList={setShowCreateList} />
       )}
-      
-      <div className="dropdown"><Dropdown options={options} placeholder="Select an option" ref={drop} onChange={() => {setXD(!xd)}}/></div>
+
+      <div className="dropdown">
+        <Dropdown
+          options={options}
+          placeholder="Select an option"
+          ref={drop}
+          onChange={() => {
+            setXD(!xd);
+          }}
+        />
+        <Dropdown
+          options={options2}
+          placeholder="Select an option"
+          ref={drop2}
+          onChange={() => {
+            setXD(!xd);
+          }}
+        />
+      </div>
       <div className="row">
         <List
           lists={lists}
@@ -119,7 +153,7 @@ const MainPage = ({
         showAddItem={showAddItem}
         setShowAddItem={setShowAddItem}
       />
-      {/*admin && <AdminPanel />*/}
+      {admin && <AdminPanel />}
     </>
   );
 };

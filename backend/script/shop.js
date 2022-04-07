@@ -17,7 +17,19 @@ const createShop = (data) => {
     })
 }
 
-const addSort = (data) => {
+const getShops = () => {
+  sql = `SELECT * FROM markety`
+    return new Promise((resolve, reject) => {
+      
+   con.query(sql, (err, result) => {
+      if(err) return reject(err)
+      return resolve(result)
+    })
+  })
 }
 
+module.exports = {
+  getShops,
+  createShop,
+}
 //createShop({nazev: 'xdd'})
