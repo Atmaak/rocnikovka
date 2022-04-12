@@ -30,12 +30,13 @@ const MainPage = ({
   const drop2 = useRef();
 
   useEffect(() => {
-    if (drop.current.state.selected.value === "") return setShown("*");
+    if (drop.current.state.selected.value === "-") return setShown("*");
     setShown(drop.current.state.selected.value);
   }, [xd]);
 
   useEffect(() => {
     var xd = [];
+    var xd2 = [];
     const fillOptions = async () => {
       const res = await fetch("http://localhost:3001/item/types");
       const data = await res.json();
@@ -50,12 +51,11 @@ const MainPage = ({
     const fillOptions2 = async () => {
       const res = await fetch("http://localhost:3001/type/getShops");
       const data = await res.json();
-      console.log(data)
+      console.log(data[0])
       for (let i = 0; i < data.length; i++) {
-        xd[i] = { value: data[i].nazev, id_mark: data[i].id_mark };
+        xd2[i] = { value: data[i].nazev, id_mark: data[i].id_mark };
       }
-      
-      //setOptions2(data);
+      setOptions2(xd2);
     }
 
     fillOptions2()
@@ -119,7 +119,7 @@ const MainPage = ({
       <div className="dropdown">
         <Dropdown
           options={options}
-          placeholder="Select an option"
+          placeholder="Select type of list"
           ref={drop}
           onChange={() => {
             setXD(!xd);
@@ -127,7 +127,7 @@ const MainPage = ({
         />
         <Dropdown
           options={options2}
-          placeholder="Select an option"
+          placeholder="Select shop"
           ref={drop2}
           onChange={() => {
             setXD(!xd);
