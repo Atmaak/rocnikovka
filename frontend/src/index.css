@@ -185,7 +185,7 @@ input[type=submit]:hover {
 
 .popup_inner {
     position: absolute;
-    top: 5vw;
+    top: 5vh;
     left: 25vw;
     right: 25vw;
     padding: 15px;

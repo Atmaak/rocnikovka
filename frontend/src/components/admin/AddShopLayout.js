@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react'
-
 import fetch from 'node-fetch'
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
@@ -29,10 +28,6 @@ const AddShopLayout = () => {
 
     getShops()
     getTypy()
-    console.log(shopy)
-    console.log(typy)
-
-
 
   }, [])
 
@@ -44,8 +39,14 @@ const AddShopLayout = () => {
           options={shopy}
           placeholder="Select type of list"
           ref={drop}
-        /></div>
-
+        />
+        {typy?.map((typ) => {
+          <div key={typ.id_szn}>
+            <h1>{typ.nazev}</h1>
+            {console.log(typ)}
+          </div>
+        })}</div>
+      
         
     </div>
   )

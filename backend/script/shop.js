@@ -8,28 +8,38 @@ const con = mysql.createConnection({
   database: process.env.db_name,
 });
 
-var sql
+var sql;
 
 const createShop = (data) => {
-    sql = `INSERT INTO markety(nazev, mesto) VALUES ('${data.nazev}', '${data.mesto}')`;
-    con.query(sql, (err, result) => {
-        if (err) throw err
-    })
-}
+  sql = `INSERT INTO markety(nazev, mesto) VALUES ('${data.nazev}', '${data.mesto}')`;
+  con.query(sql, (err, result) => {
+    if (err) throw err;
+  });
+};
 
 const getShops = () => {
-  sql = `SELECT * FROM markety`
-    return new Promise((resolve, reject) => {
-      
-   con.query(sql, (err, result) => {
-      if(err) return reject(err)
-      return resolve(result)
-    })
-  })
-}
+  sql = `SELECT * FROM markety`;
+  return new Promise((resolve, reject) => {
+    con.query(sql, (err, result) => {
+      if (err) return reject(err);
+      return resolve(result);
+    });
+  });
+};
+
+const getPosition = (data) => {
+  sql = `SELECT * FROM serazeni group by id_mark DESC WHERE id_mark = ${data.id_mark}`;
+  return new Promise((resolve, reject) => {
+    con.query(sql, (err, result) => {
+      if (err) return reject(err);
+      return resolve(result);
+    });
+  });
+};
 
 module.exports = {
   getShops,
   createShop,
-}
+  getPosition
+};
 //createShop({nazev: 'xdd'})
