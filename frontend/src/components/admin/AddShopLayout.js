@@ -12,8 +12,7 @@ const AddShopLayout = () => {
   useEffect(() =>{
     const getTypy = async () => {
       const res = await fetch('http://localhost:3001/item/types')
-      const data = await res.json()
-      await setTypy(data)
+      await setTypy(await res.json(``))
     }
     
     const getShops = async () => {
