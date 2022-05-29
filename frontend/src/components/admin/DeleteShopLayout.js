@@ -1,26 +1,29 @@
 import fetch from 'node-fetch'
 import React, {useEffect, useState } from 'react'
-
+import StoreXD from './Store'
 const DeleteShopLayout = () => {
     const [stores, setStores] = useState()
-    const fetchData = async () => {
-        const data = await fetch('http://localhost:3001/type/getShops')
-        await setStores(await data.json(``))
-    }
+    
     useEffect(() =>{  
+        const fetchData = async () => {
+          const res = await fetch('http://localhost:3001/type/getShops')
+          const data = await res.json()
+          await setStores(data)
+        }
         fetchData()
-    })
+    },[])
 
 
-  return (
+    return (
       <div>
-      {stores?.map((store) => {
-          <div key={store.id_mark}>
-            <h1>{store.nazev}</h1>
+          {stores?.map((typ) => {
+            <div key={typ.id_szn}>
+              <h1>{typ.nazev}</h1>
+              {console.log(typ.nazev)}
+            </div>
+          })}
           </div>
-        })}
-      </div>
-  )
+    )
 }
 
 export default DeleteShopLayout

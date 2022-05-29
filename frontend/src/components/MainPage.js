@@ -133,7 +133,7 @@ const MainPage = ({
             setXD(!xd);
           }}
         />
-      </div>
+      </div>{/*
       <div className="row">
         <List
           lists={lists}
@@ -146,13 +146,13 @@ const MainPage = ({
           id_uzi={id}
           shown={shown}
         />
-      </div>
+        </div>
       <ShowList
         id_sez={id_sez}
         lists={lists}
         showAddItem={showAddItem}
         setShowAddItem={setShowAddItem}
-      />
+      />*/}
       {admin && <AdminPanel />}
     </>
   );

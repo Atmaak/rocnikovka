@@ -146,11 +146,6 @@ app.get('/type/getShops', async (req, res) => {
     res.send(await shop.getShops())
 })
 
-
-app.post('/test', (req, res) => {
-    res.sendStatus(200)
-})
-
 app.post('/shop/getPosition', (req, res) => {
     res.send(shop.getPosition(req.body))
 })
