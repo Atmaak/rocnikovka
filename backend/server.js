@@ -84,6 +84,7 @@ app.post('/list/setPrice', async (req, res) => {
     list.setPrice(req.body)
     res.sendStatus(200)
 })
+
 app.post('/item/add', (req, res) => {
     list.addItem(req.body)
     res.sendStatus(200)    
@@ -144,6 +145,11 @@ app.post('/type/createShop', (req, res) => {
 
 app.get('/type/getShops', async (req, res) => {
     res.send(await shop.getShops())
+})
+
+app.post('/shop/delete', (req, res) => {
+    shop.deleteShop(req.body)
+    res.sendStatus(200)
 })
 
 app.post('/shop/getPosition', (req, res) => {

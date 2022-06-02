@@ -288,3 +288,8 @@ input[type=submit]:hover {
 .dropdown > * {
     width: 250px;
 }
+
+
+.klik {
+    display: block;
+}

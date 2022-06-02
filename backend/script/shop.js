@@ -17,6 +17,13 @@ const createShop = (data) => {
   });
 };
 
+const deleteShop = (data) => {
+  sql = `DELETE FROM markety WHERE id_mark = ${data.id_mark}`
+  con.query(sql, (err, result) => {
+    if (err) throw err;
+  });
+}
+
 const getShops = () => {
   sql = `SELECT * FROM markety`;
   return new Promise((resolve, reject) => {
@@ -39,6 +46,7 @@ const getPosition = (data) => {
 
 module.exports = {
   getShops,
+  deleteShop,
   createShop,
   getPosition
 };

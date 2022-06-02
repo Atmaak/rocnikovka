@@ -51,7 +51,6 @@ const MainPage = ({
     const fillOptions2 = async () => {
       const res = await fetch("http://localhost:3001/type/getShops");
       const data = await res.json();
-      console.log(data[0])
       for (let i = 0; i < data.length; i++) {
         xd2[i] = { value: data[i].nazev, id_mark: data[i].id_mark };
       }
@@ -133,7 +132,7 @@ const MainPage = ({
             setXD(!xd);
           }}
         />
-      </div>{/*
+      </div>
       <div className="row">
         <List
           lists={lists}
@@ -152,7 +151,7 @@ const MainPage = ({
         lists={lists}
         showAddItem={showAddItem}
         setShowAddItem={setShowAddItem}
-      />*/}
+      />
       {admin && <AdminPanel />}
     </>
   );
