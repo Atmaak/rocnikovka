@@ -80,7 +80,7 @@ button {
 
 input[type=text],
 select {
-    min-width: 20vh;
+    min-width: 20vw;
     width: 30%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -92,7 +92,7 @@ select {
 
 input[type=email],
 select {
-    min-width: 20vh;
+    min-width: 20vw;
     width: 30%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -104,7 +104,7 @@ select {
 
 input[type=number],
 select {
-    min-width: 20vh;
+    min-width: 20vw;
     width: 30%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -116,7 +116,7 @@ select {
 
 input[type=password],
 select {
-    min-width: 20vh;
+    min-width: 20vw;
     width: 30%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -127,7 +127,7 @@ select {
 }
 
 input[type=submit] {
-    min-width: 20vh;
+    min-width: 20vw;
     width: 30%;
     background-color: #0071ce;
     color: white;
@@ -292,4 +292,41 @@ input[type=submit]:hover {
 
 .klik {
     display: block;
+}
+
+
+.selectnute{
+    border: 2px solid black;
+    margin: 15px;
+    padding: 5px;
+    min-height: 175px;
+}
+
+
+.container{
+    display: flex;
+    flex-direction: column;
+}
+
+.itemos{
+    padding-bottom: 2vh;
+    border: 1px solid rgb(122, 122, 122);
+    border-radius: 15px;
+}
+
+.hidden {
+    display: none;
+}
+
+.containerInputs{
+    width: 20vw;
+    min-width: 300px;
+}
+
+.containerInputs > * {
+    width: 100%;
+}
+
+#btn{
+    border-radius: 4px;
 }

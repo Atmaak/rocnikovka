@@ -52,7 +52,7 @@ const MainPage = ({
       const res = await fetch("http://localhost:3001/type/getShops");
       const data = await res.json();
       for (let i = 0; i < data.length; i++) {
-        xd2[i] = { value: data[i].nazev, id_mark: data[i].id_mark };
+        xd2[i] = { value: data[i].nazev + " v " + data[i].mesto, id_mark: data[i].id_mark };
       }
       setOptions2(xd2);
     }

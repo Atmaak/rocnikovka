@@ -8,7 +8,7 @@ const AdminPanel = () => {
   return <>
   <h1>Admin Panel</h1>
   <div className="adminPanel">
-      {showShopLayout && <ShopLayout />}
+      {/* showShopLayout && <ShopLayout /> */}
       <EditLayout />
   </div>
   

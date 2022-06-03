@@ -155,3 +155,8 @@ app.post('/shop/delete', (req, res) => {
 app.post('/shop/getPosition', (req, res) => {
     res.send(shop.getPosition(req.body))
 })
+
+app.post('/shop/addLayout', (req, res) => {
+    shop.addToLayout(req.body)
+    res.sendStatus(200)
+})

@@ -11,10 +11,19 @@ const con = mysql.createConnection({
 var sql;
 
 const createShop = (data) => {
+  //console.log(data)
   sql = `INSERT INTO markety(nazev, mesto) VALUES ('${data.nazev}', '${data.mesto}')`;
   con.query(sql, (err, result) => {
     if (err) throw err;
   });
+  sql = `SELECT max(id_mark) as id_mark from markety`
+  return new Promise((resolve, reject) => {
+    con.query(sql, (err, result) => {
+      if (err) return reject(err);
+      return resolve(result);
+    });
+  });
+
 };
 
 const deleteShop = (data) => {
@@ -35,7 +44,7 @@ const getShops = () => {
 };
 
 const getPosition = (data) => {
-  sql = `SELECT * FROM serazeni group by id_mark DESC WHERE id_mark = ${data.id_mark}`;
+  sql = `SELECT * FROM serazeni WHERE id_mark = ${data.id_mark}`;
   return new Promise((resolve, reject) => {
     con.query(sql, (err, result) => {
       if (err) return reject(err);
@@ -44,10 +53,24 @@ const getPosition = (data) => {
   });
 };
 
+
+const addToLayout = async (data) => {
+  const id = (await createShop(data.shop))[0].id_mark
+  sql = `DELETE FROM serazeni WHERE id_mark = ${id}`
+  con.query(sql, (err, result) => {
+    if (err) throw err;
+  });
+  for (let i = 0; i < (data.poradi).length; i++){
+    sql = `INSERT INTO serazeni(id_mark, pozice, id_typ) VALUES (${id}, ${i}, ${data.poradi[i].id_szn})`;
+    con.query(sql, (err, result) => {
+      if (err) throw err;
+    });
+  }
+}
+
 module.exports = {
   getShops,
   deleteShop,
-  createShop,
-  getPosition
+  getPosition,
+  addToLayout
 };
-//createShop({nazev: 'xdd'})
