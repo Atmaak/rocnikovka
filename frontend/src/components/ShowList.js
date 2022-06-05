@@ -17,15 +17,7 @@ const ShowList = ({ id_sez, showAddItem, setShowAddItem }) => {
     getList(id_sez);
   }, [List, id_sez]);
 
-  const sortList = async () => {
-    const res = await fetch('http://localhost:3001/item/getSortBy', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        "id_mark": 1
-      })
-    }) 
-    const data = await res.json()
+  const sortList = () => {
   }
 
   const displayList = async (id_sez) => {

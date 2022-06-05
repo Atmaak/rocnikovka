@@ -134,13 +134,13 @@ app.post('/list/setType', (req, res) => {
     res.sendStatus(200)
 })
 
+app.post('/list/getCompletedLists', async (req, res) => {
+    res.send(await list.getCompletedLists(req.body))
+})
+
 app.post('/inviteFamily' , (req, res) => {
     user.addToFamily(req.body)
     res.sendStatus(200)
-})
-
-app.post('/type/createShop', (req, res) => {
-    
 })
 
 app.get('/type/getShops', async (req, res) => {

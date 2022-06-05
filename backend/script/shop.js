@@ -27,6 +27,10 @@ const createShop = (data) => {
 };
 
 const deleteShop = (data) => {
+  sql = `DELETE FROM serazeni WHERE id_mark = ${data.id_mark}`
+  con.query(sql, (err, result) => {
+    if (err) throw err;
+  });
   sql = `DELETE FROM markety WHERE id_mark = ${data.id_mark}`
   con.query(sql, (err, result) => {
     if (err) throw err;

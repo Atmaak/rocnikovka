@@ -43,7 +43,8 @@ const EditLayout = (shop) => {
         },
         poradi: poradi
       }),
-    });
+    })
+    window.location.reload()
   };
 
   return (

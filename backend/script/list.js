@@ -109,6 +109,18 @@ const addType = (data) => {
   })
 }
 
+const getCompletedLists = (data) => {
+  //console.log(data.id_uzi.id_uzi)
+  sql = `SELECT * FROM seznamy WHERE cena > 0 AND id_uzi = ${data.id_uzi.id_uzi}`
+  //console.log(sql)
+  return new Promise((resolve, reject) => {
+    con.query(sql, (err, result) => {
+      if(err) reject(err)
+      return resolve(result)
+      
+    })
+  })
+}
 
 module.exports = {
   displayNewestList,
@@ -117,5 +129,6 @@ module.exports = {
   createList,
   deleteList,
   setPrice,
-  addType
+  addType,
+  getCompletedLists
 };

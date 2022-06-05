@@ -7,6 +7,7 @@ import AddToFamily from "./mainpage/AddToFamily";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import AdminPanel from "./admin/AdminPanel";
+import Statistika from "./profile/Statistika"
 
 const MainPage = ({
   id,
@@ -35,6 +36,8 @@ const MainPage = ({
   }, [xd]);
 
   useEffect(() => {
+    setShown("*")
+    
     var xd = [];
     var xd2 = [];
     const fillOptions = async () => {
@@ -152,7 +155,8 @@ const MainPage = ({
         showAddItem={showAddItem}
         setShowAddItem={setShowAddItem}
       />
-      {admin && <AdminPanel />}
+      <Statistika id_uzi={id} />
+      {/*admin && <AdminPanel />*/}
     </>
   );
 };
