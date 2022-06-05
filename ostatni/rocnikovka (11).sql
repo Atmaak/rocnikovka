@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.3
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: 127.0.0.1
--- Vytvořeno: Stř 06. dub 2022, 09:18
--- Verze serveru: 10.4.13-MariaDB
--- Verze PHP: 7.4.7
+-- Vytvořeno: Ned 05. čen 2022, 19:28
+-- Verze serveru: 10.4.20-MariaDB
+-- Verze PHP: 7.3.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -62,13 +62,6 @@ CREATE TABLE `markety` (
   `mesto` varchar(64) COLLATE utf8mb4_czech_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
 
---
--- Vypisuji data pro tabulku `markety`
---
-
-INSERT INTO `markety` (`id_mark`, `nazev`, `mesto`) VALUES
-(1, 'lidl', '');
-
 -- --------------------------------------------------------
 
 --
@@ -111,8 +104,13 @@ INSERT INTO `polozky` (`id_pol`, `nazev`, `id_szn`) VALUES
 (152, 'dasd', 6),
 (153, 'dasd', 7),
 (154, 'XdasD', 12),
-(177, 'nigger', 9),
-(178, 'dasdasd', 12);
+(164, 'dasdas', 1),
+(172, 'dadad', 3),
+(173, 'XDD', 3),
+(174, 'dasda2', 9),
+(175, 'dasdas', 1),
+(176, 'dada', 3),
+(177, 'dasdads', 12);
 
 -- --------------------------------------------------------
 
@@ -132,7 +130,7 @@ CREATE TABLE `pol_sez` (
 --
 
 INSERT INTO `pol_sez` (`id_sez`, `id_pol`, `kusy`, `id_sta`) VALUES
-(104, 178, 5, 2);
+(98, 177, 22222, 2);
 
 -- --------------------------------------------------------
 
@@ -160,9 +158,9 @@ INSERT INTO `rodiny` (`id_fam`, `id_hla`) VALUES
 --
 
 CREATE TABLE `serazeni` (
-  `id_itm` int(11) NOT NULL,
-  `id_szn` int(11) NOT NULL,
-  `id_mark` int(11) NOT NULL
+  `id_mark` int(11) NOT NULL,
+  `pozice` int(11) NOT NULL,
+  `id_typ` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
 
 -- --------------------------------------------------------
@@ -175,23 +173,19 @@ CREATE TABLE `seznamy` (
   `id_sez` int(11) NOT NULL,
   `done` tinyint(1) NOT NULL,
   `nazev` varchar(64) COLLATE utf8mb4_czech_ci NOT NULL,
-  `typ` varchar(65) COLLATE utf8mb4_czech_ci NOT NULL,
   `cena` int(11) NOT NULL,
   `datum` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `id_uzi` int(11) NOT NULL,
-  `id_fam` int(11) NOT NULL
+  `id_fam` int(11) NOT NULL,
+  `typ` varchar(64) COLLATE utf8mb4_czech_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_czech_ci;
 
 --
 -- Vypisuji data pro tabulku `seznamy`
 --
 
-INSERT INTO `seznamy` (`id_sez`, `done`, `nazev`, `typ`, `cena`, `datum`, `id_uzi`, `id_fam`) VALUES
-(102, 0, 'adsa', 'elektronika', 2147483647, '2022-03-31 07:19:22', 1, 1),
-(103, 0, 'asdasdas', 'elektronika', 69, '2022-04-06 06:02:15', 1, 1),
-(104, 0, 'hjshdjsa', 'alko', 0, '2022-04-04 10:07:26', 1, 1),
-(105, 0, 'ghdgashdg', '*', 0, '2022-04-06 06:45:06', 1, 1),
-(106, 0, 'dasdas', '*', 0, '2022-04-06 06:45:20', 1, 1);
+INSERT INTO `seznamy` (`id_sez`, `done`, `nazev`, `cena`, `datum`, `id_uzi`, `id_fam`, `typ`) VALUES
+(98, 0, 'masdomasdo', 0, '2022-04-11 17:39:26', 1, 1, '');
 
 -- --------------------------------------------------------
 
@@ -228,7 +222,7 @@ CREATE TABLE `typy` (
 --
 
 INSERT INTO `typy` (`id_szn`, `nazev`) VALUES
-(1, '*'),
+(1, '-'),
 (3, 'alko'),
 (12, 'děti'),
 (13, 'elektronika'),
@@ -236,7 +230,7 @@ INSERT INTO `typy` (`id_szn`, `nazev`) VALUES
 (8, 'maso'),
 (5, 'mléčné výrobky'),
 (14, 'nádobí'),
-(17, 'nealko'),
+(16, 'nealko'),
 (11, 'oblečení'),
 (4, 'ovoce a zelenina'),
 (7, 'pečivo'),
@@ -267,7 +261,8 @@ CREATE TABLE `uzivatele` (
 INSERT INTO `uzivatele` (`id_uzi`, `id_opr`, `id_fam`, `jmeno`, `email`, `heslo`) VALUES
 (1, 1, 1, 'admin', 'admin@admin.admin', 'sha1$e2b87d22$1$ded12fd3dadbd39ae86b95aabaf899ca46b097d8'),
 (17, 2, 1, 'atmaak', 'kubjak21@gmail.com', 'sha1$cb90a39f$1$9fb38f614dad5a6e56be345f69734d4fc16ca268'),
-(20, 2, 1, 'xddd', 'xddd@xddd.xddd', 'sha1$0e6ae730$1$69621940e3db6bbef8123bb92810d027ed8f98c6');
+(20, 2, 1, 'xddd', 'xddd@xddd.xddd', 'sha1$0e6ae730$1$69621940e3db6bbef8123bb92810d027ed8f98c6'),
+(21, 2, 0, 'atmaak', 'atmaak@atmaak.cz', 'sha1$3ce93c21$1$91cbaa4bb12062ef352e4df7115ebcd996b77ff3');
 
 -- --------------------------------------------------------
 
@@ -276,7 +271,7 @@ INSERT INTO `uzivatele` (`id_uzi`, `id_opr`, `id_fam`, `jmeno`, `email`, `heslo`
 --
 DROP TABLE IF EXISTS `adminrodiny`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `adminrodiny`  AS SELECT `uzivatele`.`id_uzi` AS `id_uzi`, `rodiny`.`id_hla` AS `id_hla` FROM (`uzivatele` join `rodiny` on(`uzivatele`.`id_fam` = `rodiny`.`id_fam`))  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `adminrodiny`  AS SELECT `uzivatele`.`id_uzi` AS `id_uzi`, `rodiny`.`id_hla` AS `id_hla` FROM (`uzivatele` join `rodiny` on(`uzivatele`.`id_fam` = `rodiny`.`id_fam`)) ;
 
 -- --------------------------------------------------------
 
@@ -285,7 +280,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `items`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `items`  AS SELECT `polozky`.`nazev` AS `nazev`, `pol_sez`.`kusy` AS `kusy`, `pol_sez`.`id_sez` AS `id_sez`, `pol_sez`.`id_pol` AS `id_pol`, `stavy`.`id_sta` AS `id_sta`, `polozky`.`id_szn` AS `id_szn`, `typy`.`nazev` AS `nazevSerazeni`, `stavy`.`nazev` AS `stav`, `seznamy`.`id_uzi` AS `id_uzi` FROM ((((`pol_sez` join `polozky` on(`pol_sez`.`id_pol` = `polozky`.`id_pol`)) join `stavy` on(`pol_sez`.`id_sta` = `stavy`.`id_sta`)) join `typy` on(`polozky`.`id_szn` = `typy`.`id_szn`)) join `seznamy` on(`pol_sez`.`id_sez` = `seznamy`.`id_sez`))  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `items`  AS SELECT `polozky`.`nazev` AS `nazev`, `pol_sez`.`kusy` AS `kusy`, `pol_sez`.`id_sez` AS `id_sez`, `pol_sez`.`id_pol` AS `id_pol`, `stavy`.`id_sta` AS `id_sta`, `polozky`.`id_szn` AS `id_szn`, `typy`.`nazev` AS `nazevSerazeni`, `stavy`.`nazev` AS `stav`, `seznamy`.`id_uzi` AS `id_uzi` FROM ((((`pol_sez` join `polozky` on(`pol_sez`.`id_pol` = `polozky`.`id_pol`)) join `stavy` on(`pol_sez`.`id_sta` = `stavy`.`id_sta`)) join `typy` on(`polozky`.`id_szn` = `typy`.`id_szn`)) join `seznamy` on(`pol_sez`.`id_sez` = `seznamy`.`id_sez`)) ;
 
 --
 -- Indexy pro exportované tabulky
@@ -328,8 +323,8 @@ ALTER TABLE `rodiny`
 -- Indexy pro tabulku `serazeni`
 --
 ALTER TABLE `serazeni`
-  ADD PRIMARY KEY (`id_itm`),
-  ADD KEY `id_mark` (`id_mark`);
+  ADD KEY `id_mark` (`id_mark`),
+  ADD KEY `id_typ` (`id_typ`);
 
 --
 -- Indexy pro tabulku `seznamy`
@@ -367,7 +362,7 @@ ALTER TABLE `uzivatele`
 -- AUTO_INCREMENT pro tabulku `markety`
 --
 ALTER TABLE `markety`
-  MODIFY `id_mark` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_mark` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT pro tabulku `opravneni`
@@ -379,7 +374,7 @@ ALTER TABLE `opravneni`
 -- AUTO_INCREMENT pro tabulku `polozky`
 --
 ALTER TABLE `polozky`
-  MODIFY `id_pol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=179;
+  MODIFY `id_pol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=178;
 
 --
 -- AUTO_INCREMENT pro tabulku `rodiny`
@@ -391,7 +386,7 @@ ALTER TABLE `rodiny`
 -- AUTO_INCREMENT pro tabulku `seznamy`
 --
 ALTER TABLE `seznamy`
-  MODIFY `id_sez` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
+  MODIFY `id_sez` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 
 --
 -- AUTO_INCREMENT pro tabulku `stavy`
@@ -403,13 +398,13 @@ ALTER TABLE `stavy`
 -- AUTO_INCREMENT pro tabulku `typy`
 --
 ALTER TABLE `typy`
-  MODIFY `id_szn` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_szn` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT pro tabulku `uzivatele`
 --
 ALTER TABLE `uzivatele`
-  MODIFY `id_uzi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_uzi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Omezení pro exportované tabulky
@@ -433,7 +428,8 @@ ALTER TABLE `pol_sez`
 -- Omezení pro tabulku `serazeni`
 --
 ALTER TABLE `serazeni`
-  ADD CONSTRAINT `id_mark` FOREIGN KEY (`id_mark`) REFERENCES `markety` (`id_mark`);
+  ADD CONSTRAINT `id_mark` FOREIGN KEY (`id_mark`) REFERENCES `markety` (`id_mark`),
+  ADD CONSTRAINT `id_typ` FOREIGN KEY (`id_typ`) REFERENCES `typy` (`id_szn`);
 
 --
 -- Omezení pro tabulku `seznamy`
