@@ -83,7 +83,7 @@ const sendDaList = async  (data) => {
      id_sez: 103,
      email: "kubjak21@gmail.com"
  }
-sendDaList(xd)
+//sendDaList(xd)
 module.exports = {
     sendPasswordMail,
     sendDaList

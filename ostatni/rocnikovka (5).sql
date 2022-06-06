@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: 127.0.0.1
--- Vytvořeno: Ned 05. čen 2022, 22:02
+-- Vytvořeno: Pon 06. čen 2022, 10:49
 -- Verze serveru: 10.4.13-MariaDB
 -- Verze PHP: 7.4.7
 
@@ -217,6 +217,19 @@ INSERT INTO `serazeni` (`id_mark`, `pozice`, `id_typ`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Zástupná struktura pro pohled `serazniseznamu`
+-- (Vlastní pohled viz níže)
+--
+CREATE TABLE `serazniseznamu` (
+`id_mark` int(11)
+,`id_sez` int(11)
+,`nazev` varchar(64)
+,`kusy` int(11)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Struktura tabulky `seznamy`
 --
 
@@ -348,6 +361,15 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `itemydomailu`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `itemydomailu`  AS SELECT `pol_sez`.`id_sez` AS `id_sez`, `polozky`.`nazev` AS `nazev`, `pol_sez`.`kusy` AS `kusy` FROM (`polozky` join `pol_sez` on(`pol_sez`.`id_pol` = `polozky`.`id_pol`))  ;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura pro pohled `serazniseznamu`
+--
+DROP TABLE IF EXISTS `serazniseznamu`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `serazniseznamu`  AS SELECT `serazeni`.`id_mark` AS `id_mark`, `seznamy`.`id_sez` AS `id_sez`, `polozky`.`nazev` AS `nazev`, `pol_sez`.`kusy` AS `kusy` FROM (((`seznamy` join `pol_sez` on(`seznamy`.`id_sez` = `pol_sez`.`id_sez`)) join `polozky` on(`pol_sez`.`id_pol` = `polozky`.`id_pol`)) join `serazeni` on(`polozky`.`id_szn` = `serazeni`.`id_typ`)) ORDER BY `serazeni`.`pozice` ASC  ;
 
 --
 -- Indexy pro exportované tabulky
