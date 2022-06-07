@@ -4,7 +4,7 @@ import Item from "./list/Item";
 
 import AddItem from "./list/AddItem";
 
-const ShowList = ({ id_sez, showAddItem, setShowAddItem }) => {
+const ShowList = ({ id_sez, showAddItem, setShowAddItem, mark }) => {
   const [List, setList] = useState([]);
   useEffect(() => {
     const getList = async (id_sez) => {
@@ -17,8 +17,6 @@ const ShowList = ({ id_sez, showAddItem, setShowAddItem }) => {
     getList(id_sez);
   }, [List, id_sez]);
 
-  const sortList = () => {
-  }
 
   const displayList = async (id_sez) => {
     if(id_sez === undefined) return
@@ -27,7 +25,7 @@ const ShowList = ({ id_sez, showAddItem, setShowAddItem }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: `{"id_sez":${id_sez}}`,
+      body: `{"id_sez":${id_sez}, "mark": "${mark}"}`,
     });
     return await fetchList.json();;
   };/*

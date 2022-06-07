@@ -24,7 +24,7 @@ const MainPage = ({
   const [options, setOptions] = useState();
   const [options2, setOptions2] = useState();
   const [shown, setShown] = useState("");
-
+  const [mark, setMark] = useState(0)
   const [xd, setXD] = useState(false);
 
   const drop = useRef();
@@ -83,6 +83,8 @@ const MainPage = ({
 
   useEffect(() => {
     const fetchLists = async () => {
+      
+    console.log(drop2.current.state.selected.value.split(" ")[0])
       const res = await fetch("http://localhost:3001/displayNewestList", {
         method: "POST",
         headers: {
@@ -101,13 +103,15 @@ const MainPage = ({
     getLists();
   }, [lists, id]);
 
-  const showList = (id) => {
-    if (id === id_sez) {
+  const showList = (data) => {
+    console.log(data)
+    if (data.id_sez === id_sez) {
       setId_Sez(0);
       return setSezIsShown(!sezIsShown);
     }
     setSezIsShown(true);
-    setId_Sez(id);
+    setId_Sez(data.id_sez);
+    setMark(drop2.current.state.selected.value.split(" ")[0])
   };
   return (
     <>
@@ -151,6 +155,7 @@ const MainPage = ({
         </div>
       <ShowList
         id_sez={id_sez}
+        mark={mark}
         lists={lists}
         showAddItem={showAddItem}
         setShowAddItem={setShowAddItem}

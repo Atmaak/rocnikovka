@@ -10,7 +10,7 @@ const List = ({
   sezIsShown,
   id_sez,
   id_uzi,
-  shown,
+  shown
 }) => {
   const [showSetAsCompleted, setshowSetAsCompleted] = useState(false);
   const [err, setErr] = useState("");
@@ -73,6 +73,8 @@ const List = ({
     setShowAddType(false);
   };
 
+  
+
   return (
     <>
       {lists.map((list) => (
@@ -100,7 +102,7 @@ const List = ({
               <div>
                 <button
                   onClick={() => {
-                    showList(list.id_sez);
+                    showList({id_sez});
                   }}
                   className="buttonos"
                 >

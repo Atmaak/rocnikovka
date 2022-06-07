@@ -57,9 +57,13 @@ async function displayNewestList(id_uzi, res) {
 
 
 //selectne vsechno z view items
-const getList = (data) => {
-  sql = `SELECT * FROM items WHERE id_sez = ${data.id_sez};`
-  return new Promise((resolve, reject) => {
+const getList = async (data) => {
+  sql = `SELECT * FROM serazniSeznamu WHERE id_sez = ${data.id_sez}` 
+  console.log(data)
+  if(data.mark != '0') {
+    sql = `SELECT * FROM serazniSeznamu WHERE id_sez = ${data.id_sez} AND where id_mark = ${await getNazevMarketu(data.mark)}`  
+  }
+  return await new Promise((resolve, reject) => {
     con.query(sql, (err, result) => {
       if(err) reject(err)
       return resolve(result)
@@ -68,13 +72,14 @@ const getList = (data) => {
   })
 }
 
-const checkIfListIsUsers = (data) => {
-  sql = `SELECT id_sez, id_uzi FROM seznamy where id_sez = ${data.id_sez};`
+const getNazevMarketu = (mark) => {
+  sql = `SELECT * FROM markety where nazev = '${mark}'`
   return new Promise((resolve, reject) => {
     con.query(sql, (err, result) => {
       if(err) reject(err)
-      if(data.id_uzi == result[0].id_uzi) return resolve(true)
-      return resolve(false)
+      console.log(mark)
+      console.log(result)
+      return resolve(result['id_mark'])
       
     })
   })
