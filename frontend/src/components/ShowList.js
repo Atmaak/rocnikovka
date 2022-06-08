@@ -26,18 +26,9 @@ const ShowList = ({ id_sez, showAddItem, setShowAddItem, mark }) => {
       },
       body: `{"id_sez":${id_sez}, "mark": "${mark}"}`,
     });
+    console.log(`{"id_sez":${id_sez}, "mark": "${mark}"}`);
     return await fetchList.json();;
-  };/*
-  const compare = (a, b) => {    
-    if (a.) {    
-      return -1;    
-    }    
-    if (a is greater than b by the ordering criterion) {    
-      return 1;    
-    }    
-    // a must be equal to b    
-    return 0;    
-  } /*/
+  };
 
   return (
     <>

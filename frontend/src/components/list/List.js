@@ -102,7 +102,7 @@ const List = ({
               <div>
                 <button
                   onClick={() => {
-                    showList({id_sez});
+                    showList(id_sez);
                   }}
                   className="buttonos"
                 >

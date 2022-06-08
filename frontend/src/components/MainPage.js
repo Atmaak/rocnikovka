@@ -24,7 +24,7 @@ const MainPage = ({
   const [options, setOptions] = useState();
   const [options2, setOptions2] = useState();
   const [shown, setShown] = useState("");
-  const [mark, setMark] = useState('kokot')
+  const [mark, setMark] = useState('xxd')
   const [xd, setXD] = useState(false);
 
   const drop = useRef();
@@ -101,14 +101,14 @@ const MainPage = ({
     getLists();
   }, [lists, id]);
 
-  const showListos = (data) => {
+  const showListos = (id) => {
     //console.log(data)
-    if (data.id_sez === id_sez) {
+    if (id === id_sez) {
       setId_Sez(0);
       return setSezIsShown(!sezIsShown);
     }
     setSezIsShown(true);
-    setId_Sez(data.id_sez);
+    setId_Sez(id);
     setMark(drop2.current.state.selected.value.split(" ")[0])
   };
   return (
