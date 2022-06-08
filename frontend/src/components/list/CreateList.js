@@ -32,7 +32,7 @@ const CreateList = ({ id_uzi, setShowCreateList }) => {
       alert("Nice try!"),
       setShowCreateList(false)
       )
-      console.log(drop.current.state.selected.value)
+      //console.log(drop.current.state.selected.value)
     await fetch("http://localhost:3001/list/createList", {
       method: "POST",
       headers: {

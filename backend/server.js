@@ -16,7 +16,7 @@ app.use(express.json()); // parsuje payload na requestu do jsonu
 app.use(cors())//pouziva knihovnu cors na to aby nebyl cors error
 
 app.listen(process.env.port, ()=>{
-    console.log('server running on port: ' + process.env.port)
+    //console.log('server running on port: ' + process.env.port)
 })
 
 app.post('/user/reg', (req, res) =>{
@@ -77,6 +77,7 @@ app.post('/displayNewestList', (req, res) => {
 })
 
 app.post('/list', async (req, res) => {
+    console.log(req.body);
     res.send(await list.getList(req.body)) 
 })
 

@@ -58,15 +58,15 @@ const sendDaList = async  (data) => {
           })
       
 
-      console.log(result)
+      //console.log(result)
 
      result.map((item) => {
-        console.log(item)
+        //console.log(item)
         text += item.nazev + " : " + item.kusy + " \n" //"<br>"
     })
     
     text = "Your items are: \n" + text
-    console.log(text)
+    //console.log(text)
 
     const mailOptions = {
         from: 'Shoping List',

@@ -24,7 +24,7 @@ const MainPage = ({
   const [options, setOptions] = useState();
   const [options2, setOptions2] = useState();
   const [shown, setShown] = useState("");
-  const [mark, setMark] = useState('*')
+  const [mark, setMark] = useState('kokot')
   const [xd, setXD] = useState(false);
 
   const drop = useRef();
@@ -101,8 +101,8 @@ const MainPage = ({
     getLists();
   }, [lists, id]);
 
-  const showList = (data) => {
-    console.log(data)
+  const showListos = (data) => {
+    //console.log(data)
     if (data.id_sez === id_sez) {
       setId_Sez(0);
       return setSezIsShown(!sezIsShown);
@@ -141,7 +141,7 @@ const MainPage = ({
       <div className="row">
         <List
           lists={lists}
-          showList={showList}
+          showList={showListos}
           setId_Sez={setId_Sez}
           setShowAddItem={setShowAddItem}
           showAddItem={showAddItem}

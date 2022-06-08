@@ -58,13 +58,16 @@ async function displayNewestList(id_uzi, res) {
 
 //selectne vsechno z view items
 const getList = async (data) => {
-  sql = `SELECT * FROM serazniSeznamu WHERE id_sez = ${data.id_sez}` 
+  console.log(data);
+  sql = `SELECT * FROM serazniseznamu WHERE id_sez = ${data.id_sez}` 
+  const id = await getNazevMarketu(data.mark)
   
-  console.log(data)
-  const id = await getNazevMarketu(data.id_mark)
+  sql = `SELECT * FROM serazniseznamu WHERE id_sez = ${data.id_sez}` 
   if(id != null) {
-    sql = `SELECT * FROM serazniSeznamu WHERE id_sez = ${data.id_sez} AND where id_mark = ${id}`  
+    console.log(id);
+    sql = `SELECT * FROM serazniseznamu WHERE id_sez = ${data.id_sez} AND id_mark = ${id}`  
   }
+  
   return await new Promise((resolve, reject) => {
     con.query(sql, (err, result) => {
       if(err) reject(err)
@@ -76,12 +79,11 @@ const getList = async (data) => {
 
 const getNazevMarketu = (mark) => {
   sql = `SELECT * FROM markety where nazev = '${mark}'`
-  console.log(sql)
   return new Promise((resolve, reject) => {
     con.query(sql, (err, result) => {
       if(err) reject(err)
-      //console.log(mark)
-      //console.log(result)
+      ////console.log(mark)
+      ////console.log(result)
       return resolve(result['id_mark'])
       
     })
@@ -118,9 +120,9 @@ const addType = (data) => {
 }
 
 const getCompletedLists = (data) => {
-  //console.log(data.id_uzi.id_uzi)
+  ////console.log(data.id_uzi.id_uzi)
   sql = `SELECT * FROM seznamy WHERE cena > 0 AND id_uzi = ${data.id_uzi.id_uzi}`
-  //console.log(sql)
+  ////console.log(sql)
   return new Promise((resolve, reject) => {
     con.query(sql, (err, result) => {
       if(err) reject(err)

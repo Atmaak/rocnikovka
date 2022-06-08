@@ -24,7 +24,7 @@ const ShopLayout = () => {
             "id_mark": ${id_mark}          
         }`,
       })
-      console.log(xd)
+      //console.log(xd)
       setXD(!xd)
 
       
