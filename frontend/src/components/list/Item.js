@@ -54,6 +54,7 @@ const Item = ({ items }) => {
     <>
       {items.map((item) => (
         <div key={item.id_pol} className={item.stav}>
+          {console.log(item)}
           <div className="item">
           <div className="headerItem">
             <h1>{(item.nazev)[0].toUpperCase() + (item.nazev).slice(1)} </h1>

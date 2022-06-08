@@ -24,7 +24,7 @@ const MainPage = ({
   const [options, setOptions] = useState();
   const [options2, setOptions2] = useState();
   const [shown, setShown] = useState("");
-  const [mark, setMark] = useState(0)
+  const [mark, setMark] = useState('*')
   const [xd, setXD] = useState(false);
 
   const drop = useRef();
@@ -83,8 +83,6 @@ const MainPage = ({
 
   useEffect(() => {
     const fetchLists = async () => {
-      
-    console.log(drop2.current.state.selected.value.split(" ")[0])
       const res = await fetch("http://localhost:3001/displayNewestList", {
         method: "POST",
         headers: {

@@ -11,7 +11,6 @@ const ShowList = ({ id_sez, showAddItem, setShowAddItem, mark }) => {
       const dataFromServer = await displayList(id_sez);
       if(dataFromServer !== undefined){
         await setList(dataFromServer);
-        //sortList()
       }
     };
     getList(id_sez);

@@ -59,9 +59,11 @@ async function displayNewestList(id_uzi, res) {
 //selectne vsechno z view items
 const getList = async (data) => {
   sql = `SELECT * FROM serazniSeznamu WHERE id_sez = ${data.id_sez}` 
+  
   console.log(data)
-  if(data.mark != '0') {
-    sql = `SELECT * FROM serazniSeznamu WHERE id_sez = ${data.id_sez} AND where id_mark = ${await getNazevMarketu(data.mark)}`  
+  const id = await getNazevMarketu(data.id_mark)
+  if(id != null) {
+    sql = `SELECT * FROM serazniSeznamu WHERE id_sez = ${data.id_sez} AND where id_mark = ${id}`  
   }
   return await new Promise((resolve, reject) => {
     con.query(sql, (err, result) => {
@@ -74,11 +76,12 @@ const getList = async (data) => {
 
 const getNazevMarketu = (mark) => {
   sql = `SELECT * FROM markety where nazev = '${mark}'`
+  console.log(sql)
   return new Promise((resolve, reject) => {
     con.query(sql, (err, result) => {
       if(err) reject(err)
-      console.log(mark)
-      console.log(result)
+      //console.log(mark)
+      //console.log(result)
       return resolve(result['id_mark'])
       
     })
