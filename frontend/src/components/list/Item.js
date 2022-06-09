@@ -54,14 +54,13 @@ const Item = ({ items }) => {
     <>
       {items.map((item) => (
         <div key={item.id_pol} className={item.stav}>
-          {console.log(item)}
           <div className="item">
           <div className="headerItem">
             <h1>{(item.nazev)[0].toUpperCase() + (item.nazev).slice(1)} </h1>
           </div>
           <div className="bodyItem">
             <p>Počet: {item.kusy}</p>
-            <p>Oddělení: {(item.nazevSerazeni)[0].toUpperCase() + (item.typ).slice(1)}</p>
+            <p>Oddělení: {(item.nazevSerazeni)[0].toUpperCase() + (item.nazevSerazeni).slice(1)}</p>
           </div>
           <div className="footerItem"> 
           <span className="btns">{((item.id_sta === 1) ? <ImCheckmark onClick={() => {changeState(item)}}/>: <ImCross onClick={() => {changeState(item)}}/> )} <button onClick={async () => {await deleteItem(item.id_pol)}}><BsFillTrashFill /></button> <button onClick={() => { showEdits(item)} } ><BsFillPencilFill /></button></span>

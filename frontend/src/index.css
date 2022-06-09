@@ -330,3 +330,7 @@ input[type=submit]:hover {
 #btn{
     border-radius: 4px;
 }
+
+.editovac{
+    width: 100px;
+}

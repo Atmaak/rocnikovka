@@ -78,9 +78,9 @@ const List = ({
   return (
     <>
       {lists.map((list) => (
-        <div key={list.id_sez} className="List">
+        < >
           {(shown === list.typ || shown === "*") &&
-            <div   >
+            <div  key={list.id_sez} className="List" >
               {setIsOwned(false)}
               {parseInt(list.id_uzi) === parseInt(id_uzi) && setIsOwned(true)}
               <h4>
@@ -102,7 +102,7 @@ const List = ({
               <div>
                 <button
                   onClick={() => {
-                    showList(id_sez);
+                    showList(list.id_sez);
                   }}
                   className="buttonos"
                 >
@@ -168,7 +168,7 @@ const List = ({
               </div>
             </div>
           }
-      </div>))}
+      </>))}
     </>
   );
 };
