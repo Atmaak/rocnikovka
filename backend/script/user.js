@@ -1,7 +1,8 @@
 const mysql = require("mysql");
-const dotenv = require("dotenv").config();
+require("dotenv").config();
 const passwordHash = require("password-hash");
-const list = require("./list")
+//const list = require('./list')
+const list = require('./list')
 const con = mysql.createConnection({
   host: process.env.db_host,
   user: process.env.db_user,
@@ -53,12 +54,19 @@ const deleteAccount = async (id_uzi) => {
     );
   })
 
-  seznamy.map((seznam)=> {
-    list.deleteList(seznam.id_sez)
-  })
+  for (let i = 0; i < seznamy.length; i++) {
+    sql = `DELETE FROM pol_sez WHERE id_sez = ${seznamy[i].id_sez};`
+    con.query(sql, (err, result) => {
+      if(err) throw err
+    })
+
+    sql = `DELETE FROM seznamy WHERE id_sez = ${seznamy[i].id_sez};`
+    con.query(sql, (err, result) => {
+      if(err) throw err;
+    })
+  }
 
   sql = `DELETE FROM uzivatele WHERE id_uzi = ${id_uzi};`
-
   con.query(sql,(err, result) => {
     if(err) throw err
   })

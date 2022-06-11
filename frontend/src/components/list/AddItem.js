@@ -4,7 +4,7 @@ import { CgCloseR } from "react-icons/cg";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 
-const AddItem = ({ id_sez, setShowAddItem }) => {
+const AddItem = ({ id_sez, setShowAddItem, setRefresh, refresh }) => {
   const [data, setData] = useState([]);
   const [err, setErr] = useState("");
   var nazev = useRef("");
@@ -50,6 +50,7 @@ const AddItem = ({ id_sez, setShowAddItem }) => {
                 "id_szn": ${XD}
             }`,
     });
+    setRefresh(refresh+1);
     setShowAddItem(false);
   };
   const doIt = async (e) => {

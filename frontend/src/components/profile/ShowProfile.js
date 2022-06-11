@@ -79,7 +79,7 @@ const ShowProfile = ({ id_uzi, setShowProfile }) => {
     passwordSameRef.current.value = null;
   };
 
-  const deleteAccount = () => {
+  const deleteAccount = async () => {
     fetch("http://localhost:3001/user/deleteAccount", {
       method: "POST",
       headers: {
@@ -88,7 +88,7 @@ const ShowProfile = ({ id_uzi, setShowProfile }) => {
       body: `{"id_uzi": ${id_uzi}}`,
     });
 
-    window.location.reload();
+    await window.location.reload();
   };
 
   const validateEmail = (email) => {

@@ -11,7 +11,6 @@ const con = mysql.createConnection({
 var sql;
 
 const createShop = (data) => {
-  ////console.log(data)
   sql = `INSERT INTO markety(nazev, mesto) VALUES ('${data.nazev}', '${data.mesto}')`;
   con.query(sql, (err, result) => {
     if (err) throw err;

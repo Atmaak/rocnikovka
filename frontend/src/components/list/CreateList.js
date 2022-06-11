@@ -4,7 +4,7 @@ import { CgCloseR } from "react-icons/cg";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 
-const CreateList = ({ id_uzi, setShowCreateList }) => {
+const CreateList = ({ id_uzi, setShowCreateList, setRefresh, refresh }) => {
    //['alko', 'děti', 'elektronika', 'koupelna', 'maso', 'mléčné výrobky', 'nádobí', 'nealko', 'oblečení', 'ovoce a zelenina', 'pečivo', 'sladkosti', 'uzeniny', 'zahrada', 'zamražené']
   
   const [options, setOptions] = useState()
@@ -32,7 +32,6 @@ const CreateList = ({ id_uzi, setShowCreateList }) => {
       alert("Nice try!"),
       setShowCreateList(false)
       )
-      //console.log(drop.current.state.selected.value)
     await fetch("http://localhost:3001/list/createList", {
       method: "POST",
       headers: {
@@ -46,7 +45,7 @@ const CreateList = ({ id_uzi, setShowCreateList }) => {
     });
     nazev.current.value = "";
     setShowCreateList(false);
-  
+    setRefresh(refresh+1)
     };
   const close = (e) => {
     if (e.target.classList[0] === "popup") setShowCreateList(false);

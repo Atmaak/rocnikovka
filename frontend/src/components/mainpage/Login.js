@@ -1,15 +1,15 @@
 import React, { useRef, useState } from "react";
-import ForgotPassword from "./ForgotPassword";
+//import ForgotPassword from "./ForgotPassword";
 import { CgCloseR } from "react-icons/cg";
 const Login = ({ onSubmit, onClickShowRegister, setShowLoginos }) => {
   var refUsername = useRef();
   var refPassword = useRef();
   const [showLogin, setShowLogin] = useState(true);
-  const [showForgot, setShowForgot] = useState(false);
-  const changeIt = () => {
+  //const [showForgot, setShowForgot] = useState(false);
+  /* const changeIt = () => {
     setShowLogin(false);
     setShowForgot(true);
-  };
+  }; */
 
   const close = (e) => {
     if (e.target.classList[0] === "popup") setShowLoginos(false);
@@ -67,14 +67,14 @@ const Login = ({ onSubmit, onClickShowRegister, setShowLoginos }) => {
                 Back
               </button>
             </form>
-              <button
+              {/* <button
                 className="buttonos"
                 onClick={() => {
                   changeIt();
                 }}
               >
                 Forgot your username or password?
-              </button>
+              </button> */}
               <button
                 className="buttonos"
                 onClick={() => {
@@ -85,7 +85,7 @@ const Login = ({ onSubmit, onClickShowRegister, setShowLoginos }) => {
               </button>
           </div>
         )}
-        {showForgot && <ForgotPassword />}
+        {/* showForgot && <ForgotPassword /> */}
       </div>
     </div>
   );

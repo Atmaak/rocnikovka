@@ -3,7 +3,7 @@ import { ImCross, ImCheckmark } from 'react-icons/im'
 import { BsFillTrashFill, BsFillPencilFill } from 'react-icons/bs'
 import EditItem from "./EditItem";
 
-const Item = ({ items }) => {
+const Item = ({ items, setRefresh, refresh }) => {
   const [edit, setEdit] = useState([false])
   const [shownEdit, setShownEdit] = useState([0])
     const deleteItem = async (id_pol) => {
@@ -16,9 +16,9 @@ const Item = ({ items }) => {
       });
     }
 
-    const changeState = (item) => {
+    const changeState = async (item) => {
       if(item.id_sta === 1){
-        fetch("http://localhost:3001/item/changeState", {
+       await fetch("http://localhost:3001/item/changeState", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -30,7 +30,7 @@ const Item = ({ items }) => {
       });
       }
       if(item.id_sta === 2){
-        fetch("http://localhost:3001/item/changeState", {
+       await fetch("http://localhost:3001/item/changeState", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -41,6 +41,7 @@ const Item = ({ items }) => {
         }`,
       });
       }
+      await setRefresh(refresh+1)
     }
     const showEdits = (item) => {
       if(item.id_pol === shownEdit){

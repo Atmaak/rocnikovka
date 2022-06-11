@@ -15,18 +15,14 @@ const EditLayout = (shop) => {
     const getTypy = async () => {
       const res = await fetch("http://localhost:3001/item/types");
       await setTypy(await res.json());
-
-      //console.log(shop);
     };
     getTypy();
-    //console.log(typy);
   }, []);
 
   const poradiSet = (item) => {
     if (pocet.includes(item.id_szn)) return;
     poradi[poradi.length] = item;
     pocet[pocet.length] = item.id_szn;
-    //console.log(poradi);
   };
 
   const sendLayout = () => {

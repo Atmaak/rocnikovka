@@ -10,7 +10,9 @@ const List = ({
   sezIsShown,
   id_sez,
   id_uzi,
-  shown
+  shown,
+  setRefresh,
+  refresh
 }) => {
   const [showSetAsCompleted, setshowSetAsCompleted] = useState(false);
   const [err, setErr] = useState("");
@@ -32,6 +34,7 @@ const List = ({
       },
       body: `{"id_sez": ${id_sez}}`,
     });
+    setRefresh(refresh+1)
   };
   let isOwned = false;
   const setIsOwned = (state) => {
@@ -52,6 +55,7 @@ const List = ({
       }`,
     });
     setErr("");
+    setRefresh(refresh+1)
     setshowSetAsCompleted(false);
   };
 
@@ -70,6 +74,7 @@ const List = ({
       }`,
     });
 
+    setRefresh(refresh+1)
     setShowAddType(false);
   };
 
@@ -78,9 +83,7 @@ const List = ({
   return (
     <>
       {lists.map((list) => (
-        < >
-          {(shown === list.typ || shown === "*") &&
-            <div  key={list.id_sez} className="List" >
+            <div key={list.id_sez} className="List" >
               {setIsOwned(false)}
               {parseInt(list.id_uzi) === parseInt(id_uzi) && setIsOwned(true)}
               <h4>
@@ -167,8 +170,7 @@ const List = ({
                 <br />
               </div>
             </div>
-          }
-      </>))}
+            ))}
     </>
   );
 };

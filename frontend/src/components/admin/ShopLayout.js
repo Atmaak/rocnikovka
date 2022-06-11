@@ -7,10 +7,11 @@ const ShopLayout = () => {
     useEffect(() =>{
       const getShopy = async () => {
         const res = await fetch('http://localhost:3001/type/getShops')
-        await setShopy(await res.json(``))
+        var data = await res.json()        
+        data = data.slice(0,0).concat(data.slice(1))
+        setShopy(await data)
       }
       getShopy()
-  
     }, [xd])
   
     const deleteLayout = async (id_mark) => {
@@ -24,24 +25,22 @@ const ShopLayout = () => {
             "id_mark": ${id_mark}          
         }`,
       })
-      //console.log(xd)
       setXD(!xd)
 
       
     }
    
     return (
-      <>
+      <div className="shopy">
         {
           shopy?.map((shop) => (
             <div key={shop.id_mark}>
               <h1>{shop.nazev}</h1>
-              <button onClick={() => {deleteLayout(shop.id_mark)}}>dilit</button>
-              <button onClick={() => {console.log('xdmoment')}}>edit</button>
-            </div>  
+              <button onClick={() => {deleteLayout(shop.id_mark)}} className="buttonosShop buttonos">Delete</button>
+           </div>  
           ))
         }
-      </>
+      </div>
     )
   }
 export default ShopLayout

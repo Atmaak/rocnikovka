@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.3
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: 127.0.0.1
--- Vytvořeno: Pon 06. čen 2022, 10:49
--- Verze serveru: 10.4.13-MariaDB
--- Verze PHP: 7.4.7
+-- Vytvořeno: Sob 11. čen 2022, 12:29
+-- Verze serveru: 10.4.20-MariaDB
+-- Verze PHP: 7.3.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -79,7 +79,9 @@ CREATE TABLE `markety` (
 --
 
 INSERT INTO `markety` (`id_mark`, `nazev`, `mesto`) VALUES
-(47, 'dfdgdgfdgfs', 'fggfhghf');
+(0, 'basic', 'basic'),
+(55, 'Lidl', 'Ústí nad Labem'),
+(56, 'Kaufland', 'Litoměřice');
 
 -- --------------------------------------------------------
 
@@ -134,7 +136,10 @@ INSERT INTO `polozky` (`id_pol`, `nazev`, `id_szn`) VALUES
 (179, 'sdad', 15),
 (180, 'dads4', 12),
 (181, 'dadas', 13),
-(182, 'dasda', 12);
+(182, 'dasda', 12),
+(183, 'rum', 3),
+(184, 'chleba', 7),
+(186, 'Jogurt', 5);
 
 -- --------------------------------------------------------
 
@@ -154,12 +159,11 @@ CREATE TABLE `pol_sez` (
 --
 
 INSERT INTO `pol_sez` (`id_sez`, `id_pol`, `kusy`, `id_sta`) VALUES
-(98, 177, 22222, 2),
 (99, 178, 5, 2),
 (99, 179, 5, 2),
-(103, 180, 45, 2),
-(103, 181, 4, 2),
-(103, 182, 48, 2);
+(105, 183, 2, 2),
+(105, 184, 1, 2),
+(105, 186, 4, 2);
 
 -- --------------------------------------------------------
 
@@ -197,22 +201,54 @@ CREATE TABLE `serazeni` (
 --
 
 INSERT INTO `serazeni` (`id_mark`, `pozice`, `id_typ`) VALUES
-(47, 0, 1),
-(47, 1, 3),
-(47, 2, 12),
-(47, 3, 13),
-(47, 4, 9),
-(47, 5, 8),
-(47, 6, 5),
-(47, 7, 14),
-(47, 8, 16),
-(47, 9, 11),
-(47, 10, 4),
-(47, 11, 7),
-(47, 12, 2),
-(47, 13, 10),
-(47, 14, 6),
-(47, 15, 15);
+(0, 0, 1),
+(0, 1, 3),
+(0, 2, 12),
+(0, 3, 13),
+(0, 4, 9),
+(0, 5, 8),
+(0, 6, 5),
+(0, 7, 14),
+(0, 8, 16),
+(0, 9, 11),
+(0, 10, 4),
+(0, 11, 7),
+(0, 12, 2),
+(0, 13, 10),
+(0, 14, 6),
+(0, 15, 15),
+(55, 0, 1),
+(55, 1, 16),
+(55, 2, 12),
+(55, 3, 11),
+(55, 4, 7),
+(55, 5, 3),
+(55, 6, 9),
+(55, 7, 6),
+(55, 8, 10),
+(55, 9, 13),
+(55, 10, 5),
+(55, 11, 4),
+(55, 12, 14),
+(55, 13, 8),
+(55, 14, 15),
+(55, 15, 2),
+(56, 0, 7),
+(56, 1, 5),
+(56, 2, 3),
+(56, 3, 13),
+(56, 4, 12),
+(56, 5, 1),
+(56, 6, 9),
+(56, 7, 8),
+(56, 8, 14),
+(56, 9, 16),
+(56, 10, 11),
+(56, 11, 4),
+(56, 12, 2),
+(56, 13, 10),
+(56, 14, 6),
+(56, 15, 15);
 
 -- --------------------------------------------------------
 
@@ -224,7 +260,11 @@ CREATE TABLE `serazniseznamu` (
 `id_mark` int(11)
 ,`id_sez` int(11)
 ,`nazev` varchar(64)
+,`id_pol` int(11)
 ,`kusy` int(11)
+,`nazevSerazeni` varchar(64)
+,`id_sta` int(11)
+,`stav` varchar(64)
 );
 
 -- --------------------------------------------------------
@@ -249,13 +289,8 @@ CREATE TABLE `seznamy` (
 --
 
 INSERT INTO `seznamy` (`id_sez`, `done`, `nazev`, `cena`, `datum`, `id_uzi`, `id_fam`, `typ`) VALUES
-(98, 0, 'masdomasdo', 69, '2022-06-05 18:19:06', 1, 1, ''),
 (99, 0, 'dasdasdas', 0, '2022-06-05 17:43:16', 21, 0, ''),
-(100, 0, 'dasdasads', 222, '2022-06-05 18:45:22', 1, 1, 'děti'),
-(101, 0, 'dsdsasd', 644, '2022-06-05 18:49:19', 1, 1, ''),
-(102, 0, 'dasdassd', 245, '2022-06-05 18:49:23', 1, 1, 'alko'),
-(103, 0, 'dadas', 69420, '2022-06-05 19:28:47', 1, 1, 'děti'),
-(104, 0, 'dsadasads', 0, '2022-06-05 18:34:36', 1, 1, 'děti');
+(105, 0, 'Seznam do lidlu', 0, '2022-06-11 09:48:12', 1, 1, '-');
 
 -- --------------------------------------------------------
 
@@ -342,7 +377,7 @@ INSERT INTO `uzivatele` (`id_uzi`, `id_opr`, `id_fam`, `jmeno`, `email`, `heslo`
 --
 DROP TABLE IF EXISTS `adminrodiny`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `adminrodiny`  AS SELECT `uzivatele`.`id_uzi` AS `id_uzi`, `rodiny`.`id_hla` AS `id_hla` FROM (`uzivatele` join `rodiny` on(`uzivatele`.`id_fam` = `rodiny`.`id_fam`))  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `adminrodiny`  AS SELECT `uzivatele`.`id_uzi` AS `id_uzi`, `rodiny`.`id_hla` AS `id_hla` FROM (`uzivatele` join `rodiny` on(`uzivatele`.`id_fam` = `rodiny`.`id_fam`)) ;
 
 -- --------------------------------------------------------
 
@@ -351,7 +386,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `items`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `items`  AS SELECT `polozky`.`nazev` AS `nazev`, `pol_sez`.`kusy` AS `kusy`, `pol_sez`.`id_sez` AS `id_sez`, `pol_sez`.`id_pol` AS `id_pol`, `stavy`.`id_sta` AS `id_sta`, `polozky`.`id_szn` AS `id_szn`, `typy`.`nazev` AS `nazevSerazeni`, `stavy`.`nazev` AS `stav`, `seznamy`.`id_uzi` AS `id_uzi` FROM ((((`pol_sez` join `polozky` on(`pol_sez`.`id_pol` = `polozky`.`id_pol`)) join `stavy` on(`pol_sez`.`id_sta` = `stavy`.`id_sta`)) join `typy` on(`polozky`.`id_szn` = `typy`.`id_szn`)) join `seznamy` on(`pol_sez`.`id_sez` = `seznamy`.`id_sez`))  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `items`  AS SELECT `polozky`.`nazev` AS `nazev`, `pol_sez`.`kusy` AS `kusy`, `pol_sez`.`id_sez` AS `id_sez`, `pol_sez`.`id_pol` AS `id_pol`, `stavy`.`id_sta` AS `id_sta`, `polozky`.`id_szn` AS `id_szn`, `typy`.`nazev` AS `nazevSerazeni`, `stavy`.`nazev` AS `stav`, `seznamy`.`id_uzi` AS `id_uzi` FROM ((((`pol_sez` join `polozky` on(`pol_sez`.`id_pol` = `polozky`.`id_pol`)) join `stavy` on(`pol_sez`.`id_sta` = `stavy`.`id_sta`)) join `typy` on(`polozky`.`id_szn` = `typy`.`id_szn`)) join `seznamy` on(`pol_sez`.`id_sez` = `seznamy`.`id_sez`)) ;
 
 -- --------------------------------------------------------
 
@@ -360,7 +395,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `itemydomailu`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `itemydomailu`  AS SELECT `pol_sez`.`id_sez` AS `id_sez`, `polozky`.`nazev` AS `nazev`, `pol_sez`.`kusy` AS `kusy` FROM (`polozky` join `pol_sez` on(`pol_sez`.`id_pol` = `polozky`.`id_pol`))  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `itemydomailu`  AS SELECT `pol_sez`.`id_sez` AS `id_sez`, `polozky`.`nazev` AS `nazev`, `pol_sez`.`kusy` AS `kusy` FROM (`polozky` join `pol_sez` on(`pol_sez`.`id_pol` = `polozky`.`id_pol`)) ;
 
 -- --------------------------------------------------------
 
@@ -369,7 +404,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `serazniseznamu`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `serazniseznamu`  AS SELECT `serazeni`.`id_mark` AS `id_mark`, `seznamy`.`id_sez` AS `id_sez`, `polozky`.`nazev` AS `nazev`, `pol_sez`.`kusy` AS `kusy` FROM (((`seznamy` join `pol_sez` on(`seznamy`.`id_sez` = `pol_sez`.`id_sez`)) join `polozky` on(`pol_sez`.`id_pol` = `polozky`.`id_pol`)) join `serazeni` on(`polozky`.`id_szn` = `serazeni`.`id_typ`)) ORDER BY `serazeni`.`pozice` ASC  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `serazniseznamu`  AS SELECT `serazeni`.`id_mark` AS `id_mark`, `seznamy`.`id_sez` AS `id_sez`, `polozky`.`nazev` AS `nazev`, `polozky`.`id_pol` AS `id_pol`, `pol_sez`.`kusy` AS `kusy`, `typy`.`nazev` AS `nazevSerazeni`, `stavy`.`id_sta` AS `id_sta`, `stavy`.`nazev` AS `stav` FROM (((((`seznamy` join `pol_sez` on(`seznamy`.`id_sez` = `pol_sez`.`id_sez`)) join `polozky` on(`pol_sez`.`id_pol` = `polozky`.`id_pol`)) join `serazeni` on(`polozky`.`id_szn` = `serazeni`.`id_typ`)) join `typy` on(`polozky`.`id_szn` = `typy`.`id_szn`)) join `stavy` on(`pol_sez`.`id_sta` = `stavy`.`id_sta`)) ORDER BY `serazeni`.`pozice` ASC ;
 
 --
 -- Indexy pro exportované tabulky
@@ -451,7 +486,7 @@ ALTER TABLE `uzivatele`
 -- AUTO_INCREMENT pro tabulku `markety`
 --
 ALTER TABLE `markety`
-  MODIFY `id_mark` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id_mark` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT pro tabulku `opravneni`
@@ -463,7 +498,7 @@ ALTER TABLE `opravneni`
 -- AUTO_INCREMENT pro tabulku `polozky`
 --
 ALTER TABLE `polozky`
-  MODIFY `id_pol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=183;
+  MODIFY `id_pol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=187;
 
 --
 -- AUTO_INCREMENT pro tabulku `rodiny`
@@ -475,7 +510,7 @@ ALTER TABLE `rodiny`
 -- AUTO_INCREMENT pro tabulku `seznamy`
 --
 ALTER TABLE `seznamy`
-  MODIFY `id_sez` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
+  MODIFY `id_sez` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
 -- AUTO_INCREMENT pro tabulku `stavy`

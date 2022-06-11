@@ -16,7 +16,7 @@ app.use(express.json()); // parsuje payload na requestu do jsonu
 app.use(cors())//pouziva knihovnu cors na to aby nebyl cors error
 
 app.listen(process.env.port, ()=>{
-    //console.log('server running on port: ' + process.env.port)
+    console.log('server running on port: ' + process.env.port)
 })
 
 app.post('/user/reg', (req, res) =>{
@@ -57,11 +57,11 @@ app.post('/user/deleteAccount', (req, res) => {
     res.sendStatus(200)
 })
 
-app.post('/user/newPassword', (req, res) => {
+/* app.post('/user/newPassword', (req, res) => {
     const { email } = req.body
     mail.sendPasswordMail(email)
     res.sendStatus(200)
-})
+}) */
 
 app.post('/user/isAdminOfFamily', async (req, res) => {
     res.send(await user.chechIfAdminOfFamily((req.body).id_uzi))
@@ -77,7 +77,6 @@ app.post('/displayNewestList', (req, res) => {
 })
 
 app.post('/list', async (req, res) => {
-    console.log(req.body);
     res.send(await list.getList(req.body)) 
 })
 
@@ -126,7 +125,7 @@ app.post('/list/createList', (req, res) => {
 })
 
 app.post('/list/deleteList', (req,res) => {
-    list.deleteList(req.body)
+    list.deleteList(req.body.id_sez)
     res.sendStatus(200)  
 })
 
