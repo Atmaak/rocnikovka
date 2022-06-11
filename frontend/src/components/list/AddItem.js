@@ -65,6 +65,7 @@ const AddItem = ({ id_sez, setShowAddItem, setRefresh, refresh }) => {
         addIt(options[i].id_szn);
         nazev.current.value = null;
         kusy.current.value = null;
+        setRefresh(refresh+1)
         return setErr("");
       }
       setErr("Something went wrong");
