@@ -103,7 +103,7 @@ const MainPage = ({
       await setLists(listsFromServer);
     };
     getLists();
-  }, [refresh, id]);
+  }, [lists, refresh, id]);
 
   const showListos = (id) => {
     let id_mark = 0

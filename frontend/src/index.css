@@ -80,7 +80,7 @@ button {
 
 input[type=text],
 select {
-    min-width: 20vw;
+    /* min-width: 20vw; */
     width: 30%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -92,7 +92,7 @@ select {
 
 input[type=email],
 select {
-    min-width: 20vw;
+    /* min-width: 20vw; */
     width: 30%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -104,7 +104,7 @@ select {
 
 input[type=number],
 select {
-    min-width: 20vw;
+    /* min-width: 20vw; */
     width: 30%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -116,7 +116,7 @@ select {
 
 input[type=password],
 select {
-    min-width: 20vw;
+    /* min-width: 20vw; */
     width: 30%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -127,7 +127,7 @@ select {
 }
 
 input[type=submit] {
-    min-width: 20vw;
+    /* min-width: 20vw; */
     width: 30%;
     background-color: #0071ce;
     color: white;
@@ -181,6 +181,7 @@ input[type=submit]:hover {
     bottom: 0;
     margin: auto;
     background-color: rgba(0, 0, 0, .95);
+    z-index: 999;
 }
 
 .popup_inner {

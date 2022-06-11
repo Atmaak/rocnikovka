@@ -29,11 +29,11 @@ const EditItem = ({ item }) => {
     return (
         <div>
             <form onSubmit={(e) => {editItem(e)}}>
-                <input type="text" placeholder="name" ref={name} size="1"/>
+                <input type="text" placeholder="name" ref={name} size="1" style={{width: '100%'}}/>
                 <br />
-                <input type="number" placeholder="count" ref={count} size="1" min="1"/>
+                <input type="number" placeholder="count" ref={count} size="1" min="1" style={{width: '100%'}}/>
                 <br />
-                <input type="submit" size="1"/>
+                <input type="submit" size="1" style={{width: '100%'}}/>
             </form>
         </div>
     )

@@ -36,8 +36,8 @@ const AddItem = ({ id_sez, setShowAddItem, setRefresh, refresh }) => {
     const dat = await res.json();
     setData(dat);
   };
-  const addIt = (XD) => {
-    fetch("http://localhost:3001/item/add", {
+  const addIt = async (XD) => {
+    await fetch("http://localhost:3001/item/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -50,7 +50,7 @@ const AddItem = ({ id_sez, setShowAddItem, setRefresh, refresh }) => {
                 "id_szn": ${XD}
             }`,
     });
-    setRefresh(refresh+1);
+    await setRefresh(refresh+1);
     setShowAddItem(false);
   };
   const doIt = async (e) => {

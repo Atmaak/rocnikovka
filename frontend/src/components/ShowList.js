@@ -14,7 +14,7 @@ const ShowList = ({ id_sez, showAddItem, setShowAddItem, mark, refresh, setRefre
       }
     };
     getList(id_sez);
-  }, [mark, id_sez, refresh]);
+  }, [mark, id_sez, refresh, List]);
 
 
   const displayList = async (id_sez, mark) => {
