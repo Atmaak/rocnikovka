@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: 127.0.0.1
--- Vytvořeno: Sob 11. čen 2022, 12:29
+-- Vytvořeno: Ned 12. čen 2022, 19:44
 -- Verze serveru: 10.4.20-MariaDB
 -- Verze PHP: 7.3.29
 
@@ -35,36 +35,6 @@ CREATE TABLE `adminrodiny` (
 -- --------------------------------------------------------
 
 --
--- Zástupná struktura pro pohled `items`
--- (Vlastní pohled viz níže)
---
-CREATE TABLE `items` (
-`nazev` varchar(64)
-,`kusy` int(11)
-,`id_sez` int(11)
-,`id_pol` int(11)
-,`id_sta` int(11)
-,`id_szn` int(11)
-,`nazevSerazeni` varchar(64)
-,`stav` varchar(64)
-,`id_uzi` int(11)
-);
-
--- --------------------------------------------------------
-
---
--- Zástupná struktura pro pohled `itemydomailu`
--- (Vlastní pohled viz níže)
---
-CREATE TABLE `itemydomailu` (
-`id_sez` int(11)
-,`nazev` varchar(64)
-,`kusy` int(11)
-);
-
--- --------------------------------------------------------
-
---
 -- Struktura tabulky `markety`
 --
 
@@ -81,7 +51,8 @@ CREATE TABLE `markety` (
 INSERT INTO `markety` (`id_mark`, `nazev`, `mesto`) VALUES
 (0, 'basic', 'basic'),
 (55, 'Lidl', 'Ústí nad Labem'),
-(56, 'Kaufland', 'Litoměřice');
+(56, 'Kaufland', 'Litoměřice'),
+(57, 'Samoska', 'namesti');
 
 -- --------------------------------------------------------
 
@@ -132,14 +103,27 @@ INSERT INTO `polozky` (`id_pol`, `nazev`, `id_szn`) VALUES
 (175, 'dasdas', 1),
 (176, 'dada', 3),
 (177, 'dasdads', 12),
-(178, 'sdadas', 13),
-(179, 'sdad', 15),
 (180, 'dads4', 12),
 (181, 'dadas', 13),
 (182, 'dasda', 12),
 (183, 'rum', 3),
 (184, 'chleba', 7),
-(186, 'Jogurt', 5);
+(186, 'Jogurt', 5),
+(187, 'Džus', 16),
+(188, 'Maso', 8),
+(189, 'dasadsas', 12),
+(190, 'dsasadasdas', 3),
+(191, 'dasdas', 1),
+(192, 'dasasd', 3),
+(193, 'dsaasd', 3),
+(194, 'dasads', 3),
+(195, 'daads', 13),
+(196, 'Pivo - plzeň', 3),
+(197, 'Brambůrky slané', 1),
+(198, 'Chleba', 7),
+(199, 'Sprite', 16),
+(200, 'Rohlíky', 7),
+(201, 'Pivo', 3);
 
 -- --------------------------------------------------------
 
@@ -159,11 +143,20 @@ CREATE TABLE `pol_sez` (
 --
 
 INSERT INTO `pol_sez` (`id_sez`, `id_pol`, `kusy`, `id_sta`) VALUES
-(99, 178, 5, 2),
-(99, 179, 5, 2),
 (105, 183, 2, 2),
 (105, 184, 1, 2),
-(105, 186, 4, 2);
+(105, 186, 4, 2),
+(105, 187, 6, 2),
+(105, 188, 4, 2),
+(118, 193, 2, 2),
+(118, 194, 22, 2),
+(118, 195, 22, 2),
+(119, 196, 60, 2),
+(119, 197, 2, 2),
+(119, 198, 1, 2),
+(119, 199, 2, 2),
+(119, 200, 15, 2),
+(124, 201, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -248,7 +241,23 @@ INSERT INTO `serazeni` (`id_mark`, `pozice`, `id_typ`) VALUES
 (56, 12, 2),
 (56, 13, 10),
 (56, 14, 6),
-(56, 15, 15);
+(56, 15, 15),
+(57, 0, 14),
+(57, 1, 11),
+(57, 2, 3),
+(57, 3, 1),
+(57, 4, 12),
+(57, 5, 13),
+(57, 6, 9),
+(57, 7, 8),
+(57, 8, 5),
+(57, 9, 16),
+(57, 10, 4),
+(57, 11, 7),
+(57, 12, 2),
+(57, 13, 10),
+(57, 14, 6),
+(57, 15, 15);
 
 -- --------------------------------------------------------
 
@@ -289,8 +298,12 @@ CREATE TABLE `seznamy` (
 --
 
 INSERT INTO `seznamy` (`id_sez`, `done`, `nazev`, `cena`, `datum`, `id_uzi`, `id_fam`, `typ`) VALUES
-(99, 0, 'dasdasdas', 0, '2022-06-05 17:43:16', 21, 0, ''),
-(105, 0, 'Seznam do lidlu', 0, '2022-06-11 09:48:12', 1, 1, '-');
+(105, 0, 'Seznam do lidlu', 187, '2022-06-12 14:31:04', 1, 1, 'alko'),
+(118, 0, 'dasasdasd', 0, '2022-06-12 14:31:04', 31, 0, 'alko'),
+(119, 0, 'Seznam do Kauflandu', 300, '2022-06-12 14:31:04', 1, 1, 'alko'),
+(121, 0, 'sdadsadsada', 0, '2022-06-12 14:26:34', 31, 0, 'alko'),
+(124, 0, 'List', 480, '2022-06-12 17:04:13', 1, 1, ''),
+(126, 0, 'dasasd', 0, '2022-06-12 17:42:50', 1, 1, '');
 
 -- --------------------------------------------------------
 
@@ -365,10 +378,8 @@ CREATE TABLE `uzivatele` (
 
 INSERT INTO `uzivatele` (`id_uzi`, `id_opr`, `id_fam`, `jmeno`, `email`, `heslo`) VALUES
 (1, 1, 1, 'admin', 'admin@admin.admin', 'sha1$e2b87d22$1$ded12fd3dadbd39ae86b95aabaf899ca46b097d8'),
-(17, 2, 1, 'atmaak', 'kubjak21@gmail.com', 'sha1$cb90a39f$1$9fb38f614dad5a6e56be345f69734d4fc16ca268'),
-(20, 2, 1, 'xddd', 'xddd@xddd.xddd', 'sha1$0e6ae730$1$69621940e3db6bbef8123bb92810d027ed8f98c6'),
-(21, 2, 0, 'atmaak', 'atmaak@atmaak.cz', 'sha1$3ce93c21$1$91cbaa4bb12062ef352e4df7115ebcd996b77ff3'),
-(22, 2, 0, 'atmaak', 'atmaak@atmaak.cz', 'sha1$3d7fa22b$1$ae95ea8d829c52d2f950e97e0e09b091f4ae0ee5');
+(31, 2, 0, 'atmaakatmaak', 'atmaakatmaakatmaakatmaak@atmaak.atmaak', 'sha1$bd0e2760$1$c418199c335bc49cd1d50e4fd9759c24ea192a48'),
+(32, 2, 1, 'atmaak', 'atmaak@atmaak.atmaak', 'sha1$5a8e9346$1$720814806eb038f65a1f08aa23ed0243a6f09e88');
 
 -- --------------------------------------------------------
 
@@ -378,24 +389,6 @@ INSERT INTO `uzivatele` (`id_uzi`, `id_opr`, `id_fam`, `jmeno`, `email`, `heslo`
 DROP TABLE IF EXISTS `adminrodiny`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `adminrodiny`  AS SELECT `uzivatele`.`id_uzi` AS `id_uzi`, `rodiny`.`id_hla` AS `id_hla` FROM (`uzivatele` join `rodiny` on(`uzivatele`.`id_fam` = `rodiny`.`id_fam`)) ;
-
--- --------------------------------------------------------
-
---
--- Struktura pro pohled `items`
---
-DROP TABLE IF EXISTS `items`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `items`  AS SELECT `polozky`.`nazev` AS `nazev`, `pol_sez`.`kusy` AS `kusy`, `pol_sez`.`id_sez` AS `id_sez`, `pol_sez`.`id_pol` AS `id_pol`, `stavy`.`id_sta` AS `id_sta`, `polozky`.`id_szn` AS `id_szn`, `typy`.`nazev` AS `nazevSerazeni`, `stavy`.`nazev` AS `stav`, `seznamy`.`id_uzi` AS `id_uzi` FROM ((((`pol_sez` join `polozky` on(`pol_sez`.`id_pol` = `polozky`.`id_pol`)) join `stavy` on(`pol_sez`.`id_sta` = `stavy`.`id_sta`)) join `typy` on(`polozky`.`id_szn` = `typy`.`id_szn`)) join `seznamy` on(`pol_sez`.`id_sez` = `seznamy`.`id_sez`)) ;
-
--- --------------------------------------------------------
-
---
--- Struktura pro pohled `itemydomailu`
---
-DROP TABLE IF EXISTS `itemydomailu`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `itemydomailu`  AS SELECT `pol_sez`.`id_sez` AS `id_sez`, `polozky`.`nazev` AS `nazev`, `pol_sez`.`kusy` AS `kusy` FROM (`polozky` join `pol_sez` on(`pol_sez`.`id_pol` = `polozky`.`id_pol`)) ;
 
 -- --------------------------------------------------------
 
@@ -486,7 +479,7 @@ ALTER TABLE `uzivatele`
 -- AUTO_INCREMENT pro tabulku `markety`
 --
 ALTER TABLE `markety`
-  MODIFY `id_mark` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id_mark` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT pro tabulku `opravneni`
@@ -498,7 +491,7 @@ ALTER TABLE `opravneni`
 -- AUTO_INCREMENT pro tabulku `polozky`
 --
 ALTER TABLE `polozky`
-  MODIFY `id_pol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=187;
+  MODIFY `id_pol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=202;
 
 --
 -- AUTO_INCREMENT pro tabulku `rodiny`
@@ -510,7 +503,7 @@ ALTER TABLE `rodiny`
 -- AUTO_INCREMENT pro tabulku `seznamy`
 --
 ALTER TABLE `seznamy`
-  MODIFY `id_sez` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+  MODIFY `id_sez` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
 
 --
 -- AUTO_INCREMENT pro tabulku `stavy`
@@ -528,7 +521,7 @@ ALTER TABLE `typy`
 -- AUTO_INCREMENT pro tabulku `uzivatele`
 --
 ALTER TABLE `uzivatele`
-  MODIFY `id_uzi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_uzi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- Omezení pro exportované tabulky
