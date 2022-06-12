@@ -45,7 +45,7 @@ const CreateList = ({ id_uzi, setShowCreateList, setRefresh, refresh }) => {
     });
     nazev.current.value = "";
     setShowCreateList(false);
-    setRefresh(refresh+1)
+    await setRefresh(refresh+1)
     };
   const close = (e) => {
     if (e.target.classList[0] === "popup") setShowCreateList(false);

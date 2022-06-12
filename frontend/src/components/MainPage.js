@@ -105,7 +105,7 @@ const MainPage = ({
     getLists();
   }, [lists, refresh, id]);
 
-  const showListos = (id) => {
+  const showListos = async (id) => {
     let id_mark = 0
     for (let i = 1; i < options2.length; i++) {
       if((options2[i].value) == (drop2.current.state.selected.value))
@@ -118,11 +118,11 @@ const MainPage = ({
       return setSezIsShown(!sezIsShown);
     }
     setSezIsShown(true);
-    setRefresh(refresh+1);
+    await setRefresh(refresh+1);
     setMark(id_mark);
     setId_Sez(id);
   };
-  const showListosRefresh = (id) => {
+  const showListosRefresh = async (id) => {
     let id_mark = 0
     for (let i = 1; i < options2.length; i++) {
       if((options2[i].value) == (drop2.current.state.selected.value))
@@ -131,7 +131,7 @@ const MainPage = ({
       }
     }
     setSezIsShown(true);
-    setRefresh(refresh+1);
+    await setRefresh(refresh+1);
     setMark(id_mark);
     setId_Sez(id);
   };
@@ -157,9 +157,9 @@ const MainPage = ({
           options={options2}
           placeholder="Select shop"
           ref={drop2}
-          onChange={() => {
+          onChange={async () => {
             setXD(!xd);
-            setRefresh(refresh+1)
+            await setRefresh(refresh+1)
             showListosRefresh(id_sez)
           }}
         />

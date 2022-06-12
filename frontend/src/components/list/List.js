@@ -34,14 +34,14 @@ const List = ({
       },
       body: `{"id_sez": ${id_sez}}`,
     });
-    setRefresh(refresh+1)
+    await setRefresh(refresh+1)
   };
   let isOwned = false;
   const setIsOwned = (state) => {
     isOwned = state;
   };
 
-  const setPrice = (e, price) => {
+  const setPrice = async (e, price) => {
     e.preventDefault();
     if (price.current.value === "") return setErr("No price typed in!");
     fetch("http://localhost:3001/list/setPrice", {
@@ -55,11 +55,11 @@ const List = ({
       }`,
     });
     setErr("");
-    setRefresh(refresh+1)
+    await setRefresh(refresh+1)
     setshowSetAsCompleted(false);
   };
 
-  const setType = (e, type) => {
+  const setType = async (e, type) => {
     e.preventDefault();
     if (type.current.state.selected.value === "")
       return setErr("Nothing selected");
@@ -74,7 +74,7 @@ const List = ({
       }`,
     });
 
-    setRefresh(refresh+1)
+    await setRefresh(refresh+1)
     setShowAddType(false);
   };
 
