@@ -4,6 +4,7 @@ import fetch from "node-fetch";
 const EditLayout = (shop) => {
   const [data, setData] = useState();
   const [typy, setTypy] = useState();
+  const [refresh, setRefresh] = useState(false)
 
   const [poradi] = useState([]);
   const [pocet] = useState([]);
@@ -23,6 +24,7 @@ const EditLayout = (shop) => {
     if (pocet.includes(item.id_szn)) return;
     poradi[poradi.length] = item;
     pocet[pocet.length] = item.id_szn;
+    setRefresh(!refresh)
   };
 
   const sendLayout = () => {
@@ -63,7 +65,8 @@ const EditLayout = (shop) => {
         <div className="row selectnute">
           {poradi?.map((item) => (
             <div key={item.id} className="item">
-              {item.nazev}
+              <h6>{item.nazev}</h6>
+              {console.log(item)}
             </div>
           ))}
         </div>
