@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import fetch from "node-fetch";
 
-const EditLayout = (shop) => {
-  const [data, setData] = useState();
+const EditLayout = () => {
   const [typy, setTypy] = useState();
   const [refresh, setRefresh] = useState(false)
 
